@@ -1,0 +1,77 @@
+body {
+    font-family: 'Nunito';
+}
+/* Barre de navigation page d'accueil */
+header .bg-dark {background-color: white !important}
+header nav ul {padding: 10px 0 10px 0!important;}
+header nav li a {color: #de99c2!important; font-size: 18px; font-weight: 600;}
+header nav li.lang a {font-weight: 500; font-size: 1em; line-height: 1.7em; color: #7b1745!important;}
+header nav li a:hover {color: #7b1745!important;}
+header nav li a.active {color: #7b1745!important;}
+
+.navbar-nav a{
+	color: #de99c2!important;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.navbar-nav a:hover{
+	color: #7b1745!important;
+}
+
+.navbar-toggler {
+    border-color: #7b1745!important;
+    background-color: #7b1745!important;
+}
+
+/* Formulaire de recherche de la page d'accueil  */
+
+
+/* Style appliqué à l'espace portfolio de la page d'accueil */
+.portfolio-item {
+	margin-bottom: 30px;
+} 
+#image{
+	background-image: url('../img/téléchargement.jpg');
+	background-position: center;
+	background-size: auto;
+}
+#content{
+	border: 1px solid yellow;
+	margin: 10px;
+	padding: 5px;
+}
+#content #input-group{
+	border:none;
+	outline:none;
+	background:transparent;
+	margin-left:8px;
+	width:300px;
+	color: white;
+}
+::placeholder{
+	color: pink;
+}
+.fas{
+	display:inline-block;
+	color:red;
+	border-right:1px solid white;
+	padding:8px;
+	margin-left: 8px;
+}
+#second-group{
+	width: 400px;
+	margin-top: 55px;
+	margin-left: 400px;
+}
+#submit-btn{
+	margin-top: 30px;
+	margin-left: 600px;
+	background: transparent;
+	color:white;
+	width:150px;
+	border:1px solid red;
+	outline:none;
+	padding: 10px;
+	font-size: 20px;
+}
