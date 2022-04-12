@@ -59,8 +59,8 @@
                     <div class="card-body">
                         <div class="progress">
                             <div class="progress-bar bg-primary progress-bar-striped" role="progressbar"
-                       aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                <span class="sr-only">40% Complete (success)</span>
+                       aria-valuenow="{{ Auth::user()->discount }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ Auth::user()->discount }}%">
+                                <span class="sr-only">{{ Auth::user()->discount }} Complete (success)</span>
                             </div>
                         </div>
                     </div>

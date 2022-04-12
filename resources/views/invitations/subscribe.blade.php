@@ -188,81 +188,56 @@
     </div>
 @endsection
 
-@section('scripts')
-        <script src="https://www.paypal.com/sdk/js?client-id=AV-9MFrqLAcLT86jmLHttfviafSCYC0iFYpxoxqozACGHMipRAhZyoBLPtyUYYP_F1CoB70sLS5ROb7F"></script>
+        @section('scripts')
+        <script src="{{ asset('public/js/iziToast.min.js') }}"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id={{ env('PAYPAL_SANDBOX_CLIENT_ID') }}&currency={{$invitation->currency}}"></script>
+        
         <script>
-            var amount = $('#amount').val();
-            var currency = $('#currency').val();
-            // Render the PayPal button into #paypal-button-container
-            paypal.Buttons({
+            
+             // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+ // Call your server to set up the transaction
+             createOrder: function(data, actions) {
+                return fetch('../../api/paypal/order/create', {
+                    method: 'POST',
+                    body:JSON.stringify({
+                        'currency_code': "{{$invitation->currency}}",
+                        'user_id' : "{{auth()->user()->id}}",
+                        'amount' : $("#amount").val(),
+                        'invitation_id': $("#invitation_id").val(),
+                    })
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    return orderData.id;
+                });
+            },
 
-                createOrder: function(data, actions) {
-                    // This function sets up the details of the transaction, including the amount and line item details.
-                    
-                    return actions.order.create({
-                        application_context: {
-                            brand_name : 'Le Tchoo',
-                            user_action : 'PAY_NOW',
-                        },
-                        purchase_units: [{
-                            'amount': {
-                                'value': amount,
-                                //'currency_code': currency
-                            }
-                        }],
+            // Call your server to finalize the transaction
+            onApprove: function(data, actions) {
+                return fetch('../../api/paypal/order/capture' , {
+                    method: 'POST',
+                    body :JSON.stringify({
+                        orderId : data.orderID,
+                        invitation_id: $("#invitation_id").val(),
+                        user_id: "{{ auth()->user()->id }}",
+                    })
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
 
+                    // Successful capture! For demo purposes:
+                  //  console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Payment completed',
+                        position: 'topRight'
                     });
-
-                },
-                onApprove: function(data, actions) {
-
-                    let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                    // This function captures the funds from the transaction.
-                    return actions.order.capture().then(function(details) {
-                        if(details.status == 'COMPLETED'){
-                            return fetch('/api/paypal-capture-payment', {
-                                method: 'post',
-                                headers: {
-                                    'content-type': 'application/json',
-                                    "Accept": "application/json, text-plain, */*",
-                                    "X-Requested-With": "XMLHttpRequest",
-                                    "X-CSRF-TOKEN": token
-                                },
-                                body: JSON.stringify({
-                                    orderId     : data.orderID,
-                                    id : details.id,
-                                    status: details.status,
-                                    payerEmail: details.payer.email_address,
-                                })
-                            })
-                            .then(status)
-                            .then(function(response){
-                                // redirect to the completed page if paid
-                                window.location.href = "{{route('payments.my-payments')}}";
-                            })
-                            .catch(function(error) {
-                                // redirect to failed page if internal error occurs
-                                window.location.href = '/pay-failed?reason=internalFailure';
-                            });
-                        }else{
-                            window.location.href = '/pay-failed?reason=failedToCapture';
-                        }
-                    });
-                },
-
-                onCancel: function (data) {
-                    window.location.href = 'pay-failed?reason=userCancelled';
-                }
-
-            }).render('#paypal-button-container');
-
-            function status(res) {
-                if (!res.ok) {
-                    throw new Error(res.statusText);
-                }
-                return res;
+                });
             }
+
+        }).render('#paypal-button-container');
         </script>
     @endsection
 

@@ -52,7 +52,7 @@
                             -->
                             <a 
                                 class="btn btn-primary btn-sm " 
-                                href="#" 
+                                href="{{ route('invitation.subscribe', $aa->id) }}" 
                                 role="button" 
                                 data-toggle="tooltip"
                             >
@@ -65,3 +65,5 @@
         </tbody>
     </table>
 </div>
+
+

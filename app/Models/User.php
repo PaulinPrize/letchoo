@@ -42,7 +42,8 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
         'google_id',
         'payment_method_choose', 
         'paypal_email', 
-        'bank_account'
+        'bank_account',
+        'discount'
     ];
 
     /**
@@ -87,5 +88,13 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
     public function invitations()
     {
         return $this->belongsToMany(\App\Models\Invitation::class);
+    }
+
+    public function discounts() {
+        return $this->hasMany(Discount::class);
+    }
+
+    public function transactions() {
+        return $this->hasMany(Transaction::class);
     }
 }
