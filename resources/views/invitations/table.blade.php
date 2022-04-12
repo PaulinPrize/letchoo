@@ -86,11 +86,12 @@
         </tbody>
     </table>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="{{ asset('public/js/jquery-3.3.1.min.js') }}"></script>
 <script type="text/javascript">
     $(function() {
         $('[name="toggle1"]').each(function() {
             $(this).change(function(){
+                
                 var complete = $(this).prop('checked') == true ? 1 : 0; 
                 var invitation_id = $(this).attr('content'); 
                 $.ajax({
@@ -99,7 +100,7 @@
                     url: "{{route('invitation.close')}}",
                     data: {'complete': complete, 'invitation_id': invitation_id},
                     success: function(data){
-                        console.log(data)
+                        console.log("test=> ", data)
                     }
                 });
             })

@@ -6,12 +6,18 @@ use Illuminate\Http\Request;
 use Stripe;
 use Illuminate\Support\Facades\Auth;
 use DB;
-use App\Models\UserInvitation;
-
+use App\Models\{ Order, Transaction, UserInvitation };
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaymentController extends Controller
 {
+
+    private $paypalClient;
+
+    public function __construct(PayPalClient $paypalClient) {
+        $this->paypalClient = $paypalClient;
+    }
+    
     // Fonction permettant d'afficher tous les paiements effectués à l'admin
     public function index(){
         // $allPayments = UserInvitation::all();
@@ -46,30 +52,74 @@ class PaymentController extends Controller
     }
 
     public function create(Request $request){
-        /*
+        
         $data = json_decode($request->getContent(), true);
-        $provider = \PayPal::setProvider();
-        $provider->setApiCredentials(config('paypal'));
-        $token = $provider->getAccessToken();
-        $provider->setAccessToken($token);
-        $amount = 
 
-        $order = $provider->createOrder([
+        $this->paypalClient->setApiCredentials(config('paypal'));
+        $token = $this->paypalClient->getAccessToken();
+        $this->paypalClient->setAccessToken($token);
+        
+        $order = $this->paypalClient->createOrder([
             "intent"=> "CAPTURE",
             "purchase_units"=> [
                  [
                     "amount"=> [
-                        "currency_code"=> "USD",
-                        "value"=> $data['amount']
+                        "currency_code" => $data['currency_code'],
+                        "value" => $data['amount']
                     ],
-                    'menu' => 'menu'
+                    'description' => 'test'
                 ]
             ],
         ]);
+          
+        $mergeData = array_merge($data,[
+            'status' => config('constants.options.operation_pending'),
+            'vendor_order_id' => $order['id'],
+            'amount' => $data['amount'],
+            'currency_code' => $data['currency_code']
+        ]);
+        
+        DB::beginTransaction();
+            Order::create($mergeData);
+        DB::commit();
 
         return response()->json($order);
-        */
+        
         //return redirect()->route('payments.my-payments');
+    }
+
+    public function capture(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        $orderId = $data['orderId'];
+        $this->paypalClient->setApiCredentials(config('paypal'));
+        $token = $this->paypalClient->getAccessToken();
+        $this->paypalClient->setAccessToken($token);
+        $result = $this->paypalClient->capturePaymentOrder($orderId);
+
+//            $result = $result->purchase_units[0]->payments->captures[0];
+        try {
+            DB::beginTransaction();
+
+            if($result['status'] === "COMPLETED") {
+                
+                $transaction = new Transaction;
+                $transaction->vendor_payment_id = $orderId;
+                $transaction->invitation_id  = $data['invitation_id'];
+                $transaction->user_id = $data['user_id'];
+                $transaction->status = config('constants.options.operation_completed');
+                $transaction->save();
+                $order = Order::where('vendor_order_id', $orderId)->first();
+                $order->transaction_id = $transaction->id;
+                $order->status = config('constants.options.operation_completed');
+                $order->save();
+                DB::commit();
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+        return response()->json($result);
     }
 
     public function processPaypalPayment(Request $request){

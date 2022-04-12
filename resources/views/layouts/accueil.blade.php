@@ -12,6 +12,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
+        <link rel="stylesheet" href="{{ asset('public/css/iziToast.min.css') }}">
+
         <!-- Styles -->
         <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
         <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
@@ -76,8 +78,8 @@
             </div>
         </footer>
 
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="{{ asset('public/js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ asset('public/js/popper.min.js') }}"></script>
         <script src="{{ asset('public/js/app.js') }}" defer></script>
         @yield('scripts')        
     </body>

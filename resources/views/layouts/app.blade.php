@@ -100,14 +100,23 @@
                             </li>
                             @endcan
 
-                            @can('list-payments')
-                            <li class="nav-item">
-                                <a href="{{ route('payments') }}" class="nav-link {{ Request::is('payments*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-money-bill-alt"></i>
-                                    <p>All payments</p>
-                                </a>
-                            </li>
-                            @endcan
+                                @can('list-payments')
+                                <li class="nav-item">
+                                    <a href="{{ route('payments') }}" class="nav-link {{ Request::is('payments*') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-money-bill-alt"></i>
+                                        <p>All payments</p>
+                                    </a>
+                                </li>
+                                @endcan
+
+                                @can('manage-discounts-amount')
+                                <li class="nav-item">
+                                    <a href="{{ route('discounts.show-form') }}" class="nav-link {{ Request::is('discounts*') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-money-bill-alt"></i>
+                                        <p>Settings jeton</p>
+                                    </a>
+                                </li>
+                                @endcan
 
                             @can('my-invitations')
                             <li class="nav-item">

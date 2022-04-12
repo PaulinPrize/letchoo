@@ -156,5 +156,12 @@ Route::group(['middleware' => 'auth'], function () {
 	// Afficher les revenus d'un utilisateur
 	Route::get('payments/my-income', '\App\Http\Controllers\PaymentController@myIncome')->name('payments.my-income');
 
+	// Define discount amounts
+	Route::get('discounts/show-form', '\App\Http\Controllers\DiscountController@show_form')->name('discounts.show-form');
+	Route::post('discounts/manage-amount', '\App\Http\Controllers\DiscountController@manage_amount')->name('discounts.manage-amount');
+
 });
 
+Route::get('test', function() {
+	// return config('constants.options.completed');
+});

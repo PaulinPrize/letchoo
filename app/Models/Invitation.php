@@ -38,4 +38,8 @@ class Invitation extends Model
     {
         return $this->belongsToMany(\App\Models\User::class);
     }
+
+    public function transactions() {
+        return $this->hasMany(Transaction::class);
+    }
 }

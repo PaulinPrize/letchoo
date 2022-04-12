@@ -5,9 +5,7 @@ use App\Http\Requests\CreateInvitationRequest;
 use App\Http\Requests\UpdateInvitationRequest;
 use Illuminate\Http\Request;
 use Response;
-use App\Models\Invitation;
-use App\Models\User;
-use App\Models\UserInvitation;
+use App\Models\{ User,Invitation, Transaction, Order, UserInvitation, Coupon, Discount };
 use Illuminate\Support\Facades\Auth;
 use DB;
 use PragmaRX\Countries\Package\Countries;
@@ -37,7 +35,7 @@ class InvitationController extends Controller
     }
 
     // Cette fonction permet de remplir les champs country, city et type_of_cuisine du formulaire
-    public function showAllActiveInvitations(){
+    public function showAllActiveInvitations() {
 
         $countries = new Countries();
 
@@ -222,10 +220,75 @@ class InvitationController extends Controller
     }
 
     // Fermer une invitation lorsqu'elle est considérée comme complete (réservée à l'hôte)
-    public function closeInvitation(Request $request){
+    public function closeInvitation(Request $request) {
+        
         $invitation = Invitation::find($request->invitation_id);
-        $invitation->complete = $request->complete;
-        $invitation->save();
+        if(!$invitation->complete) return;
+
+        DB::beginTransaction();
+
+        try {
+          
+            // get coupon value
+             $coupon = Coupon::orderBy('id', 'ASC')->first();
+
+            // retrieve users who are subscribed to this invitation
+            $sum = 0;
+            foreach($invitation->transactions as $transaction) {
+
+                $order = Order::where([
+                    ['transaction_id', $transaction->id],
+                    ['status', config('constants.options.operation_completed')]
+                ])->first();
+
+                if(!$order) return ;
+                $user = User::findOrFail($transaction->user->id);
+
+                if($user) {
+                    $discount_value = (($invitation->total * 100) / $coupon->guest_amount);
+                    $user->increment("discount", $discount_value);
+                    if($user->discount >= 100) {
+                        $user->update(["discount" => 0]);
+                        Discount::create([
+                            "user_id" => $user->id,
+                            "order_id" => $order->id,
+                            "state" => false,
+                        ]);
+                    }
+                } 
+
+                $sum .= $sum + $order->amount;
+               
+            }
+            
+            // get owner invitation
+            $owner = User::where('id', $invitation->user_id)->first();
+
+            // update owner discount 
+            $owner_discount = (($sum * 100) / $coupon->host_amount);
+            $owner->increment("discount", $owner_discount);
+            if($owner->discount >= 100) {
+                $owner->update(["discount" => 0]);
+                Discount::create([
+                    "user_id" => $owner->id,
+                    "order_id" => $order->id,
+                    "state" => false,
+                ]);
+            }
+
+            // update complete value to true
+            $invitation->complete = $request->complete;
+            $invitation->save();
+
+            DB::commit();
+
+        } catch(\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
+        } 
+       
+
+
     }
 
     // Fonction permettant à un utilisateur (guest) de souscrire à une invitation en attendant approbation
@@ -261,7 +324,7 @@ class InvitationController extends Controller
         
         $user =  Auth::user()->id;
         
-        $a=DB::select("select i.menu, i.type_of_cuisine, i.price, i.tax, i.currency, i.date, i.complete, iu.id, iu.activeUser, iu.invoice_paid, iu.created_at
+        $a=DB::select("select i.menu, i.type_of_cuisine, i.total, i.id, i.price, i.tax, i.currency, i.date, i.complete, iu.id, iu.activeUser, iu.invoice_paid, iu.created_at
         	from invitations i
         	INNER JOIN invitation_user iu
         	ON iu.invitation_id = i.id
