@@ -121,7 +121,7 @@ class PaymentController extends Controller
         }
         return response()->json($result);
     }
-
+    /*
     public function processPaypalPayment(Request $request){
         $payment = new Payment();
 
@@ -137,4 +137,5 @@ class PaymentController extends Controller
 
         return redirect()->route('payments.my-payments')->with('info', 'Le paiement a été enregistré et est en attente de validation par nos services');  
     }
+    */
 }

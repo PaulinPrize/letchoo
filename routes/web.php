@@ -18,6 +18,7 @@ Route::get('/linkstorage', function () {
     Artisan::call('storage:link');
 });
 */
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 
 Route::get('handle-payment', 'PaymentController@handlePayment')->name('make.payment');
 Route::get('cancel-payment', 'PaymentController@paymentCancel')->name('cancel.payment');

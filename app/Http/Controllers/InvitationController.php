@@ -345,7 +345,7 @@ class InvitationController extends Controller
         $invitation = Invitation::find($id);
         $invitationID = $invitation->id;
 
-        $allSubscribers = DB::select("select u.profile_photo_path, u.name, u.first_name, u.telephone, u.email, iu.id, iu.invitation_id, iu.activeUser, iu.invoice_paid, iu.created_at  
+        $allSubscribers = DB::select("select u.profile_photo_path, u.name, u.first_name, u.telephone, u.email, iu.id, iu.invitation_id, iu.activeUser, iu.invoice_paid, iu.created_at, iu.invitation_id  
             from users u
             INNER JOIN invitation_user iu
             ON iu.user_id = u.id 

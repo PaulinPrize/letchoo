@@ -49,15 +49,16 @@
                             >
                                 Paypal
                             </a>
-                            -->
+                            
                             <a 
                                 class="btn btn-primary btn-sm " 
-                                href="{{ route('invitation.subscribe', $aa->id) }}" 
+                                href="{{ route('invitation.subscribe', $aa->invitation_id) }}" 
                                 role="button" 
                                 data-toggle="tooltip"
                             >
                                 Paypal
                             </a>
+                            -->
                         @endif
                     </td>
                 </tr>
