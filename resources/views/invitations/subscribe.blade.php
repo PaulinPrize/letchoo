@@ -61,8 +61,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            @if($invitation->direct_payment == 0)
-                                                <form method="POST" action="{{ route('invitation.validation') }}" autocomplete="off">
+                                            @if($invitation->direct_payment == 0 && !$found_user_invitation)
+                                                <form method="POST" action="{{ route('invitation.validation') }}">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <div class="row">
                                                         <div class="col-lg-1">
@@ -182,7 +182,6 @@
     <script src="{{ asset('public/js/iziToast.min.js') }}"></script>
     <script src="https://www.paypal.com/sdk/js?client-id={{ env('PAYPAL_SANDBOX_CLIENT_ID') }}&currency={{$invitation->currency}}"></script>
     <script>
-            
              // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
  // Call your server to set up the transaction
@@ -209,7 +208,7 @@
                     body :JSON.stringify({
                         orderId : data.orderID,
                         invitation_id: $("#invitation_id").val(),
-                        user_id: "{{ auth()->user()->id }}",
+                        user_id: "{{ auth()->user()->id }}",   
                     })
                 }).then(function(res) {
                     return res.json();

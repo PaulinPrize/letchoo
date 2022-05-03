@@ -97,4 +97,8 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
     public function transactions() {
         return $this->hasMany(Transaction::class);
     }
+
+    public function bonus() {
+        return hasMany(Bonus::class);
+    }
 }

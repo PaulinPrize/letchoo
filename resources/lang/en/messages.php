@@ -33,5 +33,6 @@ return [
     'Sub total' => 'Sub total',
     'Amount in words :' => 'Amount in words :',
     'Pay until :' => 'Pay until :',
-    'Sorry, you cannot subscribe to your own table' => 'Sorry, you cannot subscribe to your own table'
+    'Sorry, you cannot subscribe to your own table' => 'Sorry, you cannot subscribe to your own table',
+    'Searching' => 'Searching ...'
 ];

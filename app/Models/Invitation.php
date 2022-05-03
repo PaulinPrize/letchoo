@@ -42,4 +42,8 @@ class Invitation extends Model
     public function transactions() {
         return $this->hasMany(Transaction::class);
     }
+
+    public function bonus() {
+        return hasMany(Bonus::class);
+    }
 }
