@@ -208,7 +208,8 @@
                     body :JSON.stringify({
                         orderId : data.orderID,
                         invitation_id: $("#invitation_id").val(),
-                        user_id: "{{ auth()->user()->id }}",   
+                        user_id: "{{ auth()->user()->id }}", 
+                        type: "payment"   
                     })
                 }).then(function(res) {
                     return res.json();

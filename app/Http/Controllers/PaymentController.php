@@ -137,7 +137,7 @@ class PaymentController extends Controller
 
                 } 
 
-                if($data['type']) {
+                if($data['type'] && $data['type'] === "bonus") {
 
                     Bonus::create([
                         "invitation_id" => $data['invitation_id'],
