@@ -1,29 +1,26 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4 font-weight-bold">
-            {{ __('List permissions') }}
-        </h2> 
-        @include('flash::message')
-        <div class="row"> 
-            <div class="col-lg-12"> 
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        @can('add-permission')
-                        <a class="btn btn-success btn-sm float-right" href="{{ route('permissions.create') }}" role="button" data-toggle="tooltip">
-                            Add new <i class="fas fa-plus"></i>
-                        </a>
-                        @endcan
-                    </div>
-                    <div class="card-body">
-                        @include('permissions.table')
-                    </div>
-                    <div class="card-footer">
-                        
-                    </div>
+    <x-slot name="header"></x-slot>
+        
+    @include('flash::message')
+    <div class="row"> 
+        <div class="col-lg-12"> 
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h5 class="m-0 font-weight-bold text-primary float-left">
+                        {{__('messages.Permissions')}}
+                    </h5>
+                    @can('add-permission')
+                    <a class="btn btn-success btn-sm float-right" href="{{ route('permissions.create') }}" role="button" data-toggle="tooltip">
+                        {{__('messages.Add')}} <i class="fas fa-plus"></i>
+                    </a>
+                    @endcan
                 </div>
+                <div class="card-body">
+                    @include('permissions.table')
+                </div>
+                <div class="card-footer"></div>
             </div>
         </div>
-
-    </x-slot>
+    </div>
 </x-app-layout> 
 

@@ -30,7 +30,7 @@
                 </div>
                 -->
                 <div class="form-group">
-                    <x-jet-label value="{{ __('Email') }}" />
+                    <x-jet-label value="{{ __('messages.Email') }}" />
 
                     <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email"
                                  name="email" :value="old('email')" required />
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="form-group">
-                    <x-jet-label value="{{ __('Password') }}" />
+                    <x-jet-label value="{{ __('messages.Password') }}" />
 
                     <x-jet-input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password"
                                  name="password" required autocomplete="current-password" />
@@ -84,38 +84,38 @@
                         <div class="custom-control custom-checkbox">
                             <x-jet-checkbox id="remember_me" name="remember" /> 
                                 <label class="custom-control-label" for="remember_me">  
-                                    {{ __('Remember Me') }}
+                                    {{ __('messages.Remember Me') }}
                                 </label>
                         </div>
                         
                     </div>
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">{{ __('LOG IN') }}</button>
+                        <button type="submit" class="btn btn-primary btn-block">{{ __('messages.LOG IN') }}</button>
                     </div>
                 </div>
                 
             </form>
             <div class="social-auth-links text-center mb-3">
-                <p>- OR -</p>
+                <p>{{__('messages.- OR -')}}</p>
                 <a href="{{ url('auth/facebook') }}" class="btn btn-block btn-primary">
-                    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                    <i class="fab fa-facebook mr-2"></i> {{__('messages.Sign in using Facebook')}}
                 </a>
                 <a href="{{ url('auth/google') }}" class="btn btn-block btn-danger">
-                    <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                    <i class="fab fa-google-plus mr-2"></i> {{__('messages.Sign in using Google+')}}
                 </a>
             </div>
 
             <p class="mb-1">
                 @if (Route::has('password.request'))
                     <a class="text-muted mr-3" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                        {{ __('messages.Forgot your password?') }}
                     </a>
                 @endif
             </p>
             <p class="mb-0">
-                <span>{{ __('You do not have an account? ') }} 
+                <span>{{ __('messages.You do not have an account?') }} 
                     <a class="text-muted mr-3 text-decoration-none" href="{{ route('register') }}">
-                        {{ __('Sign up') }}
+                        {{ __('messages.Sign up') }}
                     </a>
                 </span>
             </p>

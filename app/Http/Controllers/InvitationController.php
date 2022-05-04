@@ -158,7 +158,7 @@ class InvitationController extends Controller
         // Enregistrer le prix fixé dans la BD
         $invitation->price = $fixedPrice;
         // Récupérer le montant total avec la tva et autres frais
-        $totalAmount = $fixedPrice+((($fixedPrice*$fixedTax)/100)+(($fixedPrice*10)/100));
+        $totalAmount = $fixedPrice+((($fixedPrice*$fixedTax)/100)+(($fixedPrice*15)/100));
         // Montant à remettre à l'hôte
         $income = ($fixedPrice-($fixedPrice*(15/100)));
         $invitation->income = $income;
@@ -361,12 +361,13 @@ class InvitationController extends Controller
     public function invitationSubscribers($id){
         $invitation = Invitation::find($id);
         $invitationID = $invitation->id;
-
+        /*
         $allSubscribers = DB::select("select u.profile_photo_path, u.name, u.first_name, u.telephone, u.email, iu.id, iu.invitation_id, iu.activeUser, iu.invoice_paid, iu.created_at, iu.invitation_id  
             from users u
             INNER JOIN invitation_user iu
             ON iu.user_id = u.id 
             where iu.invitation_id = '$invitationID' ");
+        */
         return view('invitations.all-subscribers', compact('allSubscribers', 'invitation'));
     }
 

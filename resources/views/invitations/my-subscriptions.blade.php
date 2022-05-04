@@ -1,26 +1,21 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4 font-weight-bold">
-            {{ __('My invitations') }}
-        </h2> 
-        @include('flash::message')
-        <div class="row"> 
-            <div class="col-lg-12"> 
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        
-                    </div>
-                    <div class="card-body">
-                        @include('invitations.subscription')
-                    </div> 
-                    <div class="card-footer">
-                        
-                    </div>
+    <x-slot name="header"></x-slot>
+    @include('flash::message')
+    <div class="row"> 
+        <div class="col-lg-12"> 
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h5 class="m-0 font-weight-bold text-primary float-left">
+                        {{__('messages.My subscriptions')}}
+                    </h5>
                 </div>
+                <div class="card-body">
+                        @include('invitations.subscription')
+                </div> 
+                <div class="card-footer"></div>
             </div>
         </div>
-
-    </x-slot>
+    </div>
 </x-app-layout> 
 
 
