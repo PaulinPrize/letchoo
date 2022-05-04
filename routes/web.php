@@ -161,8 +161,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('discounts/show-form', '\App\Http\Controllers\DiscountController@show_form')->name('discounts.show-form');
 	Route::post('discounts/manage-amount', '\App\Http\Controllers\DiscountController@manage_amount')->name('discounts.manage-amount');
 
+	//Leave a bonus
+	Route::get('invitation/{invitation}/bonus', '\App\Http\Controllers\InvitationController@bonus')->name('invitation.bonus');
 });
 
-Route::get('test', function() {
-	// return config('constants.options.completed');
-});

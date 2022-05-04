@@ -294,24 +294,41 @@ class InvitationController extends Controller
     // Fonction permettant à un utilisateur (guest) de souscrire à une invitation en attendant approbation
     public function subscribe(Invitation $invitation) 
     {
-        return view('invitations/subscribe', compact('invitation'));
+        $found_user_invitation = UserInvitation::where([
+                ['invitation_id', $invitation->id],
+                ['user_id', Auth::user()->id],
+        ])->first();
+
+        if($found_user_invitation) $found_user_invitation = true;
+        else $found_user_invitation = false;
+
+        return view('invitations/subscribe', compact('invitation', 'found_user_invitation'));
     }
 
     // Fonction permettant à un utilisateur (guest) de valider sa souscription
-    public function validation(Request $request){
-        $userInvitation = new UserInvitation();
+    public function validation(Request $request) {
 
-        $userInvitation->user_id = $request->input('user_id');
-        $userInvitation->subscriber_name = $request->input('subscriber_name');
-        $userInvitation->invitation_id = $request->input('invitation_id'); 
-        $userInvitation->menu = $request->input('menu');
-        $userInvitation->owner_id = $request->input('owner_id');
-        $userInvitation->amount = $request->input('amount');
-        $userInvitation->currency = $request->input('currency');
+        $found_user_invitation = UserInvitation::where([
+            ['invitation_id', $invitation->id],
+            ['user_id', Auth::user()->id],
+        ])->first();
 
-        $userInvitation->save();
+        if (!$found_user_invitation) {
 
-        return redirect()->route('invitation.my-invitations')->with('info', 'Well done');
+            $userInvitation = new UserInvitation();
+
+            $userInvitation->user_id = $request->input('user_id');
+            $userInvitation->subscriber_name = $request->input('subscriber_name');
+            $userInvitation->invitation_id = $request->input('invitation_id'); 
+            $userInvitation->menu = $request->input('menu');
+            $userInvitation->owner_id = $request->input('owner_id');
+            $userInvitation->amount = $request->input('amount');
+            $userInvitation->currency = $request->input('currency');
+
+            $userInvitation->save();
+
+            return redirect()->route('invitation.my-invitations')->with('info', 'Well done');
+        }
     }
 
     // Fonction permettant à un utilisateur guest de payer directement
@@ -320,11 +337,11 @@ class InvitationController extends Controller
     }
 
     // Fonction permettant d'afficher les souscriptions de l'utilisateur (guest)
-    public function myInvitations(){
+    public function myInvitations() {
         
         $user =  Auth::user()->id;
         
-        $a=DB::select("select i.menu, i.type_of_cuisine, i.total, i.id, i.price, i.tax, i.currency, i.date, i.complete, iu.id, iu.activeUser, iu.invoice_paid, iu.created_at, iu.invitation_id
+        $a = DB::select("select i.menu, i.type_of_cuisine, i.total, i.id, i.price, i.tax, i.currency, i.date, i.complete, iu.id, iu.activeUser, iu.invoice_paid, iu.created_at, iu.invitation_id
         	from invitations i
         	INNER JOIN invitation_user iu
         	ON iu.invitation_id = i.id
@@ -359,5 +376,10 @@ class InvitationController extends Controller
         $invitation = UserInvitation::find($request->id);
         $invitation->activeUser = $request->activeUser;
         $invitation->save();
+    }
+
+    //Leave a bonus 
+    public function bonus(Invitation $invitation) {
+        return view('invitations.bonus', compact('invitation'));
     }
 }

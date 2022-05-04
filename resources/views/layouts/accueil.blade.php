@@ -100,20 +100,19 @@
 		</header>
 		@yield('content')
 		
-		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+		<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 		<script src="{{('public/js/jquery-3.3.1.min.js')}}"></script>
 		<script src="{{('public/js/popper.min.js')}}"></script>
 		
 		<script src="{{('public/js/jquery.sticky.js')}}"></script>
-		<script src="{{('public/js/main.js')}}"></script>
-		<!--
+		<script src="{{('public/js/main.js')}}"></script> -->
+		
 		
 		<script src="{{ asset('public/js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('public/js/popper.min.js') }}"></script>
         <script src="{{ asset('public/js/app.js') }}" defer></script>
-		-->
+		
 		@yield('scripts')
     </body>
 </html>

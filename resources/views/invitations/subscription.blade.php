@@ -36,19 +36,19 @@
                     </td>
                     <td class="text-center">
                         @if($aa->complete === 1 || $aa->invoice_paid === 1)
+
+                            <a 
+                                class="btn btn-primary btn-sm " 
+                                href="{{ route('invitation.bonus', $aa->invitation_id) }}" 
+                                role="button" 
+                                data-toggle="tooltip"
+                            >
+                                Laisser un pourboire
+                            </a>
                             
                         @elseif($aa->complete === 0 && $aa->activeUser === 0)
                             <label class="badge badge-warning">Subscription under validation</label>
                         @elseif($aa->complete === 0 && $aa->activeUser === 1 && $aa->invoice_paid === 0)
-                            <!--
-                            <a 
-                                class="btn btn-primary btn-sm " 
-                                href="{{route('invitation.my-invitations-show', [$aa->id, ($aa->price+($aa->price*$aa->tax)/100)+(($aa->price*5)/100), $aa->currency])}}" 
-                                role="button" 
-                                data-toggle="tooltip"
-                            >
-                                Paypal
-                            </a>
                             
                             <a 
                                 class="btn btn-primary btn-sm " 
@@ -58,7 +58,7 @@
                             >
                                 Paypal
                             </a>
-                            -->
+                            
                         @endif
                     </td>
                 </tr>

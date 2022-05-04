@@ -43,6 +43,8 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <input type="hidden" value="{{ __('messages.Search') }}" id="before-search" >
+                                    <input type="hidden" value="{{ __('messages.Searching') }}" id="searching" >
                                     <button type="button" class="btn btn-primary wrn-btn" id="submit_form">{{ __('messages.Search') }}</button>
                                 </div>
                             </div>
@@ -117,6 +119,8 @@
 
             $("#submit_form").on("click", function() {
 
+                $(this).prop('disabled', true)
+                $(this).text($('#searching').val())
 
                 var data ={
                     'country': $("#country_id").val(),
@@ -170,8 +174,11 @@
                             $('<div class="col-md-12 text-center"><h4 style="font-size: 28px">{{__('messages.Sorry.')}}</br>{{__('messages.No item matches your search...')}}</h4></div>').appendTo('#display-data2')
                         }
                     }
+
                 });
 
+                $(this).prop('disabled', false)
+                $(this).text($('#before-search').val())
 
             });
             
