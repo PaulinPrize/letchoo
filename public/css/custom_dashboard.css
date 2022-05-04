@@ -1,0 +1,16 @@
+.brand-link{
+    background-color: #882E57 !important; 
+    border-bottom: 1px solid #fff !important;
+}
+.user-panel{
+    border-bottom: 1px solid #fff !important;
+}
+.nav-link.active{
+    color: #fff !important;
+}
+.nav-link{
+    color: #dbdde0 !important;
+}
+.sidebar-dark-warning .nav-sidebar.nav-legacy > .nav-item > .nav-link.active, .sidebar-light-warning .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {
+    border-color: #fff !important;
+}

@@ -148,7 +148,7 @@
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                         <img class="user-image img-circle elevation-1" width="32" height="32" 
                         src="{{ asset('public/storage/'. Auth::user()->profile_photo_path) }}
-                        " alt="{{ Auth::user()->name }}" />
+                        "/>
                     @endif
                     <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
 
@@ -160,11 +160,11 @@
                 <x-slot name="content">
                     <!-- Account Management -->
                     <h6 class="dropdown-header">
-                        {{ __('Manage Account') }}
+                        {{ __('messages.Manage Account') }}
                     </h6>
 
                     <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                        {{ __('Profile') }}
+                        {{ __('messages.Profile') }}
                     </x-jet-dropdown-link>
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -179,7 +179,7 @@
                     <x-jet-dropdown-link href="{{ route('logout') }}"
                                          onclick="event.preventDefault();
                                                              document.getElementById('logout-form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('messages.Log Out') }}
                     </x-jet-dropdown-link>
                     <form method="POST" id="logout-form" action="{{ route('logout') }}">
                         @csrf

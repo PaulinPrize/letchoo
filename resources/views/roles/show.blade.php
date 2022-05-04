@@ -1,17 +1,13 @@
 <x-app-layout>
-    <x-slot name="header">
+    <x-slot name="header"></x-slot>
         <div class="row mb-2">
+            <div class="col-sm-6"></div>
             <div class="col-sm-6">
-                <h2 class="h4 font-weight-bold">
-                    {{ __('Show role') }}
-                </h2>
-            </div>
-            <div class="col-sm-6">
-                <a class="btn btn-default float-right" href="{{ route('roles.index') }}">Back</a>
+                <a class="btn btn-default float-right" href="{{ route('roles.index') }}">{{__('messages.Back')}}</a>
             </div>
         </div>
 
-        <div class="content px-3">
+        <div class="content">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -33,6 +29,6 @@
                 </div>
             </div>
         </div>
-    </x-slot>
+    
 </x-app-layout>  
 
