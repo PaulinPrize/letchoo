@@ -11,7 +11,7 @@
                 @csrf
 
                 <div class="form-group">
-                    <label class="form-control-label" for="first_name">First Name </label>
+                    <label class="form-control-label" for="first_name">{{__('messages.First Name')}} </label>
                     <input type="text" id="first_name" class="form-control" name="first_name" autofocus/>
                     @error('first_name')
                         <p class="text-sm text-danger">{{ $message }}</p>
@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="form-group">
-                    <x-jet-label value="{{ __('Last Name') }}" />
+                    <x-jet-label value="{{ __('messages.Last Name') }}" />
 
                     <x-jet-input class="{{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
                                  :value="old('name')" required autocomplete="name" />
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="form-group">
-                    <x-jet-label value="{{ __('Email') }}" />
+                    <x-jet-label value="{{ __('messages.Email') }}" />
 
                     <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email"
                                  :value="old('email')" required />
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="form-group">
-                    <x-jet-label value="{{ __('Password') }}" />
+                    <x-jet-label value="{{ __('messages.Password') }}" />
 
                     <x-jet-input class="{{ $errors->has('password') ? 'is-invalid' : '' }}" type="password"
                                  name="password" required autocomplete="new-password" />
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="form-group">
-                    <x-jet-label value="{{ __('Confirm Password') }}" />
+                    <x-jet-label value="{{ __('messages.Confirm Password') }}" />
 
                     <x-jet-input class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" />
                 </div>
@@ -78,11 +78,11 @@
                 <div class="mb-0">
                     <div class="d-flex justify-content-end align-items-baseline">
                         <a class="text-muted mr-3 text-decoration-none" href="{{ route('login') }}">
-                            {{ __('Already registered?') }}
+                            {{ __('messages.Already registered?') }}
                         </a>
 
                         <x-jet-button>
-                            {{ __('Register') }}
+                            {{ __('messages.Register') }}
                         </x-jet-button>
                     </div>
                 </div>

@@ -2,13 +2,13 @@
     <table class="table table-striped projets">
         <thead>
             <tr>
-                <th>Menu</th>
-                <th>Type of cuisine</th>
-                <th class="text-center">Price</th>
-                <th class="text-center">Paid</th>
-                <th>Event date</th>
-                <th>Subscription date</th>
-                <th class="text-center">Table status</th>
+                <th>{{__('messages.Menu')}}</th>
+                <th>{{__('messages.Type of cuisine')}}</th>
+                <th class="text-center">{{__('messages.Price')}}</th>
+                <th class="text-center">{{__('messages.Paid')}}</th>
+                <th>{{__('messages.Event date')}}</th>
+                <th>{{__('messages.Subscription date')}}</th>
+                <th class="text-center">{{__('messages.Table status')}}</th>
                 <th class="text-center"></th>
             </tr>
         </thead>

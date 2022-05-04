@@ -12,7 +12,7 @@
 
         <!-- <link rel="stylesheet" href="{{ mix('css/dashboard.css') }}"> -->
         <link rel="stylesheet" href="{{ asset('public/css/dashboard.css') }}">
-
+        <link rel="stylesheet" href="{{ asset('public/css/custom_dashboard.css') }}">
         <!-- Font Awesome Icons -->
         <link rel="stylesheet" href="{{asset('public/plugins/fontawesome-free/css/all.min.css')}}">
 
@@ -29,23 +29,23 @@
             <!-- /.navbar -->
 
             <!-- Main Sidebar Container -->
-            <aside class="main-sidebar sidebar-dark-warning  elevation-2" style="background-color: #882E57">
+            <aside class="main-sidebar sidebar-dark-warning  elevation-2" style="background-color: #882E57;">
                 <!-- Brand Logo -->
-                <a href="{{route('home')}}" class="brand-link text-center">
+                <a href="{{route('home')}}" class="brand-link text-center p-3">
                     <x-jet-application-mark width="36" class="brand-image img-circle elevation-1" style="opacity: .8" />
-                    <span class="brand-text" style="color:white">{{ config('app.name') }}</span>
+                    <img src="{{asset('public/img/logo/3.png')}}" style="height:60px" class="brand-text">
                 </a>
 
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <!-- Sidebar user (optional) -->
-                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="user-panel mt-3 pb-3 mb-3 mt-5 d-flex">
                         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <div class="image">
                                 <!--
                                 <img src="{{ Auth::user()->profile_photo_url }}" class="img-circle elevation-1" alt="{{ Auth::user()->name }}">
                                 -->
-                                <img src="{{ asset('public/storage/'. Auth::user()->profile_photo_path) }}" class="img-circle elevation-1" alt="{{ Auth::user()->name }}" >
+                                <img src="{{ asset('public/storage/'. Auth::user()->profile_photo_path) }}" class="img-circle elevation-1"  >
                             </div>
                         @endif
                         <div class="info">
@@ -60,7 +60,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('dashboard') }}" class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-home"></i>
-                                    <p>Home</p>
+                                    <p>{{__('messages.Home')}}</p>
                                 </a>
                             </li>
 
@@ -68,7 +68,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('users') }}" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users"></i>
-                                    <p>Users</p>
+                                    <p>{{__('messages.Users')}}</p>
                                 </a>
                             </li>
                             @endcan
@@ -77,7 +77,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('roles.index') }}" class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-user-lock"></i>
-                                    <p>Roles</p>
+                                    <p>{{__('messages.Roles')}}</p>
                                 </a>
                             </li>
                             @endcan
@@ -86,7 +86,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('permissions.index') }}" class="nav-link {{ Request::is('permissions*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-lock"></i>
-                                    <p>Permissions</p>
+                                    <p>{{__('messages.Permissions')}}</p>
                                 </a>
                             </li>
                             @endcan
@@ -95,41 +95,41 @@
                             <li class="nav-item">
                                 <a href="{{ route('invitations') }}" class="nav-link {{ Request::is('invitations*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-glass-cheers"></i>
-                                    <p>All the tables</p>
+                                    <p>{{__('messages.All the tables')}}</p>
                                 </a>
                             </li>
                             @endcan
 
-                                @can('list-payments')
-                                <li class="nav-item">
-                                    <a href="{{ route('payments') }}" class="nav-link {{ Request::is('payments*') ? 'active' : '' }}">
-                                        <i class="nav-icon fas fa-money-bill-alt"></i>
-                                        <p>All payments</p>
-                                    </a>
-                                </li>
-                                @endcan
+                            @can('list-payments')
+                            <li class="nav-item">
+                                <a href="{{ route('payments') }}" class="nav-link {{ Request::is('payments*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-money-bill-alt"></i>
+                                    <p>{{__('messages.All payments')}}</p>
+                                </a>
+                            </li>
+                            @endcan
 
-                                @can('manage-discounts-amount')
-                                <li class="nav-item">
-                                    <a href="{{ route('discounts.show-form') }}" class="nav-link {{ Request::is('discounts*') ? 'active' : '' }}">
-                                        <i class="nav-icon fas fa-money-bill-alt"></i>
-                                        <p>Settings jeton</p>
-                                    </a>
-                                </li>
-                                @endcan
+                            @can('manage-discounts-amount')
+                            <li class="nav-item">
+                                <a href="{{ route('discounts.show-form') }}" class="nav-link {{ Request::is('discounts*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-money-bill-alt"></i>
+                                    <p>{{__('messages.Settings jeton')}}</p>
+                                </a>
+                            </li>
+                            @endcan
 
                             @can('my-invitations')
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-glass-cheers"></i>
-                                    <p>Tables</p>
+                                    <p>{{__('messages.Tables')}}</p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     @can('add-invitation')
                                     <li class="nav-item">
                                         <a href="{{ route('invitation.create') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Open new table</p>
+                                            <i class="fas fa-glass-cheers nav-icon"></i>
+                                            <p>{{__('messages.Open new table')}}</p>
                                         </a>
                                     </li>
                                     @endcan
@@ -137,8 +137,8 @@
                                     @can('find-invitation')
                                     <li class="nav-item">
                                         <a href="{{route('invitations.active')}}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Find a table</p>
+                                            <i class="fas fa-search nav-icon"></i>
+                                            <p>{{__('messages.Find a table')}}</p>
                                         </a>
                                     </li>
                                     @endcan
@@ -146,8 +146,8 @@
                                     @can('my-invitations')
                                     <li class="nav-item">
                                         <a href="{{ route('invitation.my-tables') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>My tables</p>
+                                            <i class="fas fa-table nav-icon"></i>
+                                            <p>{{__('messages.My tables')}}</p>
                                         </a>
                                     </li>
                                     @endcan
@@ -155,8 +155,8 @@
                                     @can('my-subscriptions')
                                     <li class="nav-item">
                                         <a href="{{ route('invitation.my-invitations') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>My invitations</p>
+                                            <i class="fas fa-list nav-icon"></i>
+                                            <p>{{__('messages.My subscriptions')}}</p>
                                         </a>
                                     </li>
                                     @endcan
@@ -168,14 +168,14 @@
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-money-bill-alt"></i>
-                                    <p>Payments</p>
+                                    <p>{{__('messages.Payments')}}</p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     @can('my-payments')
                                     <li class="nav-item">
                                         <a href="{{ route('payments.my-payments') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>My payments</p>
+                                            <p>{{__('messages.My payments')}}</p>
                                         </a>
                                     </li>
                                     @endcan
@@ -184,14 +184,14 @@
                                     <li class="nav-item">
                                         <a href="{{ route('payments.my-income') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>My income</p>
+                                            <p>{{__('messages.My income')}}</p>
                                         </a>
                                     </li>
                                     @endcan
                                     <li class="nav-item">
                                         <a href="{{route('payments.choose-receive-payment-method')}}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Payment method</p>
+                                            <p>{{__('messages.Payment method')}}</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -240,7 +240,7 @@
             <footer class="main-footer">
                 <div class="row">
                     <div class="col-lg-12">
-                        <p class="m-0 text-center">Copyright &copy; 2021 Le Tchoo, tous droits réservés.</p>
+                        <p class="m-0 text-center">Copyright &copy; 2022 Le Tchoo, {{__('messages.all rights reserved.')}}</p>
                     </div>
                 </div>
                 <!--

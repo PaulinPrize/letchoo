@@ -7,13 +7,7 @@
                 <th>Guests</th>
                 <th class="text-center">Price</th>
                 <th>Date</th>
-
                 <th class="text-center">Active</th>
-
-                @can('close-invitation')
-                    <th class="text-center">Close</th>
-                @endcan
-
                 <th colspan="4" style="text-align:center">Action</th>
             </tr>
         </thead>
@@ -33,19 +27,7 @@
                         @else
                         	<label class="badge badge-danger">No</label>
                         @endif
-                            
                     </td>
-                    
-                    @can('close-invitation')
-                        <td class="text-center">
-                            <input 
-                                content="{{ $invitation->id }}"
-                                type="checkbox"
-                                name="toggle1"
-                                {{ $invitation->complete ? 'checked' : '' }}
-                            >
-                        </td>
-                    @endcan
 
                     @can('show-invitation')
                         <td class="text-center">
@@ -86,24 +68,3 @@
         </tbody>
     </table>
 </div>
-<script src="{{ asset('public/js/jquery-3.3.1.min.js') }}"></script>
-<script type="text/javascript">
-    $(function() {
-        $('[name="toggle1"]').each(function() {
-            $(this).change(function(){
-                
-                var complete = $(this).prop('checked') == true ? 1 : 0; 
-                var invitation_id = $(this).attr('content'); 
-                $.ajax({
-                    type: "GET",
-                    dataType: "json",
-                    url: "{{route('invitation.close')}}",
-                    data: {'complete': complete, 'invitation_id': invitation_id},
-                    success: function(data){
-                        console.log("test=> ", data)
-                    }
-                });
-            })
-        });
-    })
-</script>

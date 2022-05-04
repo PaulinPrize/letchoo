@@ -579,27 +579,27 @@ a, a:hover {
 .section1 {
     height: 100vh;
     width: 100%;
-    background-color: #d3d3d3;
+    background-color: #f4f6f9;
 }
 
 /* Section card */
 .section2 {
     height: auto;
     width: 100%;
-    background-color: #d3d3d3;
+    background-color: #f4f6f9;
 }
 
 /* More section */
 .section3{
     height: auto;
     width: 100%;
-    background-color: #d3d3d3;
+    background-color: #f4f6f9;
 }
 
 .section4{
     height: 100vh;
     width: 100%;
-    background-color: #d3d3d3;
+    background-color: #f4f6f9;
 }
 
 /* Style appliqué au titre avant le formulaire */

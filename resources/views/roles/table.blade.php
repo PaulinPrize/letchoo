@@ -2,8 +2,8 @@
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Guard Name</th>
+                <th>{{__('messages.Name')}}</th>
+                <th>{{__('messages.Guard Name')}}</th>
                 <th colspan="3" style="text-align:center">Actions</th>
             </tr>
         </thead>

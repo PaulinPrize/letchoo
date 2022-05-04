@@ -43,10 +43,18 @@
 					
 					<nav class="mx-auto site-navigation">
 						<ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-							<li><a href="{{route('home')}}" class="nav-link active">{{__('messages.Home')}}</a></li>
-							<li><a href="#">{{__('messages.Who are we')}} ?</a></li>
-							<li><a href="#">{{__('messages.Become a host')}}</a></li>
-							<li><a href="#">{{__('messages.Contact')}}</a></li>
+							<li class="nav-item">
+								<a href="{{route('home')}}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">{{__('messages.Home')}}</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{route('dashboard')}}" class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">{{__('messages.Who are we')}} ?</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{route('dashboard')}}" class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">{{__('messages.Become a host')}}</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{route('dashboard')}}" class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">{{__('messages.Contact')}}</a>
+							</li>
 							<!--
 							<li class="has-children">
 								<a href="#"><img src="{{('public/img/flags/GB.png')}}"/> English(UK) <b class="caret"></b></a>
