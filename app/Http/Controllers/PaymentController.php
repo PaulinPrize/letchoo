@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Stripe;
 use Illuminate\Support\Facades\Auth;
 use DB;
-use App\Models\{ Order, Transaction, UserInvitation };
+use App\Models\{ Order, Transaction, UserInvitation, Invitation, Bonus };
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaymentController extends Controller
@@ -51,8 +51,9 @@ class PaymentController extends Controller
         return view('payments/my-income', compact('myIncomes'));
     }
 
-    public function create(Request $request){
-        
+    public function create(Request $request) {
+       
+
         $data = json_decode($request->getContent(), true);
 
         $this->paypalClient->setApiCredentials(config('paypal'));
@@ -113,6 +114,40 @@ class PaymentController extends Controller
                 $order->transaction_id = $transaction->id;
                 $order->status = config('constants.options.operation_completed');
                 $order->save();
+
+                //search invitation
+                $invitation = Invitation::findOrFail($data['invitation_id']);
+                
+                if ($invitation && !$invitation->direct_payment && !$request->filled('type')) {
+
+                    $found_user_invitation = UserInvitation::where([
+                        ['invitation_id', $data['invitation_id']],
+                        ['user_id', $data['user_id']],
+                    ])->first();
+
+                    //check if user invitation exists
+                    if ($found_user_invitation) {
+
+                        $found_user_invitation->update([
+                            'payment_status' => true,
+                            'invoice_paid' => true,
+                        ]);
+
+                    }
+
+                } 
+
+                if($data['type'] && $data['type'] === "bonus") {
+
+                    Bonus::create([
+                        "invitation_id" => $data['invitation_id'],
+                        "user_id" => $data['user_id'],
+                        "amount" => $order->amount,
+                        "currency" => $order->currency_code
+                    ]);
+
+                }
+
                 DB::commit();
             }
         } catch (Exception $e) {
