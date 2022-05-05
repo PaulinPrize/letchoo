@@ -307,28 +307,20 @@ class InvitationController extends Controller
 
     // Fonction permettant à un utilisateur (guest) de valider sa souscription
     public function validation(Request $request) {
+        
+        $userInvitation = new UserInvitation();
 
-        $found_user_invitation = UserInvitation::where([
-            ['invitation_id', $invitation->id],
-            ['user_id', Auth::user()->id],
-        ])->first();
+        $userInvitation->user_id = $request->input('user_id');
+        $userInvitation->subscriber_name = $request->input('subscriber_name');
+        $userInvitation->invitation_id = $request->input('invitation_id'); 
+        $userInvitation->menu = $request->input('menu');
+        $userInvitation->owner_id = $request->input('owner_id');
+        $userInvitation->amount = $request->input('amount');
+        $userInvitation->currency = $request->input('currency');
 
-        if (!$found_user_invitation) {
+        $userInvitation->save();
 
-            $userInvitation = new UserInvitation();
-
-            $userInvitation->user_id = $request->input('user_id');
-            $userInvitation->subscriber_name = $request->input('subscriber_name');
-            $userInvitation->invitation_id = $request->input('invitation_id'); 
-            $userInvitation->menu = $request->input('menu');
-            $userInvitation->owner_id = $request->input('owner_id');
-            $userInvitation->amount = $request->input('amount');
-            $userInvitation->currency = $request->input('currency');
-
-            $userInvitation->save();
-
-            return redirect()->route('invitation.my-invitations')->with('info', 'Well done');
-        }
+        return redirect()->route('invitation.my-invitations')->with('info', 'Well done');
     }
 
     // Fonction permettant à un utilisateur guest de payer directement

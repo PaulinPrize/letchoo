@@ -106,5 +106,10 @@ return [
     'My subscriptions' => 'Mes souscriptions',
     'Paid' => 'Payé',
     'Event date' => 'Date de l\'événement',
-    'Subscription date' => 'Date de souscription'
+    'Subscription date' => 'Date de souscription',
+    'All payments' => 'Tous les paiements',
+    'Reference number' => 'Numéro de référence',
+    'Amount' => 'Montant',
+    'Currency' => 'Devise',
+    'Payment Status' => 'Statut du paiement'
 ];

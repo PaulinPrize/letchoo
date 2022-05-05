@@ -20,22 +20,28 @@ class PaymentController extends Controller
     
     // Fonction permettant d'afficher tous les paiements effectués à l'admin
     public function index(){
-        // $allPayments = UserInvitation::all();
+        /*
         $allPayments = DB::table('invitation_user')
         ->select('id','updated_at', 'payment_method', 'payment_status','user_id', 'subscriber_name', 'invitation_id', 'menu', 'amount', 'currency', 'reference_number')
         ->where('invoice_paid', '=', 1)
-        ->get();
+        ->get();*/
+        $allPayments = Transaction::all();
         return view('payments.index', compact('allPayments'));
     }
 
     // Fonction permettant d'afficher tous les paiements effectués par un utilisateur
     public function myPayments(){
         $user =  Auth::user()->id;
+        /*
         $myPayments =DB::table('invitation_user')
         ->select('updated_at', 'payment_method', 'payment_status', 'user_id', 'subscriber_name', 'invitation_id', 'menu', 'amount', 'currency', 'reference_number')
         ->where('invoice_paid', '=', 1)
         ->where('user_id', $user)
         ->paginate(10);
+        */
+        $myPayments = DB::table('transactions')
+        ->where('user_id', $user)
+        ->get();
         return view('payments.my-payments', compact('myPayments'));
     }
 

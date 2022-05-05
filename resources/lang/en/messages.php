@@ -107,5 +107,11 @@ return [
     'My subscriptions' => 'My subscriptions',
     'Paid' => 'Paid',
     'Event date' => 'Event date',
-    'Subscription date' => 'Subscription date'
+    'Subscription date' => 'Subscription date',
+    'All payments' => 'All payments',
+    'Reference number' => 'Reference number',
+    'Amount' => 'Amount',
+    'Currency' => 'Currency',
+    'Payment Status' => 'Payment Status',
+
 ];

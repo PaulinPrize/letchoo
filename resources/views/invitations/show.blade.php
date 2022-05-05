@@ -1,11 +1,13 @@
 <x-app-layout>
     <x-slot name="header"></x-slot>
+    <!--
     <div class="row mb-2">
         <div class="col-sm-1"></div>
         <div class="col-sm-10">
             <a class="btn btn-default float-right" href="{{ route('invitations') }}">{{__('messages.Back')}}</a>
         </div>
     </div>
+    -->
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
