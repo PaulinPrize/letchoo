@@ -16,7 +16,6 @@
         <!-- Font Awesome Icons -->
         <link rel="stylesheet" href="{{asset('public/plugins/fontawesome-free/css/all.min.css')}}">
 
-        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
         
         @livewireStyles
 
@@ -42,10 +41,11 @@
                     <div class="user-panel mt-3 pb-3 mb-3 mt-5 d-flex">
                         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <div class="image">
-                                <!--
+                                
                                 <img src="{{ Auth::user()->profile_photo_url }}" class="img-circle elevation-1" alt="{{ Auth::user()->name }}">
+                                <!--
+                                <img src="{{ asset('public/storage/'. Auth::user()->profile_photo_path) }}" class="img-circle elevation-1" alt="{{ Auth::user()->name }}">
                                 -->
-                                <img src="{{ asset('public/storage/'. Auth::user()->profile_photo_path) }}" class="img-circle elevation-1"  >
                             </div>
                         @endif
                         <div class="info">
@@ -107,16 +107,7 @@
                                     <p>{{__('messages.All payments')}}</p>
                                 </a>
                             </li>
-                            @endcan
-
-                            @can('manage-discounts-amount')
-                            <li class="nav-item">
-                                <a href="{{ route('discounts.show-form') }}" class="nav-link {{ Request::is('discounts*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-money-bill-alt"></i>
-                                    <p>{{__('messages.Settings jeton')}}</p>
-                                </a>
-                            </li>
-                            @endcan
+                            @endcan                            
 
                             @can('my-invitations')
                             <li class="nav-item">
@@ -128,7 +119,7 @@
                                     @can('add-invitation')
                                     <li class="nav-item">
                                         <a href="{{ route('invitation.create') }}" class="nav-link">
-                                            <i class="fas fa-glass-cheers nav-icon"></i>
+                                            <i class="fas fa-plus nav-icon"></i>
                                             <p>{{__('messages.Open new table')}}</p>
                                         </a>
                                     </li>
@@ -146,7 +137,7 @@
                                     @can('my-invitations')
                                     <li class="nav-item">
                                         <a href="{{ route('invitation.my-tables') }}" class="nav-link">
-                                            <i class="fas fa-table nav-icon"></i>
+                                            <i class="fas fa-list nav-icon"></i>
                                             <p>{{__('messages.My tables')}}</p>
                                         </a>
                                     </li>
@@ -155,7 +146,7 @@
                                     @can('my-subscriptions')
                                     <li class="nav-item">
                                         <a href="{{ route('invitation.my-invitations') }}" class="nav-link">
-                                            <i class="fas fa-list nav-icon"></i>
+                                            <i class="fas fa-clipboard-check nav-icon"></i>
                                             <p>{{__('messages.My subscriptions')}}</p>
                                         </a>
                                     </li>
@@ -171,32 +162,43 @@
                                     <p>{{__('messages.Payments')}}</p>
                                 </a>
                                 <ul class="nav nav-treeview">
+                                    @can('my-income')
+                                    <li class="nav-item">
+                                        <a href="{{ route('payments.my-income') }}" class="nav-link">
+                                            <i class="fas fa-wallet nav-icon"></i>
+                                            <p>{{__('messages.My income')}}</p>
+                                        </a>
+                                    </li>
+                                    @endcan
+
                                     @can('my-payments')
                                     <li class="nav-item">
                                         <a href="{{ route('payments.my-payments') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="far fa-money-bill-alt nav-icon"></i>
                                             <p>{{__('messages.My payments')}}</p>
                                         </a>
                                     </li>
                                     @endcan
 
-                                    @can('my-income')
-                                    <li class="nav-item">
-                                        <a href="{{ route('payments.my-income') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>{{__('messages.My income')}}</p>
-                                        </a>
-                                    </li>
-                                    @endcan
                                     <li class="nav-item">
                                         <a href="{{route('payments.choose-receive-payment-method')}}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="far fa-plus-square nav-icon"></i>
                                             <p>{{__('messages.Payment method')}}</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             @endcan
+
+                            @can('set-bonus')
+                                <li class="nav-item">
+                                    <a href="{{ route('discounts.show-form') }}" class="nav-link {{ Request::is('discounts*') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-award"></i>
+                                        <p>{{__('messages.Set bonus')}}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->
@@ -253,9 +255,8 @@
         </div>
 
         <script src="{{asset('public/plugins/jquery/jquery.min.js')}}"></script>
-
         <script src="{{asset('public/plugins/moment/moment.min.js')}}"></script>
-        <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
 
         <script src="{{ asset('public/js/app.js') }}" defer></script>
         <script src="{{ asset('public/js/dashboard.js') }}" defer></script>

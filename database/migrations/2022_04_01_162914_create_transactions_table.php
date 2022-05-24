@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->string('vendor_payment_id')->unique();
             $table->foreignId('invitation_id')->constrained();
             $table->string('status');
+            $table->string('transaction_type');
             $table->timestamps();
         });
     }

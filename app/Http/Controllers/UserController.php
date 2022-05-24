@@ -12,34 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /*
-    public function __construct()
-    {
-        
-        $this->middleware(['role:superadmin','permission:list-users|add-user|show-user|edit-user|delete-user']);
-        $this->middleware(['role:admin','permission:list-users|add-user|show-user|edit-user|delete-user']);
-
-    }
-    */
-
 	// Fonction permettant d'afficher la liste des utilisaeurs
     public function index(){  
-
-    	/*
-         * Afficher tous les utilisateurs  
-         * $utilisateurs = User::all();
-        */
-  
-        /*
-         * Ajouter une pagination
-         * $utilisateurs = User::paginate(10);
-        */
-        
-        /*
-         * Ordonner les utilisateurs par ordre alphabétique
-         * $utilisateurs = User::oldest('name')->paginate(10);
-        */
-        //$utilisateurs = User::withTrashed()->oldest('name')->paginate(10);
 
         // Compter les utilisateurs
         $countUsers = User::count();

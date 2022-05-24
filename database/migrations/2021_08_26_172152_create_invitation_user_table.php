@@ -28,15 +28,9 @@ class CreateInvitationUserTable extends Migration
             $table->integer('owner_id');
             $table->decimal('amount');
             $table->string('currency');
-            $table->string('payment_method')->nullable();
-            $table->boolean('payment_status')->default(false);
-            $table->string('reference_number')->nullable();
 
             // Souscripteur accepté ?
             $table->boolean('activeUSer')->default(false);
-            
-            // Facture payée ?
-            $table->boolean('invoice_paid')->default(false);
 
             $table->timestamps();
         });

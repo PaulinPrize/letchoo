@@ -6,7 +6,7 @@
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h5 class="m-0 font-weight-bold text-primary float-left">
-                        {{__('messages.All payments')}}
+                        <th class="text-center">{{__('messages.All payments')}}</th>
                     </h5>
                 </div>
                 <div class="card-body">
@@ -14,23 +14,42 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Client</th>
-                                    <th class="text-center">{{__('messages.Reference number')}}</th>
-                                    <th class="text-center">{{__('messages.Amount')}}</th>
-                                    <th class="text-center">{{__('messages.Payment Status')}}</th>
-                                    <th class="text-center">Date</th>
-                                    <th class="text-center">Invitation</th>
+                                    <th class="text-center">#</th>
+                                    <th>{{__('messages.Menu')}}</th>
+                                    <th>Date</th>
+                                    <th class="text-center">{{__('messages.Guests')}}</th> 
+                                    <th class="text-center">{{__('messages.Country')}}</th>
+                                    <th class="text-center">{{__('messages.City')}}</th>
+                                    <th class="text-center">{{__('messages.Place')}}</th>
+                                    <th class="text-center">{{__('messages.Postal code')}}</th>
+                                    <th class="text-center"></th>                
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($allPayments as $payment)
                                     <tr>
-                                        <td>{{ $payment->user->name }} {{ $payment->user->first_name }}</td>
-                                        <td class="text-center">{{ $payment->vendor_payment_id }}</td>
-                                        <td class="text-center">{{ $payment->invitation->total }} {{ $payment->invitation->currency }}</td>
-                                        <td class="text-center">{{ $payment->status }}</td>
-                                        <td class="text-center">{{ $payment->created_at }}</td>
-                                        <td class="text-center">{{ $payment->invitation->id }} - {{ $payment->invitation->menu }}</td>
+                                        <td class="text-center">{{$payment->id}}</td>
+                                        <td>{{$payment->menu}}</td>
+                                        <td>{{ $payment->date }} {{ date('H:i', strtotime($payment->heure));}}</td>
+                                        <td class="text-center">{{$payment->transactions_count}}/{{$payment->number_of_guests}}</td>
+                                        <td class="text-center">{{$payment->country}} ({{__('messages.Tax')}}:{{$payment->tax}})</td>
+                                        <td class="text-center">{{$payment->city}}</td>
+                                        <td class="text-center">{{$payment->place}}</td>
+                                        <td class="text-center">{{$payment->postal_code}}</td>
+                                        <!--
+                                        <td class="text-center">
+                                            @foreach($payment->transactions as $transaction)
+                                            <small>
+                                                @if ($loop->first) {{$transaction->user->name}} @endif
+                                            </small>  
+                                            @endforeach
+                                        </td>
+                                        -->
+                                        <td class="text-center">
+                                            <a class="btn btn-primary btn-sm " href="{{ route('payment-detail', [$payment->id]) }}" target="_blank" role="button" data-toggle="tooltip">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

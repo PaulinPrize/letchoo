@@ -29,15 +29,18 @@ class CreateInvitationsTable extends Migration
             $table->date('date');
             $table->time('heure')->nullable();
             // Prix fixé par l'hôte
-            $table->integer('price');
-            // Montant à remettre à l'hote
-            $table->integer('income');
-            // Prix après l'application de la tva et des autres...
-            $table->decimal('total');
+            $table->decimal('price');
+            // Montant total à payer par le guest
+            $table->decimal('amountToBePaidByGuest');
+            // Montant à remettre à l'hôte
+            $table->decimal('amountToBePaidToTheHost');
+            // Revenus tva
+            $table->decimal('taxIncome');
+            // Nos revenus
+            $table->decimal('income');
             // Nombre de couverts
             $table->integer('number_of_guests');
-            $table->string('image')->nullable();
-            
+            $table->string('image')->nullable();            
             // La date limite de l'invitation $table->date('limit');
             // L'état actif de l'invitation (pour savoir si elle a été acceptée par les administrateurs ou non)
             $table->boolean('active')->default(false);

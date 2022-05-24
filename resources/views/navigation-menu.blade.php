@@ -146,9 +146,12 @@
             <x-jet-dropdown id="navbarDropdown" class="user-menu">
                 <x-slot name="trigger">
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                    <!--
                         <img class="user-image img-circle elevation-1" width="32" height="32" 
                         src="{{ asset('public/storage/'. Auth::user()->profile_photo_path) }}
                         "/>
+                    -->
+                        <img class="user-image img-circle elevation-1" width="32" height="32" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                     @endif
                     <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
 

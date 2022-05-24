@@ -129,5 +129,13 @@ class PermissionTableSeeder extends Seeder
             'name' => 'my-income',
             'guard_name' => 'web'
         ]);
+        Permission::create([
+            'name' => 'set-bonus',
+            'guard_name' => 'web'
+        ]);
+        Permission::create([
+            'name' => 'see-gauge',
+            'guard_name' => 'web'
+        ]);
     }
 }

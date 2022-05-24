@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->string('transaction_id')->nullable();
             $table->string('vendor_order_id')->unique();
             $table->string('status');
+            $table->string('order_type');
             $table->timestamps();
         });
     }

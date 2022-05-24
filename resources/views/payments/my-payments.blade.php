@@ -17,14 +17,28 @@
                                     <th class="text-center">{{__('messages.Amount')}}</th>
                                     <th class="text-center">{{__('messages.Payment Status')}}</th>
                                     <th class="text-center">Date</th>
-                                    <th class="text-center">Invitation</th>
+                                    <th class="text-center">Table</th>
+                                    <th class="text-center"></th>
                                 </tr>
                             </thead> 
                             <tbody>
                                 @foreach($myPayments as $myPayment)
                                     <tr>
                                         <td class="text-center">{{ $myPayment->vendor_payment_id }}</td>
-                                        <td class="text-center">{{ $myPayment->user }}</td>
+                                        <td class="text-center">{{ $myPayment->invitation->amountToBePaidByGuest }} {{ $myPayment->invitation->currency }}</td>
+                                        <td class="text-center">{{ $myPayment->status }}</td>
+                                        <td class="text-center">{{ $myPayment->created_at }}</td>
+                                        <td class="text-center">{{ $myPayment->invitation->menu }}</td>
+                                        <td class="text-center">
+                                            <a 
+                                                class="btn btn-primary btn-sm " 
+                                                href="{{ route('invitation.bonus', $myPayment->invitation->id)}}"
+                                                role="button" 
+                                                data-toggle="tooltip"
+                                            >
+                                                Laisser un pourboire
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

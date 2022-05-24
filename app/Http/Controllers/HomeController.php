@@ -53,7 +53,7 @@ class HomeController extends Controller
         $city = $request->city;
         $type_of_cuisine = $request->type_of_cuisine;
 
-        $invitatio = DB::select("select u.name, u.profile_photo_path, i.id, i.menu, i.description, i.image, i.type_of_cuisine, i.number_of_guests, i.price, i.total, i.currency, i.country, i.city, i.place, i.date, i.active, i.complete, i.user_id, i.direct_payment
+        $invitatio = DB::select("select u.name, u.profile_photo_path, i.id, i.menu, i.description, i.image, i.type_of_cuisine, i.number_of_guests, i.price, i.amountToBePaidByGuest, i.currency, i.country, i.city, i.place, i.date, i.active, i.complete, i.user_id, i.direct_payment
             from users u
             INNER JOIN invitations i
             ON i.user_id = u.id 

@@ -14,7 +14,8 @@ class Transaction extends Model
         'transaction_id',
         'vendor_order_id',
         'invitation_id',
-        'status'
+        'status',
+        'trancation_type'
     ];
 
     public function order() {

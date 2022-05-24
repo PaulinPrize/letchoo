@@ -15,66 +15,13 @@ class InvitationController extends Controller
     // Fonction permettant d'afficher toutes les invitations
     public function index()
     {
-    	$countInvitations = Invitation::count();
-        $widget = [
-        	'invitations' => $countInvitations
-        ];
+        //$invitations = Invitation::paginate(5);	
+        $invitations = Invitation::withCount(['transactions' => function($query){
+            $query->where('status', 'COMPLETED')
+            ->where('transaction_type', 'Payment');
+        }])->paginate(5);	                   
 
-        $invitations = Invitation::paginate(5);		
-
-    	return view('invitations/index', compact('invitations','widget')); 
-    }
-
-    // Changer le statut d'une invitation (Activer ou pas) action réservée à l'admin
-    public function changeInvitationStatus(Request $request){
-    	$invitation = Invitation::find($request->invitation_id);
-    	$invitation->active = $request->active;
-    	$invitation->save();
-
-    	return response()->json(['success'=>'Status ddd']);
-    }
-
-    // Cette fonction permet de remplir les champs country, city et type_of_cuisine du formulaire
-    public function showAllActiveInvitations() {
-
-        $countries = new Countries();
-
-        // Récupérer tous les pays
-        $allCountries = $countries->all()->pluck('name.common')->toArray();
-
-        // Récupérer toutes la colonne type_of_cuisine dans la table invitations
-        $invit = DB::table('invitations')
-        ->where('active', '=', 1)
-        ->where('complete', '=', 0)
-        ->distinct()->get(['type_of_cuisine']);
-
-        return view('invitations.all-actives-invitations', compact('allCountries', 'invit'));
-    }
-
-    public function getData(Request $request){
-            
-        $country = $request->country;
-        $city = $request->city;
-        $type_of_cuisine = $request->type_of_cuisine;
-        /*
-        $invitatio = DB::select("select u.name, u.profile_photo_path, i.id, i.menu, i.description, i.image, i.type_of_cuisine, i.number_of_guests, i.price, i.currency, i.country, i.city, i.place, i.date, i.active, i.complete, i.user_id
-            from users u
-            INNER JOIN invitations i
-            ON i.user_id = u.id 
-            where (i.active = '1' && i.complete = '0' && i.country = '$country' && i.city = '$city' && i.type_of_cuisine = '$type_of_cuisine')
-            ");
-*/
-        $invitatio = DB::table('users')
-                    ->join('invitations', 'users.id', '=', 'invitations.user_id')
-                    ->select('users.name', 'users.profile_photo_path', 'invitations.id', 'invitations.menu', 'invitations.description', 'invitations.image', 'invitations.type_of_cuisine', 'invitations.number_of_guests', 'invitations.price', 'invitations.currency', 'invitations.total','invitations.country', 'invitations.city', 'invitations.place', 'invitations.date', 'invitations.active', 'invitations.complete', 'invitations.user_id')
-                    ->where('invitations.active', '=', 1)
-                    ->where('invitations.complete', '=', 0)
-                    ->where('invitations.country', '=', $country)
-                    ->where('invitations.city', '=', $city)
-                    ->where('invitations.type_of_cuisine', '=', $type_of_cuisine)
-                    ->get();
-
-        return response()->json($invitatio);
+    	return view('invitations/index', compact('invitations')); 
     }
 
     // Fonction permettant d'afficher le formulaire de création des invitations
@@ -90,22 +37,24 @@ class InvitationController extends Controller
 
         // Récupérer toutes les villes d'un pays
         $b = $countries->where('name.common', 'Cameroon')
-	    ->first()
-	    ->hydrate('cities')
-	    ->cities
-	    ->sortBy('name')     
-	    ->pluck('name'); 
+        ->first()
+        ->hydrate('cities')
+        ->cities
+        ->sortBy('name')     
+        ->pluck('name'); 
 
-	    // Récupérer la devise d'un pays
-	    $d = $countries->where('name.common', 'Cameroon')->first()->currencies[0];
+        // Récupérer la devise d'un pays
+        $d = $countries->where('name.common', 'Cameroon')->first()->currencies[0];
         
         // Récupérer la TVA d'un pays
         $c = $countries->where('name.common','Belgium')->first()->extra->vat_rates->standard;
 
         $user =  Auth::user()->id;
+
         return view('invitations.create', compact('user', 'allCountries'));
     }
 
+    // Afficher les informations des pays dans les champs de type select
     public function cities($cityName){
         $countries = new Countries();
         
@@ -153,16 +102,28 @@ class InvitationController extends Controller
         $invitation->date = $correctionDate;
         $monHeure = $request->input('heure');
         $invitation->heure = date("H:i", strtotime($monHeure));
+
         // Récupérer le prix fixé
         $fixedPrice = $request->input('price');
         // Enregistrer le prix fixé dans la BD
         $invitation->price = $fixedPrice;
-        // Récupérer le montant total avec la tva et autres frais
-        $totalAmount = $fixedPrice+((($fixedPrice*$fixedTax)/100)+(($fixedPrice*15)/100));
+
+        // Récupérer le montant total à payer par le guest (prix fixé + tva + 5%)
+        $amountToBePaidByGuest = $fixedPrice + ((($fixedPrice*$fixedTax)/100)+(($fixedPrice*5)/100));
+        $invitation->amountToBePaidByGuest = $amountToBePaidByGuest;
+
         // Montant à remettre à l'hôte
-        $income = ($fixedPrice-($fixedPrice*(15/100)));
+        $amountToBePaidToTheHost = ($fixedPrice-($fixedPrice*(15/100)));
+        $invitation->amountToBePaidToTheHost = $amountToBePaidToTheHost;
+        
+        // Revenus tva
+        $taxIncome = ($fixedPrice*$fixedTax)/100;
+        $invitation->taxIncome = $taxIncome;
+
+        // Nos revenus
+        $income = ($fixedPrice*20)/100;
         $invitation->income = $income;
-        $invitation->total = $totalAmount;
+        
         $invitation->number_of_guests = $request->input('number_of_guests');
         // Récupérer le champ image
         $image = $request->file('image');
@@ -171,10 +132,10 @@ class InvitationController extends Controller
         // Déplacer l'image dans l'emplacement
         $image->move(storage_path('app/public/plate-photos/'), $fileName);
         // Enregistrer le nom de l'image généré dans la bd
-    	$invitation->image = $fileName;	
+        $invitation->image = $fileName; 
         $invitation->direct_payment = $request->input('direct_payment');
         // Récupérer l'id de l'utilisateur qui crée l'invitation
-    	$invitation->user_id = $request->input('user_id');
+        $invitation->user_id = $request->input('user_id');
         $invitation->save();
 
         return redirect()->route('invitation.my-tables')->with('info', 'Invitation saved successfully');    
@@ -189,41 +150,38 @@ class InvitationController extends Controller
     public function edit(Invitation $invitation){
         $countries = new Countries();
         $allCountries = $countries->all()->pluck('name.common')->toArray();
-    	$user =  Auth::user()->id;
-    	return view('invitations.edit', compact('invitation', 'user', 'allCountries'));
+        $user =  Auth::user()->id;
+        return view('invitations.edit', compact('invitation', 'user', 'allCountries'));
     }
 
     // Function permettant de modifier une invitation
     public function update(UpdateInvitationRequest $request, Invitation $invitation){
-    	$invitation->update($request->all());
-		return redirect()->route('invitation.my-invitations')->with('info', 'Invitation updated successfully.');
+        $invitation->update($request->all());
+        return redirect()->route('invitation.my-invitations')->with('info', 'Invitation updated successfully.');
     }
 
     // Fonction permettant de supprimer définitivement une invitation
     public function destroy(Invitation $invitation) 
     {
         $invitation->delete();
-        /*return redirect(route('invitations.my-invitations')->with('info', 'L\'utilisateur a bien été déplacé dans la corbeille.'));*/
 
         return back()->with('info', 'The invitation has been permanently deleted.');
     }
 
-    // Fonction permettant d'afficher les invitations créées par un utilisateur (host)
-    public function myTables(){
-        $user =  Auth::user()->id;
-        $invitations =DB::table('invitations')
-        ->select('id', 'menu', 'type_of_cuisine', 'number_of_guests', 'price', 'currency', 'date', 'heure', 'active', 'complete')
-        ->where('user_id', $user)
-        ->paginate(4);
-        
-        return view('invitations.my-invitations', compact('user', 'invitations'));
+    // Valider une invitation (l'activer pour qu'elle soit visible) après sa création
+    public function changeInvitationStatus(Request $request){
+    	$invitation = Invitation::find($request->invitation_id);
+    	$invitation->active = $request->active;
+    	$invitation->save();
+
+    	return response()->json(['success'=>'Status ddd']);
     }
 
-    // Fermer une invitation lorsqu'elle est considérée comme complete (réservée à l'hôte)
+    // Fermer une invitation
     public function closeInvitation(Request $request) {
         
         $invitation = Invitation::find($request->invitation_id);
-        if(!$invitation->complete) return;
+        //if($invitation->complete) return;
 
         DB::beginTransaction();
 
@@ -286,12 +244,57 @@ class InvitationController extends Controller
             DB::rollback();
             return $e->getMessage();
         } 
-       
-
-
     }
 
-    // Fonction permettant à un utilisateur (guest) de souscrire à une invitation en attendant approbation
+    // Fonction permettant d'afficher la liste des invitations actives et non fermées
+    public function showAllActiveInvitations() {
+
+        $countries = new Countries();
+
+        // Récupérer tous les pays
+        $allCountries = $countries->all()->pluck('name.common')->toArray();
+
+        // Récupérer toutes la colonne type_of_cuisine dans la table invitations
+        $invit = DB::table('invitations')
+        ->where('active', '=', 1)
+        ->where('complete', '=', 0)
+        ->distinct()->get(['type_of_cuisine']);
+
+        return view('invitations.all-actives-invitations', compact('allCountries', 'invit'));
+    }
+
+    // Rechercher une invitation
+    public function getData(Request $request){
+            
+        $country = $request->country;
+        $city = $request->city;
+        $type_of_cuisine = $request->type_of_cuisine;
+
+        $invitatio = DB::table('users')
+                    ->join('invitations', 'users.id', '=', 'invitations.user_id')
+                    ->select('users.name', 'users.profile_photo_path', 'invitations.id', 'invitations.menu', 'invitations.description', 'invitations.image', 'invitations.type_of_cuisine', 'invitations.number_of_guests', 'invitations.price', 'invitations.currency', 'invitations.amountToBePaidByGuest','invitations.country', 'invitations.city', 'invitations.place', 'invitations.date', 'invitations.active', 'invitations.complete', 'invitations.user_id')
+                    ->where('invitations.active', '=', 1)
+                    ->where('invitations.complete', '=', 0)
+                    ->where('invitations.country', '=', $country)
+                    ->where('invitations.city', '=', $city)
+                    ->where('invitations.type_of_cuisine', '=', $type_of_cuisine)
+                    ->get();
+
+        return response()->json($invitatio);
+    }
+
+    // Fonction permettant d'afficher les invitations créées par un utilisateur (host)
+    public function myTables(){
+        $user =  Auth::user()->id;
+        $invitations =DB::table('invitations')
+        ->select('id', 'menu', 'type_of_cuisine', 'number_of_guests', 'price', 'currency', 'date', 'heure', 'active', 'complete')
+        ->where('user_id', $user)
+        ->paginate(4);
+        
+        return view('invitations.my-invitations', compact('user', 'invitations'));
+    }
+
+    // Lancer sa souscription (guest)
     public function subscribe(Invitation $invitation) 
     {
         $found_user_invitation = UserInvitation::where([
@@ -305,7 +308,7 @@ class InvitationController extends Controller
         return view('invitations/subscribe', compact('invitation', 'found_user_invitation'));
     }
 
-    // Fonction permettant à un utilisateur (guest) de valider sa souscription
+    // Terminer sa souscription
     public function validation(Request $request) {
         
         $userInvitation = new UserInvitation();
@@ -323,54 +326,42 @@ class InvitationController extends Controller
         return redirect()->route('invitation.my-invitations')->with('info', 'Well done');
     }
 
-    // Fonction permettant à un utilisateur guest de payer directement
-    public function directPayment(){
-        return view('invitation');
-    }
-
-    // Fonction permettant d'afficher les souscriptions de l'utilisateur (guest)
+    // Afficher ses souscriptions (guest)
     public function myInvitations() {
         
         $user =  Auth::user()->id;
         
-        $a = DB::select("select i.menu, i.type_of_cuisine, i.total, i.id, i.price, i.tax, i.currency, i.date, i.complete, iu.id, iu.activeUser, iu.invoice_paid, iu.created_at, iu.invitation_id
-        	from invitations i
-        	INNER JOIN invitation_user iu
-        	ON iu.invitation_id = i.id
-        	where iu.user_id = '$user' ");
+        $a = DB::select("select i.menu, i.type_of_cuisine, i.amountToBePaidByGuest, i.id, i.price, i.tax, i.currency, i.date, i.complete, iu.id, iu.activeUser, iu.created_at, iu.invitation_id
+            from invitations i
+            INNER JOIN invitation_user iu
+            ON iu.invitation_id = i.id
+            where iu.user_id = '$user' ");
 
         return view('invitations.my-subscriptions', compact('a'));
     }
 
-    public function myInvitationsShow($iuID, $amount, $currency){
-        return view('payments/payWithPaypal', compact('iuID', 'amount', 'currency'));
-    }
-
-    /*
-     * Fonction permettant à un utilisateur (Host) d'afficher tous les utilisateurs (guests) 
-     * Ayant souscrit à une invitation
-    */ 
+    // Afficher tous les guests ayant souscrit à l'invitation d'un host
     public function invitationSubscribers($id){
         $invitation = Invitation::find($id);
         $invitationID = $invitation->id;
-        /*
-        $allSubscribers = DB::select("select u.profile_photo_path, u.name, u.first_name, u.telephone, u.email, iu.id, iu.invitation_id, iu.activeUser, iu.invoice_paid, iu.created_at, iu.invitation_id  
+        
+        $allSubscribers = DB::select("select u.profile_photo_path, u.name, u.first_name, u.telephone, u.email, iu.id, iu.invitation_id, iu.activeUser, iu.created_at, iu.invitation_id  
             from users u
             INNER JOIN invitation_user iu
             ON iu.user_id = u.id 
             where iu.invitation_id = '$invitationID' ");
-        */
+        
         return view('invitations.all-subscribers', compact('allSubscribers', 'invitation'));
     }
 
-    // Fonction permettant à un hôte d'accepter un guest
+    // Accepter une souscription
     public function acceptGuest(Request $request){
         $invitation = UserInvitation::find($request->id);
         $invitation->activeUser = $request->activeUser;
         $invitation->save();
-    }
+    }        
 
-    //Leave a bonus 
+    // Laisser un bonus 
     public function bonus(Invitation $invitation) {
         return view('invitations.bonus', compact('invitation'));
     }

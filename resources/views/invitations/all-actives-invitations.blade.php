@@ -115,7 +115,7 @@
                                                         ' + item.menu + '</a>\n\
                                                         <h5 class="text-center text-uppercase text-truncate" >\n\
                                                         <small style="text-align:center">\n\
-                                                        '+ item.total +' ' + item.currency + '\n\
+                                                        '+ item.amountToBePaidByGuest +' ' + item.currency + '\n\
                                                         </small>\n\
                                                         </h5>\n\
                                                     </p>\n\

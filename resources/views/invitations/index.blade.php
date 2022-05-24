@@ -42,17 +42,17 @@
 							    <tr>
 							        <td>{{ $invitation->menu }}</td>
 							        <td>{{ $invitation->type_of_cuisine }}</td>
-							        <td class="text-center">{{ $invitation->number_of_guests }}</td>
+							        <td class="text-center">{{$invitation->transactions_count}}/{{ $invitation->number_of_guests }}</td>
 							        <td class="text-center">{{ $invitation->price }} {{ $invitation->currency }}</td>
 							        <td>{{ $invitation->date }} {{ date('H:i', strtotime($invitation->heure));}}</td>
 									@can('active-invitation')
 							        <td class="text-center">
 							            <input 
-							                content="{{ $invitation->id }}"
-								            type="checkbox"
-								            name="toggle"
+							             	type="checkbox"
+								            name="toggle1"
+							             	content="{{ $invitation->id }}"
 								            {{ $invitation->active ? 'checked' : '' }}
-							            >
+							            >						             
 							        </td>
 							        @endcan
 							        @can('close-invitation')
@@ -60,7 +60,7 @@
 			                            <input 
 			                                content="{{ $invitation->id }}"
 			                                type="checkbox"
-			                                name="toggle1"
+			                                name="toggle2"
 			                                {{ $invitation->complete ? 'checked' : '' }}
 			                            >
 			                        </td>
@@ -110,9 +110,8 @@
     <script src="{{ asset('public/js/jquery-3.3.1.min.js') }}"></script>
     <script type="text/javascript">
 		$(function() {
-			$('[name="toggle"]').each(function() {
+			$('[name="toggle1"]').each(function() {
 			    $(this).change(function(){
-
 			        var status = $(this).prop('checked') == true ? 1 : 0; 
         			var invitation_id = $(this).attr('content'); 
 				    $.ajax({
@@ -127,10 +126,9 @@
 			           
 			    })
 			});
-
-			$('[name="toggle1"]').each(function() {
+		
+			$('[name="toggle2"]').each(function() {
 	            $(this).change(function(){
-
 	                var complete = $(this).prop('checked') == true ? 1 : 0; 
 	                var invitation_id = $(this).attr('content'); 
 	                $.ajax({
@@ -139,7 +137,7 @@
 	                    url: "{{route('invitation.close')}}",
 	                    data: {'complete': complete, 'invitation_id': invitation_id},
 	                    success: function(data){
-	                        console.log(data);
+	                        console.log(data)
 	                    }
 	                });
 	            })

@@ -9,7 +9,7 @@
             <div class="small-box bg-white">
                 <div class="inner" style="height: 120px;"></div>
                 <div class="icon">
-                    <i class="fas fa-glass-cheers"></i>
+                    <i class="fas fa-plus"></i>
                 </div>
                 <a href="{{route('invitation.create')}}" class="small-box-footer">{{__('messages.Open new table')}} 
                     <i class="fas fa-arrow-circle-right"></i>
@@ -61,7 +61,7 @@
         @endcan
 
     </div>
-
+    @can('see-gauge')
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -85,5 +85,6 @@
             </div>
         </div>
     </div>
+    @endcan
 
 </x-app-layout>

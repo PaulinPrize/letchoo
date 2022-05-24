@@ -14,7 +14,8 @@ class Order extends Model
         'vendor_order_id',
         'status',
         'currency_code',
-        'amount'
+        'amount',
+        'order_type'
     ];
 
     public function transaction() {

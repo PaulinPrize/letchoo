@@ -80,7 +80,7 @@
 				            </h6> 
 	                	</div>
 	                	<div class="col-md-4">
-	                  		<h6>{{__('messages.Price')}} <br/> {{$invitation->total}} {{$invitation->currency}}</h6>
+	                  		<h6>{{__('messages.Price')}} <br/> {{$invitation->amountToBePaidByGuest}} {{$invitation->currency}}</h6>
 	                	</div>
 	              	</div>
 	              	<div class="row mt-3">

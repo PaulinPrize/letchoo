@@ -2,12 +2,12 @@
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Menu</th>
-                <th>Type of cuisine</th>
-                <th>Guests</th>
-                <th class="text-center">Price</th>
+                <th>{{__('messages.Menu')}}</th>
+                <th>{{__('messages.Type of cuisine')}}</th>
+                <th>{{__('messages.Guests')}}</th>
+                <th class="text-center">{{__('messages.Price')}}</th>
                 <th>Date</th>
-                <th class="text-center">Active</th>
+                <th class="text-center">{{__('messages.Active')}}</th>
                 <th colspan="4" style="text-align:center">Action</th>
             </tr>
         </thead>
@@ -16,16 +16,16 @@
                 <tr>
                     <td>{{ $invitation->menu }}</td>
                     <td>{{ $invitation->type_of_cuisine }}</td>
-                    <td class="text-center">{{ $invitation->number_of_guests }}</td>
+                    <td class="text-center">/{{ $invitation->number_of_guests }}</td>
                     <td class="text-center">{{ $invitation->price }} {{ $invitation->currency }} </td>
                     <td>
                         {{ $invitation->date }} {{ date('H:i', strtotime($invitation->heure));}}</td>
 
                     <td class="text-center">
                         @if($invitation->active)
-                        	<label class="badge badge-success">Yes</label>
+                        	<label class="badge badge-success">{{__('messages.YES')}}</label>
                         @else
-                        	<label class="badge badge-danger">No</label>
+                        	<label class="badge badge-danger">{{__('messages.NO')}}</label>
                         @endif
                     </td>
 
@@ -62,6 +62,16 @@
                             </a>
                         </td>
                     @endcan
+
+                    @if($invitation->active == 1)
+                        <td class="text-center">
+                            @if($invitation->complete == 1)
+                                <label class="badge badge-danger">{{__('messages.CLOSED')}}</label>
+                            @elseif($invitation->complete == 0)
+                                <label class="badge badge-success">{{__('messages.OPENED')}}</label>
+                            @endif
+                        </td>
+                    @endif
                     
                 </tr>
             @endforeach

@@ -12,17 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
-https://letchoo.com/linkstorage
-Route::get('/linkstorage', function () {
-    Artisan::call('storage:link');
-});
-*/
+// Routes de gestion de la langue
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
-
-Route::get('handle-payment', 'PaymentController@handlePayment')->name('make.payment');
-Route::get('cancel-payment', 'PaymentController@paymentCancel')->name('cancel.payment');
-Route::get('payment-success', 'PaymentController@paymentSuccess')->name('success.payment');
 
 // Route permettant de rediriger vers le formulaire de connexion Google
 Route::get('auth/google', '\App\Http\Controllers\SocialMediaController@redirectToGoogle');
@@ -32,9 +23,10 @@ Route::get('auth/google/callback', '\App\Http\Controllers\SocialMediaController@
 Route::get('auth/facebook', '\App\Http\Controllers\SocialMediaController@redirectToFacebook');
 Route::get('auth/facebook/callback', '\App\Http\Controllers\SocialMediaController@facebookSignin');
 
+// Route affichant le tableau de bord
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', '\App\Http\Controllers\HomeController@dashboard')->name('dashboard');
 
-// Route affichant la page d'accueil avec les invitations actives
+// Route affichant la page d'accueil
 Route::get('/', '\App\Http\Controllers\HomeController@pays')->name('home');
 // Afficher les villes des pays dans le formualire de recherche des invitations (à l'accueil)
 Route::get('villes/{cityName}', '\App\Http\Controllers\HomeController@villes')->name('villes');
@@ -86,16 +78,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 	/* 4- Les routes pour la gestion des invitations */
 
-	// Lister les invitations
+	// Lister les invitations à l'admin
 	Route::get('invitations', '\App\Http\Controllers\InvitationController@index')->name('invitations');
-
-	// Changer le statut d'une invitation (Activer ou pas), action effectuée par l'admin
-	Route::get('invitation/changeStatus', '\App\Http\Controllers\InvitationController@changeInvitationStatus')->name('invitation.changeStatus');
 
 	//Formulaire de création des invitations
 	Route::get('invitation/create', '\App\Http\Controllers\InvitationController@create')->name('invitation.create');
 
-	// Afficher les villes des pays dans le formualire de création des invitations
+	// Afficher les informations des pays dans les champs de type select
 	Route::get('cities/{cityName}', '\App\Http\Controllers\InvitationController@cities')->name('cities');
 
 	// Enregistrer une invitation
@@ -113,55 +102,59 @@ Route::group(['middleware' => 'auth'], function () {
 	// Supprimer définitivement une invitation
 	Route::delete('invitation/destroy/{invitation}','\App\Http\Controllers\InvitationController@destroy')->name('invitation.destroy');
 
+	// Valider une invitation (l'activer pour qu'elle soit visible) après sa création
+	Route::get('invitation/changeStatus', '\App\Http\Controllers\InvitationController@changeInvitationStatus')->name('invitation.changeStatus');
+
+	// Fermer une invitation 
+	Route::get('invitation/close', '\App\Http\Controllers\InvitationController@closeInvitation')->name('invitation.close');
+
 	// Afficher la liste des invitations actives et non fermées à un utilisateur
 	Route::get('invitations/active', '\App\Http\Controllers\InvitationController@showAllActiveInvitations')->name('invitations.active');
-	// 
+
+	// Rechercher une invitation
 	Route::post('getData', '\App\Http\Controllers\InvitationController@getData');
 
 	// Afficher les invitations crées par un utilisateur (host)
 	Route::get('invitation/my-tables', '\App\Http\Controllers\InvitationController@myTables')->name('invitation.my-tables');
-
-	// Route permettant à un hôte de fermer une invitation lorsqu'il la considère comme complete
-	Route::get('invitation/close', '\App\Http\Controllers\InvitationController@closeInvitation')->name('invitation.close');
-
-	// Donner la possibilité à un utilisateur (guest) de souscrire à une invitation
+	
+	// Lancer sa souscription (guest)
 	Route::get('invitation/subscribe/{invitation}', '\App\Http\Controllers\InvitationController@subscribe')->name('invitation.subscribe');
 
-	// Donner la possibilité à un utilisateur (guest) de valider sa souscription
+	// Terminer sa souscription (guest)
 	Route::post('invitation/validation', '\App\Http\Controllers\InvitationController@validation')->name('invitation.validation');
+	
+	// Afficher tous les guests ayant souscrit à l'invitation d'un host
+	Route::get('invitation/invitation-subscribers/{id}', '\App\Http\Controllers\InvitationController@invitationSubscribers')->name('invitation.subscribers');	
 
-	// Donner la possibilité à un utilisateur guest de payer directement 
-	Route::get('invitation/directPayment', '\App\Http\Controllers\InvitationController@directPayment')->name('invitation.directPayment');
+	// Afficher ses souscriptions
+	Route::get('invitation/my-invitations', '\App\Http\Controllers\InvitationController@myInvitations')->name('invitation.my-invitations');	
 
-	// Route permettant à un hôte d'autoriser un invité à participer 
+	// Accepter une souscription 
 	Route::get('invitation/accept', '\App\Http\Controllers\InvitationController@acceptGuest')->name('invitation.accept');
 
-	// Donner la possibilité à un utilisateur d'afficher ses souscriptions
-	Route::get('invitation/my-invitations', '\App\Http\Controllers\InvitationController@myInvitations')->name('invitation.my-invitations');
-	
-	// Afficher le formulaire de paiement PAYPAL pour une souscription
-	Route::get('invitation/my-invitations/{iuID}/{amount}/{currency}', '\App\Http\Controllers\InvitationController@myInvitationsShow')->name('invitation.my-invitations-show');
+	//Laisser un pourboire à l'hôte
+	Route::get('invitation/{invitation}/bonus', '\App\Http\Controllers\InvitationController@bonus')->name('invitation.bonus');
 
-	// Payer une souscription en utilisant PAYPAL
-	Route::post('invitation/paypal-payment', '\App\Http\Controllers\PaymentController@processPaypalPayment')->name('invitation.paypal-payment');
+	/* 5- Les routes pour la gestion des paiements */
 
-	// Afficher les guets ayant souscrits à l'invitation d'un host
-	Route::get('invitation/invitation-subscribers/{id}', '\App\Http\Controllers\InvitationController@invitationSubscribers')->name('invitation.subscribers');
-
-	// Afficher tous les paiements
+	// Afficher toutes les tables qui ont reçu des paiements à l'admin
 	Route::get('payments', '\App\Http\Controllers\PaymentController@index')->name('payments');
+	// Afficher les détails des paiements d'une table
+	Route::get('payment-detail/{id}', '\App\Http\Controllers\PaymentController@paymentDetail')->name('payment-detail'); 
+
+	// Afficher les revenus d'un utilisateur par table
+	Route::get('payments/my-income', '\App\Http\Controllers\PaymentController@myIncome')->name('payments.my-income');
+	// Afficher les détails des paiements par table
+	Route::get('income-detail/{id}', '\App\Http\Controllers\PaymentController@incomeDetail')->name('income-detail'); 
 
 	// Afficher à un utilisateur la liste de ses paiements
 	Route::get('payments/my-payments', '\App\Http\Controllers\PaymentController@myPayments')->name('payments.my-payments');
 
-	// Afficher les revenus d'un utilisateur
-	Route::get('payments/my-income', '\App\Http\Controllers\PaymentController@myIncome')->name('payments.my-income');
 
 	// Define discount amounts
 	Route::get('discounts/show-form', '\App\Http\Controllers\DiscountController@show_form')->name('discounts.show-form');
 	Route::post('discounts/manage-amount', '\App\Http\Controllers\DiscountController@manage_amount')->name('discounts.manage-amount');
 
-	//Leave a bonus
-	Route::get('invitation/{invitation}/bonus', '\App\Http\Controllers\InvitationController@bonus')->name('invitation.bonus');
+	
 });
 

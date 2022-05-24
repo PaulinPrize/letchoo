@@ -1,5 +1,5 @@
 @extends('layouts/accueil')
-
+ 
 @section('content')
     <div class="section1">
         <div class="container d-flex justify-content-center" style="height: 100vh;">
@@ -41,12 +41,12 @@
                                                     <td>{{$invitation->price}} {{$invitation->currency}}</td>
                                                     <td>{{$invitation->price}} {{$invitation->currency}}</td>
                                                     -->
-                                                    <td>{{$invitation->total}} {{$invitation->currency}}</td>
-                                                    <td>{{$invitation->total}} {{$invitation->currency}}</td>
+                                                    <td>{{$invitation->amountToBePaidByGuest}} {{$invitation->currency}}</td>
+                                                    <td>{{$invitation->amountToBePaidByGuest}} {{$invitation->currency}}</td>
                                                 </tr>
                                                 <tr class="text-center">
                                                     <td colspan="3"></td>
-                                                    <td><strong>Total : {{$invitation->total}} {{$invitation->currency}}</strong> 
+                                                    <td><strong>Total : {{$invitation->amountToBePaidByGuest}} {{$invitation->currency}}</strong> 
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -92,7 +92,7 @@
                                                         </div>
                                                         <div class="col-lg-1">
                                                             <div class="form-group">
-                                                                <input type="number" id="amount" class="form-control" name="amount" value="{{$invitation->total}}" hidden/>       
+                                                                <input type="number" id="amount" class="form-control" name="amount" value="{{$invitation->amountToBePaidByGuest}}" hidden/>       
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-1">
@@ -141,7 +141,7 @@
                                                         </div>
                                                         <div class="col-lg-1">
                                                             <div class="form-group">
-                                                                <input type="amount" id="amount" class="form-control" name="amount" value="{{$invitation->total}}" hidden/>       
+                                                                <input type="amount" id="amount" class="form-control" name="amount" value="{{$invitation->amountToBePaidByGuest}}" hidden/>       
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-1">
@@ -184,7 +184,7 @@
     <script>
              // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
- // Call your server to set up the transaction
+            // Call your server to set up the transaction
              createOrder: function(data, actions) {
                 return fetch('../../api/paypal/order/create', {
                     method: 'POST',
@@ -193,6 +193,8 @@
                         'user_id' : "{{auth()->user()->id}}",
                         'amount' : $("#amount").val(),
                         'invitation_id': $("#invitation_id").val(),
+                        'order_type' : "Payment",
+                        'transaction_type' : "Payment", 
                     })
                 }).then(function(res) {
                     return res.json();
@@ -209,7 +211,9 @@
                         orderId : data.orderID,
                         invitation_id: $("#invitation_id").val(),
                         user_id: "{{ auth()->user()->id }}", 
-                        type: "payment"   
+                        type: "payment",
+                        order_type : "Payment",
+                        transaction_type : "Payment",   
                     })
                 }).then(function(res) {
                     return res.json();

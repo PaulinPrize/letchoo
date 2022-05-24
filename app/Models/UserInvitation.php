@@ -11,5 +11,5 @@ class UserInvitation extends Model
 
     public $table = 'invitation_user';
 
-    public $fillable = [ 'user_id', 'subscriber_name', 'invitation_id', 'menu', 'owner_id', 'amount', 'currency', 'payment_method', 'payment_status', 'reference_number', 'activeUser', 'invoice_paid'];
+    public $fillable = [ 'user_id', 'subscriber_name', 'invitation_id', 'menu', 'owner_id', 'amount', 'currency',  'activeUser'];
 }

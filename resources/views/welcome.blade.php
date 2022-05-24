@@ -153,11 +153,11 @@
                                             <div class="card h-100 cardStyle">\n\
                                                 <img class="card-img-top" src="public/storage/plate-photos/'+ item.image +'" style="width: 100%; height: 15vw; object-fit: cover;">\n\
                                                 <div class="card-body">\n\
-                                                    <small class="text-uppercase text-truncate" style="font-size: 15px; font-weight:bold">\n\
+                                                    <small class="text-truncate text-uppercase" style="font-size: 15px; font-weight:bold">\n\
                                                         ' + item.menu + '</small>\n\
                                                     <h5>\n\
                                                         <small style="font-size:14px; font-weight:bold">\n\
-                                                            {{__('messages.Price')}} : '+ item.total +' ' + item.currency + '\n\
+                                                            {{__('messages.Price')}} : '+ item.amountToBePaidByGuest +' ' + item.currency + '\n\
                                                         </small>\n\
                                                     </h5>\n\
                                                     <small>\n\
@@ -174,7 +174,6 @@
                             $('<div class="col-md-12 text-center"><h4 style="font-size: 28px">{{__('messages.Sorry.')}}</br>{{__('messages.No item matches your search...')}}</h4></div>').appendTo('#display-data2')
                         }
                     }
-
                 });
 
                 $(this).prop('disabled', false)
