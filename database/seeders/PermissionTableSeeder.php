@@ -137,5 +137,45 @@ class PermissionTableSeeder extends Seeder
             'name' => 'see-gauge',
             'guard_name' => 'web'
         ]);
+        Permission::create([
+            'name' => 'list-countries',
+            'guard_name' => 'web'
+        ]);
+        Permission::create([
+            'name' => 'add-country',
+            'guard_name' => 'web'
+        ]);
+        Permission::create([
+            'name' => 'show-country',
+            'guard_name' => 'web'
+        ]);
+        Permission::create([
+            'name' => 'edit-country',
+            'guard_name' => 'web'
+        ]);
+        Permission::create([
+            'name' => 'delete-country',
+            'guard_name' => 'web'
+        ]);
+        Permission::create([
+            'name' => 'list-cities',
+            'guard_name' => 'web'
+        ]);
+        Permission::create([
+            'name' => 'add-city',
+            'guard_name' => 'web'
+        ]);
+        Permission::create([
+            'name' => 'show-city',
+            'guard_name' => 'web'
+        ]);
+        Permission::create([
+            'name' => 'edit-city',
+            'guard_name' => 'web'
+        ]);
+        Permission::create([
+            'name' => 'delete-city',
+            'guard_name' => 'web'
+        ]);
     }
 }

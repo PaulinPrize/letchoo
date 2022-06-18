@@ -89,11 +89,17 @@
 							            </form>
 							        </td>
 									@can('show-invitation')
-						            <td class="text-center">
-						                <a class="btn btn-success btn-sm " href="{{ route('invitation.subscribers', [$invitation->id]) }}" role="button" data-toggle="tooltip">
-						                    <i class="fas fa-users"></i>
-						                </a>
-						            </td>
+
+									@if($invitation->direct_payment == 0)
+							            <td class="text-center">
+							                <a class="btn btn-success btn-sm " href="{{ route('invitation.subscribers', [$invitation->id]) }}" role="button" data-toggle="tooltip">
+							                    <i class="fas fa-users"></i>
+							                </a>
+							            </td>
+							        @else
+							        	<td class="text-center"></td>
+							        @endif
+
                     				@endcan
 							    </tr>
 							    @endforeach

@@ -9,7 +9,7 @@
 	        			<div class="row mb-3">
 		        			<div class="col-md-12">
 								<div class="alert alert-warning" role="alert">
-									<i class="fas fa-exclamation-triangle"></i> You have not yet chosen your method of receiving payments.
+									<i class="fas fa-exclamation-triangle"></i> {{__('messages.You have not yet chosen your method of receiving payments.')}}
 								</div>
 							</div>
 	        			</div>
@@ -22,7 +22,7 @@
 									    	<div class="col-lg-12 col-md-12">
 									    		<div class="row">
 										        	<div class="col-md-12">
-										        		<p class="text-center">Choosing a receive payment method will allow us to transfer all your income to you.</p>
+										        		<p class="text-center">{{__('messages.Choosing a receive payment method will allow us to transfer all your income to you.')}}</p>
 										        	</div>
 									        	</div>
 									        	<hr class="mb-3">
@@ -36,7 +36,7 @@
 																<form method="post" action="{{url('payment/store-paypal-receive-payment-method')}}">
 																	<div class="modal-content">
 																		<div class="modal-header">
-				        													<h5 class="modal-title" id="exampleModalLabel">Enter your PayPal Account</h5>
+				        													<h5 class="modal-title" id="exampleModalLabel">{{__('messages.Enter your PayPal Account')}}</h5>
 																			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																				<span aria-hidden="true">&times;</span>
 																			</button>
@@ -54,8 +54,8 @@
 			          														</div>
 				      													</div>
 				      													<div class="modal-footer">
-																        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-																        	<button type="submit" id="paypal" class="btn btn-primary">Save</button>
+																        	<button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('messages.Close')}}</button>
+																        	<button type="submit" id="paypal" class="btn btn-primary">{{__('messages.Save')}}</button>
 				      													</div>
 																	</div>
 																</form>
@@ -66,7 +66,7 @@
 										        <div class="row">
 										        	<div class="col-md-12">
 										        		<button type="button" class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#exampleModal2" disabled>
-		  													<i class="fas fa-credit-card"></i> Bank transfer
+		  													<i class="fas fa-credit-card"></i> {{__('messages.Bank transfer')}}
 														</button>
 										        	</div>
 										        </div>
@@ -89,7 +89,7 @@
 			            		@if(!empty(Auth::user()->paypal_email))
 									<ul class="list-group">
 										<li class="list-group-item d-flex justify-content-between align-items-center">
-	    									<div class="flex-column"><strong>Receive payment method</strong></div>
+	    									<div class="flex-column"><strong>{{__('messages.Receive payment method')}}</strong></div>
 	  									</li>
 	  									<li class="list-group-item d-flex justify-content-between align-items-center">
 	    									<div class="flex-column">
@@ -105,7 +105,7 @@
 	  									</li>
 									</ul>
 								@else
-									<span class="alert-danger">Informations introuvables</span>
+									<span class="alert-danger">{{__('messages.Information not found')}}</span>
 								@endif
 			            	</div>
 			            </div>
@@ -114,34 +114,4 @@
         	@endif
         </div>
     </div>
-	@section('scripts')
-        <!--
-        <script type="text/javascript">
-        	$(document).ready(function(){
-        		$('#addForm').on('submit', function(e){
-        			e.preventDefault();
-        			$.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                    });
-        			$.ajax({
-        				type: "POST",
-        				url: "../payment/store-paypal-receive-payment-method",
-        				data: $('addForm').serialize(),
-        				success: function(response){
-        					console.log(response)
-        					$('#exampleModal1').modal('hide')
-        					alert("Data saved");
-        				},
-        				error: function(error){
-        					console.log(error)
-        					alert("Data not saved");
-        				}
-        			});
-        		});
-        	});
-        </script>
-        -->
-    @endsection
 </x-app-layout> 

@@ -87,7 +87,7 @@
                                 <span class="sr-only">Chargement...</span>\n\
                         </div></div>').appendTo('#content-spinner');
 
-                        $(this).css('visibility', 'hidden');
+                        $(this).css('visibility', 'hidden'); 
 
 			    		$.ajax({
                             type: "POST",

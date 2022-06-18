@@ -85,7 +85,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('invitation/create', '\App\Http\Controllers\InvitationController@create')->name('invitation.create');
 
 	// Afficher les informations des pays dans les champs de type select
-	Route::get('cities/{cityName}', '\App\Http\Controllers\InvitationController@cities')->name('cities');
+	//Route::get('cities/{cityName}', '\App\Http\Controllers\InvitationController@cities')->name('cities');
+
+	Route::get('cities/{id}', '\App\Http\Controllers\InvitationController@cities')->name('cities');
 
 	// Enregistrer une invitation
 	Route::post('invitation/store','\App\Http\Controllers\InvitationController@store')->name('invitation.store');
@@ -155,6 +157,32 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('discounts/show-form', '\App\Http\Controllers\DiscountController@show_form')->name('discounts.show-form');
 	Route::post('discounts/manage-amount', '\App\Http\Controllers\DiscountController@manage_amount')->name('discounts.manage-amount');
 
+	/* 6- Les routes pour la gestion des pays */
+	Route::resource('countries', App\Http\Controllers\CountryController::class);
+
+	/* 7- Les routes pour la gestion des villes */
+	//Route::resource('villes', App\Http\Controllers\CityController::class);
+
+	// Lister toutes les villes
+	Route::get('villes', '\App\Http\Controllers\CityController@index')->name('villes');
+
+	// Formulaire de création des villes
+	Route::get('ville/create', '\App\Http\Controllers\CityController@create')->name('ville.create');
+
+	// Enregistrer une ville
+	Route::post('ville/store','\App\Http\Controllers\CityController@store')->name('ville.store');
+
+	// Afficher un utilisateur
+	Route::get('ville/show/{ville}','\App\Http\Controllers\CityController@show')->name('ville.show');
+
+	// Formulaire de modification des villes
+	Route::get('ville/{ville}/edit','\App\Http\Controllers\CityController@edit')->name('ville.edit');
+
+	// Modifier une ville
+	Route::put('ville/{ville}','\App\Http\Controllers\CityController@update')->name('ville.update');
+
+	// Supprimer définitivement une ville
+	Route::delete('ville/destroy/{ville}','\App\Http\Controllers\CityController@destroy')->name('ville.destroy');
 	
 });
 

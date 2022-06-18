@@ -199,6 +199,24 @@
                                 </li>
                             @endcan
 
+                            @can('list-countries')
+                                <li class="nav-item">
+                                    <a href="{{ route('countries.index') }}" class="nav-link {{ Request::is('countries*') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-flag"></i>
+                                        <p>{{__('messages.All the countries')}}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('list-cities')
+                                <li class="nav-item">
+                                    <a href="{{ route('villes') }}" class="nav-link {{ Request::is('villes*') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-map"></i>
+                                        <p>{{__('messages.All the cities')}}</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->

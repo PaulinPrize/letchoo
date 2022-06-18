@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use DB;
 use App\Models\{ Order, Transaction, UserInvitation, Invitation, Bonus, User };
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Carbon\Carbon;
 
 
 class PaymentController extends Controller
@@ -20,11 +21,16 @@ class PaymentController extends Controller
     
     // Fonction permettant d'afficher toutes les tables qui ont reçu des paiements à l'admin
     public function index(){
-        // Récupérer toutes les invitations avec leurs transactions 
-        $allPayments = Invitation::withCount(['transactions' => function($query){
-            $query->where('status', 'COMPLETED')
-            ->where('transaction_type', 'Payment');
-        }])->paginate(5);
+
+        // Récupérer uniquement les invitations avec leurs transactions 
+        $allPayments = DB::table('invitations')
+        ->join('users', 'invitations.user_id', '=', 'users.id')
+        ->join('transactions', 'invitations.id', '=', 'transactions.invitation_id')
+        ->select('transactions.*', 'invitations.*', 'users.*', DB::raw('COUNT(transactions.id) as counting'))
+        ->where('status', 'COMPLETED')
+        ->where('transaction_type', 'Payment')
+        ->groupBy('transactions.invitation_id')
+        ->get();
 
         return view('payments.index', compact('allPayments'));
     }
@@ -32,19 +38,51 @@ class PaymentController extends Controller
     // Afficher les détails des paiements d'une table
     public function paymentDetail($id){
 
-        $filter = $id;
-
-        $payment = DB::table('invitations')->select('*')
+        $payment = DB::table('invitations')
         ->join('transactions', 'transactions.invitation_id', 'invitations.id')
+        ->join('users', 'users.id', '=', 'transactions.user_id')
         ->join('orders', 'orders.transaction_id', '=', 'transactions.id')
-        ->where('invitations.id', $filter)
+        ->where('invitations.id', $id)
         ->get();
 
-        return view('payments.payment-details', compact('payment'));
+        // Faire la somme des montants de toutes les transactions (pourboires compris)
+        $totalAmount = $payment->sum('amount');
+
+        $currency;
+        $amountToBePaidToTheHost;
+        $taxIncome;
+        $income;
+
+        $details = DB::table('invitations')
+        ->join('transactions', function($join){
+            $join->on('transactions.invitation_id', '=', 'invitations.id')
+            ->where('transaction_type', 'Payment')
+            ->where('status', 'COMPLETED');
+        })
+        ->join('users', 'users.id', '=', 'transactions.user_id')
+        ->join('orders', 'orders.transaction_id', '=', 'transactions.id')
+        ->select(DB::raw('sum(invitations.amountToBePaidToTheHost) as amountToBePaidToTheHost, sum(invitations.taxIncome) as taxIncome, sum(invitations.income) as income, currency'))
+        ->where('invitations.id', $id)->get(); 
+
+        foreach($details as $detail) {
+            $currency = $detail->currency;
+            $amountToBePaidToTheHost = $detail->amountToBePaidToTheHost; 
+            $taxIncome = $detail->taxIncome;
+            $income = $detail->income;
+        } 
+
+        // Montant des pourboires
+        $tips = $totalAmount - ($amountToBePaidToTheHost + $taxIncome + $income);
+
+        // Montant total à verser à l'hôte
+        $hostIncome = $amountToBePaidToTheHost + $tips;
+
+        return view('payments.payment-details', compact('payment', 'totalAmount', 'currency', 'amountToBePaidToTheHost', 'tips', 'hostIncome', 'taxIncome', 'income'));
     }
 
     // Fonction permettant d'afficher les revenus d'un utilisateur par table
     public function myIncome(){
+
         $user =  Auth::user()->id;
 
         $filter1 = "COMPLETED";
@@ -55,27 +93,25 @@ class PaymentController extends Controller
             ->where('transaction_type', $filter2);
         }])->where('user_id', $user)->paginate(5);
 
-        //dd($myIncomes);
-
         return view('payments/my-income', compact('myIncomes'));
     }
 
     // Afficher les détails des paiements d'une table
     public function incomeDetail($id){
 
-        $filter = $id;
-
         $income = DB::table('invitations')->select('*')
         ->join('transactions', 'transactions.invitation_id', 'invitations.id')
+        ->join('users', 'users.id', '=', 'transactions.user_id')
         ->join('orders', 'orders.transaction_id', '=', 'transactions.id')
-        ->where('invitations.id', $filter)
+        ->where('invitations.id', $id)
         ->where('transactions.transaction_type', 'Payment')
         ->get();
 
         $tip = DB::table('invitations')->select('*')
         ->join('transactions', 'transactions.invitation_id', 'invitations.id')
+        ->join('users', 'users.id', '=', 'transactions.user_id')
         ->join('orders', 'orders.transaction_id', '=', 'transactions.id')
-        ->where('invitations.id', $filter)
+        ->where('invitations.id', $id)
         ->where('transactions.transaction_type', 'Tip')
         ->get();
 
@@ -85,11 +121,22 @@ class PaymentController extends Controller
     // Fonction permettant d'afficher tous les paiements effectués par un utilisateur
     public function myPayments(){
 
-        $user =  Auth::user()->id;
+        // Récupérer la date et l'heure du jour
+        $getDate = Carbon::now();
 
-        $myPayments = Transaction::where('user_id', $user)->get();
+        // Extraire la date du jour uniquement
+        $today = $getDate->format('Y-m-d');
+        
+        $myPayments = DB::table('orders')->select('*')
+        ->join('transactions', function($join){
+            $user =  Auth::user()->id;
+            $join->on('transactions.id', '=', 'orders.transaction_id')
+            ->where('user_id', $user);
+        })
+        ->join('invitations',  'invitations.id', '=', 'transactions.invitation_id')
+        ->paginate(8);
 
-        return view('payments.my-payments', compact('myPayments'));
+        return view('payments.my-payments', compact('myPayments', 'today'));
     }
 
     public function create(Request $request) {

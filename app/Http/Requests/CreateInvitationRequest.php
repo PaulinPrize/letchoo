@@ -39,7 +39,7 @@ class CreateInvitationRequest extends FormRequest
             'income' => '',
             'total' => '',
             'number_of_guests' => 'required|numeric|min:1',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'boolean',
             'complete' => 'boolean',
             'direct_payment' => 'boolean',          

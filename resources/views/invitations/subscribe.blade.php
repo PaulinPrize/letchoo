@@ -54,7 +54,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <p>
-                                                {{__('messages.Amount in words :')}} {{ NumConvert::word(($invitation->price+($invitation->price*$invitation->tax)/100)+(($invitation->price*10)/100) )}}<br>
+                                                {{__('messages.Amount in words :')}} {{ NumConvert::word(($invitation->amountToBePaidByGuest ))}}<br>
                                                 {{__('messages.Pay until :')}} {{$invitation->date}}
                                             </p>
                                         </div>

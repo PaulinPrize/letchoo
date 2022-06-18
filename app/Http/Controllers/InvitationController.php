@@ -5,7 +5,7 @@ use App\Http\Requests\CreateInvitationRequest;
 use App\Http\Requests\UpdateInvitationRequest;
 use Illuminate\Http\Request;
 use Response;
-use App\Models\{ User,Invitation, Transaction, Order, UserInvitation, Coupon, Discount };
+use App\Models\{ User,Invitation, Transaction, Order, UserInvitation, Coupon, Discount, Pays, Ville };
 use Illuminate\Support\Facades\Auth;
 use DB;
 use PragmaRX\Countries\Package\Countries;
@@ -14,8 +14,7 @@ class InvitationController extends Controller
 {
     // Fonction permettant d'afficher toutes les invitations
     public function index()
-    {
-        //$invitations = Invitation::paginate(5);	
+    {	
         $invitations = Invitation::withCount(['transactions' => function($query){
             $query->where('status', 'COMPLETED')
             ->where('transaction_type', 'Payment');
@@ -49,12 +48,16 @@ class InvitationController extends Controller
         // Récupérer la TVA d'un pays
         $c = $countries->where('name.common','Belgium')->first()->extra->vat_rates->standard;
 
+        // Récupérer tous les pays
+        $countries = Pays::all();
+
         $user =  Auth::user()->id;
 
-        return view('invitations.create', compact('user', 'allCountries'));
+        return view('invitations.create', compact('user', 'allCountries', 'countries'));
     }
 
     // Afficher les informations des pays dans les champs de type select
+    /*
     public function cities($cityName){
         $countries = new Countries();
         
@@ -67,12 +70,23 @@ class InvitationController extends Controller
 
         $currency = $countries->where('name.common', $cityName)->first()->currencies[0];
 
-        //$tax = $countries->where('name.common', $cityName)->first()->extra->vat_rates->standard;
-        
         return response()->json([
             'villes' => $villes,
             'currency' => $currency,
-            //'tax' => $tax
+        ]);
+    }
+    */
+
+    public function cities($id){
+
+        $villes = Ville::where('pays_id', $id)->pluck('nom','id');
+        $currency = Pays::where('id', $id)->pluck('currency');
+        $tax = Pays::where('id', $id)->pluck('tax');
+
+        return response()->json([
+            'villes' => $villes,
+            'currency' => $currency,
+            'tax' => $tax
         ]);
     }
 
@@ -136,6 +150,7 @@ class InvitationController extends Controller
         $invitation->direct_payment = $request->input('direct_payment');
         // Récupérer l'id de l'utilisateur qui crée l'invitation
         $invitation->user_id = $request->input('user_id');
+
         $invitation->save();
 
         return redirect()->route('invitation.my-tables')->with('info', 'Invitation saved successfully');    
@@ -286,10 +301,10 @@ class InvitationController extends Controller
     // Fonction permettant d'afficher les invitations créées par un utilisateur (host)
     public function myTables(){
         $user =  Auth::user()->id;
-        $invitations =DB::table('invitations')
-        ->select('id', 'menu', 'type_of_cuisine', 'number_of_guests', 'price', 'currency', 'date', 'heure', 'active', 'complete')
-        ->where('user_id', $user)
-        ->paginate(4);
+        $invitations = Invitation::withCount(['transactions' => function($query){
+            $query->where('status', 'COMPLETED')
+            ->where('transaction_type', 'Payment');
+        }])->where('user_id', $user)->paginate(4);
         
         return view('invitations.my-invitations', compact('user', 'invitations'));
     }

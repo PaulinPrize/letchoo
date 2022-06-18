@@ -177,8 +177,9 @@
                 });
 
                 $(this).prop('disabled', false)
-                $(this).text($('#before-search').val())
-
+                setTimeout(() =>{
+                    $(this).text($('#before-search').val())
+                }, 1000);
             });
             
             

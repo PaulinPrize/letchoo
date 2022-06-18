@@ -14,43 +14,34 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="text-center">#</th>
                                     <th>{{__('messages.Menu')}}</th>
                                     <th>Date</th>
                                     <th class="text-center">{{__('messages.Guests')}}</th> 
                                     <th class="text-center">{{__('messages.Country')}}</th>
                                     <th class="text-center">{{__('messages.City')}}</th>
                                     <th class="text-center">{{__('messages.Place')}}</th>
-                                    <th class="text-center">{{__('messages.Postal code')}}</th>
+                                    <th class="text-center">{{__('messages.Organized by')}}</th>
                                     <th class="text-center"></th>                
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($allPayments as $payment)
-                                    <tr>
-                                        <td class="text-center">{{$payment->id}}</td>
-                                        <td>{{$payment->menu}}</td>
-                                        <td>{{ $payment->date }} {{ date('H:i', strtotime($payment->heure));}}</td>
-                                        <td class="text-center">{{$payment->transactions_count}}/{{$payment->number_of_guests}}</td>
-                                        <td class="text-center">{{$payment->country}} ({{__('messages.Tax')}}:{{$payment->tax}})</td>
-                                        <td class="text-center">{{$payment->city}}</td>
-                                        <td class="text-center">{{$payment->place}}</td>
-                                        <td class="text-center">{{$payment->postal_code}}</td>
-                                        <!--
-                                        <td class="text-center">
-                                            @foreach($payment->transactions as $transaction)
-                                            <small>
-                                                @if ($loop->first) {{$transaction->user->name}} @endif
-                                            </small>  
-                                            @endforeach
-                                        </td>
-                                        -->
-                                        <td class="text-center">
-                                            <a class="btn btn-primary btn-sm " href="{{ route('payment-detail', [$payment->id]) }}" target="_blank" role="button" data-toggle="tooltip">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>{{$payment->menu}}</td>
+                                    <td>{{ $payment->date }} {{ date('H:i', strtotime($payment->heure));}}</td>
+                                    <td class="text-center">{{$payment->counting}}/{{$payment->number_of_guests}}</td>
+                                    <td class="text-center">{{$payment->country}} ({{__('messages.Tax')}}:{{$payment->tax}})</td>
+                                    <td class="text-center">{{$payment->city}}</td>
+                                    <td class="text-center">{{$payment->place}}</td>
+                                    <td class="text-center">
+                                        {{$payment->name}} {{$payment->first_name}}
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="btn btn-primary btn-sm " href="{{ route('payment-detail', [$payment->invitation_id]) }}" target="_blank" role="button" data-toggle="tooltip">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>

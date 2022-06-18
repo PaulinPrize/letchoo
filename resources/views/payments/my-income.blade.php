@@ -16,23 +16,21 @@
                                     <th>{{__('messages.Menu')}}</th>
                                     <th>Date</th>
                                     <th class="text-center">{{__('messages.Guests')}}</th> 
-                                    <th class="text-center">Total</th>
-                                    <th class="text-center"></th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>  
                             <tbody>
                                 @foreach($myIncomes as $myIncome)
                                     <tr>
-                                        <td>{{$myIncome->menu}}</td>
-                                        <td>{{$myIncome->created_at}}</td>
-                                        <td class="text-center">{{$myIncome->transactions_count}}/{{$myIncome->number_of_guests}}</td>
-
-                                        @foreach($myIncome->transactions as $t)
-                                        <td class="text-center">
-                                                                            
+                                        <td>
+                                            <small>{{$myIncome->menu}}</small>
                                         </td>
-                                        @endforeach
-                                       
+                                        <td>
+                                            <small>{{$myIncome->created_at}}</small>
+                                        </td>
+                                        <td class="text-center">
+                                            <small>{{$myIncome->transactions_count}}/{{$myIncome->number_of_guests}}</small>
+                                        </td>
                                         <td class="text-center">
                                             <a class="btn btn-primary btn-sm " href="{{ route('income-detail', [$myIncome->id]) }}" target="_blank" role="button" data-toggle="tooltip">
                                             <i class="fas fa-eye"></i>
@@ -44,8 +42,8 @@
                         </table>
                     </div>
                 </div> 
-                <div class="card-footer">
-                        
+                <div class="card-footer d-flex align-items-center justify-content-center">
+                    {{ $myIncomes->links() }}
                 </div>
             </div>
         </div>

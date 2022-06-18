@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <div class="alert alert-warning" role="alert">
+        <div class="alert" role="alert" style="background-color: #7b1745; color:white">
             <i class="fas fa-exclamation-triangle"></i> LeTchoo will take 15% of your total turnover for this table.
         </div>
     </div>
@@ -13,11 +13,23 @@
             {!! Form::text('menu', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
         </div>
     </div>
-    <!-- Type Of Cuisine Field -->
+    <!-- Type Of Cuisine Field 
     <div class="col-md-6">
         <div class="form-group"> 
             {!! Form::label('type_of_cuisine', 'Type of Cuisine: *') !!}
             {!! Form::text('type_of_cuisine', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+        </div>
+    </div>
+    -->
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="form-control-label" for="type_of_cuisine">Type of Cuisine: *</label>
+            <select class="form-control" id="type_of_cuisine" name="type_of_cuisine">
+                <option value="" selected>Choose type of cuisine</option>
+                @foreach($countries as $country)
+                    <option value="{{$country->nom}}">{{$country->nom}}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 </div>
@@ -31,6 +43,7 @@
     </div>
 </div>
 <div class="row">
+    <!--
     <div class="col-md-4">
         <div class="form-group">
             <label class="form-control-label" for="country">Choose country *</label>
@@ -42,21 +55,36 @@
             </select>
         </div>
     </div>
-    <div class="col-md-4 d-none" id="city">
+    -->
+    <div class="col-md-6">
         <div class="form-group">
-            <label class="form-control-label" for="city">Choose city *</label>
-            <select class="form-control" id="city_id" name="city">
-               <option value="">Choose city</option>
+            <label class="form-control-label" for="country">Choose country *</label>
+            <select class="form-control" id="country_id" name="country">
+                <option value="" selected>Choose country</option>
+                @foreach($countries as $country)
+                    <option value="{{$country->id}}">{{$country->nom}}</option>
+                @endforeach
             </select>
         </div>
     </div>
-    <div class="col-md-2 d-none" id="currency">        
+    <div class="col-md-6" id="city">
+        <div class="form-group">
+            <label class="form-control-label" for="city">Choose city *</label>
+            <select class="form-control" id="city_id" name="city">
+               <option value="" selected>Choose city</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 d-none" id="currency">        
         <div class="form-group">
             <label class="form-control-label" for="currency">Currency *</label>
             <input type="text" id="currency_id" class="form-control" name="currency"/>
         </div>
     </div>
-    <div class="col-md-2 d-none" id="tax">        
+    <div class="col-md-6 d-none" id="tax">        
         <div class="form-group">
             <label class="form-control-label" for="tax">TVA *</label>
             <input type="text" id="tax_id" class="form-control" name="tax"/>
@@ -65,27 +93,30 @@
 </div>
 
 <div class="row">
-    <div class="col-md-3">        
+    <div class="col-md-6">        
         <div class="form-group">
             {!! Form::label('place', 'Place: *') !!}
             {!! Form::text('place', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
             <small class="form-text text-muted">ex : 27 rue Jean Goujon</small>
         </div>
     </div>
-    <div class="col-md-3">        
+    <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('postal_code', 'Postal code: ') !!}
-            {!! Form::text('postal_code', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-            <small class="form-text text-muted">ex : 75010</small>
-        </div>
+            {!! Form::label('price', 'Price: *') !!}
+            {!! Form::text('price', null, ['class' => 'form-control']) !!}
+            <small class="form-text text-muted">ex : 200</small>
+       </div>
     </div>
-    <div class="col-md-3">
+</div>
+
+<div class="row">
+    <div class="col-md-6">
         <div class="form-group">
             <label for="date">Date : *</label>
             <input type="date" class="form-control" name="date"/>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
         <div class="form-group">
             <label for="heure">Time : </label>
             <input type="time" class="form-control" name="heure"/>
@@ -94,27 +125,21 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <div class="form-group">
-            {!! Form::label('price', 'Price: *') !!}
-            {!! Form::text('price', null, ['class' => 'form-control']) !!}
-            <small class="form-text text-muted">ex : 200</small>
-       </div>
-    </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             {!! Form::label('number_of_guests', 'Number of guests: *') !!}
             {!! Form::text('number_of_guests', null, ['class' => 'form-control']) !!}
             <small class="form-text text-muted">ex : 5</small>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             <label class="form-control-label" for="image">Image: *</label>
             <input type="file" id="image" class="form-control" name="image"/>
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -127,6 +152,16 @@
     </div>
 </div>
 <!--
+<div class="row">
+    <div class="col-md-3">        
+        <div class="form-group">
+            {!! Form::label('postal_code', 'Postal code: ') !!}
+            {!! Form::text('postal_code', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+            <small class="form-text text-muted">ex : 75010</small>
+        </div>
+    </div>
+</div>
+
 <div class="row mt-3">
     <div class="col-md-12">
         <div class="custom-control custom-checkbox">
@@ -157,32 +192,36 @@
 
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
     <script type="text/javascript">
         $(document).ready(function () {
             $('#country_id').change(function(){
-                // Récupérer le pays sélectionné
-                var city = $(this).val();
-                $('#city').removeClass('d-none');
-                $('#city_id').empty();
+                // Récupérer l'id du pays sélectionné
+                var id = $(this).val();
 
-                $('#currency').removeClass('d-none');
+                //$('#city').removeClass('d-none');
+                $('#city_id').empty();
+                
+                //$('#currency').removeClass('d-none');
                 $('#currency_id').empty();
 
-                $('#tax').removeClass('d-none');
+                //$('#tax').removeClass('d-none');
                 $('#tax_id').empty();
 
                 $.ajax({
-                    url: "./../cities/"+city,
+                    url: "./../cities/"+id,
                     
                     success: function(data) {
                         $.each(data.villes, function(value1, value2){
+
                             $('#city_id').append('<option value="' + value2 + '">' + value2 + '</option>');
                         });
                         $('#currency_id').val(data.currency);
-                        //$('#tax_id').val(data.tax);
+                        $('#tax_id').val(data.tax);
                     }
                 });
             });
         });
     </script>
+    
 @endsection

@@ -129,5 +129,19 @@ return [
     'Leave a tip' => 'Laisser un pourboire',
     'Payment description' => 'Description',
     'Tips' => 'Pourboires',
+    'You have not yet chosen your method of receiving payments.' => 'Vous n\'avez pas encore choisi votre mode de réception des paiements.',
+    'Choosing a receive payment method will allow us to transfer all your income to you.' => 'Le choix d\'un mode de réception des paiements nous permettra de vous transférer tous vos revenus.',
+    'Bank transfer' => 'Virement',
+    'Enter your PayPal Account' => 'Entrez votre compte PayPal',
+    'Receive payment method' => 'Méthode de réception des paiements',
+    'Information not found' => 'Informations introuvables',
+    'Host income' => 'Revenus de l\'hôte',
+    'Tax income' => 'Revenus de TVA',
+    'Total profit' => 'Bénéfice total',
+    'All the countries' => 'Tous les pays',
+    'All the cities' => 'Toutes les villes',
+    'Symbol' => 'Symbole'
 
+
+    
 ];

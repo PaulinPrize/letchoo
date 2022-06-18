@@ -130,5 +130,16 @@ return [
     'Leave a tip' => 'Leave a tip',
     'Payment description' => 'Description',
     'Tips' => 'Tips',
-
+    'You have not yet chosen your method of receiving payments.' => 'You have not yet chosen your method of receiving payments.',
+    'Choosing a receive payment method will allow us to transfer all your income to you.' => 'Choosing a receive payment method will allow us to transfer all your income to you.',
+    'Bank transfer' => 'Bank transfer',
+    'Enter your PayPal Account' => 'Enter your PayPal Account',
+    'Receive payment method' => 'Receive payment method',
+    'Information not found' => 'Information not found',
+    'Host income' => 'Host income',
+    'Tax income' => 'Tax income',
+    'Total profit' => 'Total profit',
+    'All the countries' => 'All the countries',
+    'All the cities' => 'All the cities',
+    'Symbol' => 'Symbol'
 ];
