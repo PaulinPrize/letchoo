@@ -140,7 +140,8 @@ return [
     'Total profit' => 'Bénéfice total',
     'All the countries' => 'Tous les pays',
     'All the cities' => 'Toutes les villes',
-    'Symbol' => 'Symbole'
+    'Symbol' => 'Symbole',
+    'Open a new table' => 'Ouvrir une nouvelle table'
 
 
     

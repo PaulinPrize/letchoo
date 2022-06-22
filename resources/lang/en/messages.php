@@ -141,5 +141,6 @@ return [
     'Total profit' => 'Total profit',
     'All the countries' => 'All the countries',
     'All the cities' => 'All the cities',
-    'Symbol' => 'Symbol'
+    'Symbol' => 'Symbol',
+    'Open a new table' => 'Open a new table'
 ];

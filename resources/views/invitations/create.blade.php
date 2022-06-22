@@ -10,7 +10,7 @@
             <div class="card shadow mb-4">
 
                 <div class="card-header py-3">
-                    <h5 class="m-0 font-weight-bold text-primary">Open a new table</h5>
+                    <h5 class="m-0 font-weight-bold text-primary">{{__('messages.Open a new table')}}</h5>
                 </div>
 
                 <form method="POST" action="{{ route('invitation.store') }}" enctype="multipart/form-data">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-footer text-center">
                         {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                        <a href="{{ route('invitations') }}" class="btn btn-default">Cancel</a>
+                        <a href="{{ route('invitations') }}" class="btn btn-default">{{__('messages.Cancel')}}</a>
                     </div>
                 </form>
             </div>

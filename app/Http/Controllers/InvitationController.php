@@ -153,7 +153,7 @@ class InvitationController extends Controller
 
         $invitation->save();
 
-        return redirect()->route('invitation.my-tables')->with('info', 'Invitation saved successfully');    
+        return redirect()->route('invitation.my-tables')->with('info', 'Good, LeTchoo will take 15% of your total turnover for this table.');    
     }
 
     // Fonction permettant d'afficher une invitation
