@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
 use PragmaRX\Countries\Package\Countries;
+use App\Models\Pays;
 
 class HomeController extends Controller
 {
@@ -14,33 +15,28 @@ class HomeController extends Controller
         //$this->middleware('auth');
     }
 
-    /*
-    public function index(){       
-    	return view('welcome');
-    }
-    */
-
     public function pays(){
-        $countries = new Countries();
+
         // Récupérer tous les pays
-        $allCountries = $countries->all()->pluck('name.common')->toArray();
+        $countries = Pays::all();
+
         // Récupérer la colonne type_of_cuisine dans la table invitations
         $invit = DB::table('invitations')
         ->where('active', '=', 1)
         ->where('complete', '=', 0)
         ->distinct()->get(['type_of_cuisine']);
-        return view('welcome', compact('allCountries', 'invit'));
+        
+        return view('welcome', compact('countries', 'invit'));
     }
 
-    public function villes($cityName){
-        $countries = new Countries();
-        
-        $villes = $countries->where('name.common', $cityName)
-        ->first()
-        ->hydrate('cities')
-        ->cities
-        ->sortBy('name')     
-        ->pluck('name');
+    public function villes($countryName){
+        $villes;
+
+        $pays = Pays::with('villes')->where('nom', $countryName)->get();
+
+        foreach($pays as $p){
+            $villes = $p->villes->pluck('nom');
+        }
         
         return response()->json([
             'villes' => $villes,

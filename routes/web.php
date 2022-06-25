@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', '\App\Http\Co
 // Route affichant la page d'accueil
 Route::get('/', '\App\Http\Controllers\HomeController@pays')->name('home');
 // Afficher les villes des pays dans le formualire de recherche des invitations (à l'accueil)
-Route::get('villes/{cityName}', '\App\Http\Controllers\HomeController@villes')->name('villes');
+Route::get('villes/{countryName}', '\App\Http\Controllers\HomeController@villes')->name('villes');
 Route::post('searchData', '\App\Http\Controllers\HomeController@searchData');
 
 // Route permettant d'afficher les détails d'une invitation
@@ -84,10 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
 	//Formulaire de création des invitations
 	Route::get('invitation/create', '\App\Http\Controllers\InvitationController@create')->name('invitation.create');
 
-	// Afficher les informations des pays dans les champs de type select
-	//Route::get('cities/{cityName}', '\App\Http\Controllers\InvitationController@cities')->name('cities');
-
-	Route::get('cities/{id}', '\App\Http\Controllers\InvitationController@cities')->name('cities');
+	Route::get('country/{name}', '\App\Http\Controllers\InvitationController@country')->name('country');
 
 	// Enregistrer une invitation
 	Route::post('invitation/store','\App\Http\Controllers\InvitationController@store')->name('invitation.store');
@@ -99,7 +96,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('invitation/{invitation}/edit','\App\Http\Controllers\InvitationController@edit')->name('invitation.edit');
 
 	// Modifier une invitation
-	Route::put('invitation/{invitation}','\App\Http\Controllers\InvitationController@update')->name('invitation.update');
+	Route::put('invitation/{id}','\App\Http\Controllers\InvitationController@update')->name('invitation.update');
 
 	// Supprimer définitivement une invitation
 	Route::delete('invitation/destroy/{invitation}','\App\Http\Controllers\InvitationController@destroy')->name('invitation.destroy');
@@ -161,7 +158,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('countries', App\Http\Controllers\CountryController::class);
 
 	/* 7- Les routes pour la gestion des villes */
-	//Route::resource('villes', App\Http\Controllers\CityController::class);
 
 	// Lister toutes les villes
 	Route::get('villes', '\App\Http\Controllers\CityController@index')->name('villes');

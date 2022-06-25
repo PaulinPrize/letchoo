@@ -22,8 +22,8 @@
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                     <select class="form-control search-slt" id="country_id" name="country">
                                         <option value="" selected>{{__('messages.Choose country')}}</option>
-                                        @foreach($allCountries as $country)
-                                        <option value="{{$country}}">{{$country}}</option>
+                                        @foreach($countries as $country)
+                                        <option value="{{$country->nom}}">{{$country->nom}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -81,16 +81,12 @@
                             </div>
                             -->
 
-                            <div class="row" id="display-data1">
-
-                            </div>
+                            <div class="row" id="display-data1"></div>
 
                         </div>
                     </div>
 
-                    <div class="row" id="display-data2">
-
-                    </div>
+                    <div class="row" id="display-data2"></div>
 
                 </div>
             </div>
@@ -109,7 +105,6 @@
                 $.ajax({
                     url: "./villes/"+city,
                     success: function(data) {
-                        //console.log(data.villes)
                         $.each(data.villes, function(value1, value2){
                             $('<option value="' + value2 + '">' + value2 + '</option>').appendTo('#city_id');
                         });
@@ -184,14 +179,5 @@
             
             
         });
-        /*
-            let i;
-        for(i=0; i<3; i++){
-            const log = () =>{
-                console.log(i);
-            }
-            setTimeout(log, 100);
-        }
-        */
     </script>
 @endsection

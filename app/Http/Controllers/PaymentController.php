@@ -233,7 +233,6 @@ class PaymentController extends Controller
                         "amount" => $order->amount,
                         "currency" => $order->currency_code,
                     ]);
-
                 }
 
                 DB::commit();

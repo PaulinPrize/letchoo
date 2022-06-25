@@ -141,8 +141,8 @@ return [
     'All the countries' => 'Tous les pays',
     'All the cities' => 'Toutes les villes',
     'Symbol' => 'Symbole',
-    'Open a new table' => 'Ouvrir une nouvelle table'
-
+    'Open a new table' => 'Ouvrir une nouvelle table',
+    'LeTchoo will take 15% of your total turnover for this table' => 'LeTchoo prélèvera 15% de votre chiffre d\'affaires total pour cette table'
 
     
 ];

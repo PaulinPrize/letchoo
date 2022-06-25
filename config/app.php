@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
-        Srmklive\PayPal\Providers\PayPalServiceProvider::class
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
     ],
 
@@ -236,7 +236,6 @@ return [
         'Flash'     => Laracasts\Flash\Flash::class,
         'NumConvert' => 'HnhDigital\LaravelNumberConverter\Facade',
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
-
     ],
 
 ];

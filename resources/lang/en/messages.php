@@ -142,5 +142,6 @@ return [
     'All the countries' => 'All the countries',
     'All the cities' => 'All the cities',
     'Symbol' => 'Symbol',
-    'Open a new table' => 'Open a new table'
+    'Open a new table' => 'Open a new table',
+    'LeTchoo will take 15% of your total turnover for this table' => 'LeTchoo will take 15% of your total turnover for this table'
 ];

@@ -1,4 +1,3 @@
-<!-- {!! Form::label('name', 'Name:') !!} {!! Form::label('guard_name', 'Guard Name:') !!} -->
 <div class="form-group col-sm-6">
     <label class="form-control-label" for="name">{{__('messages.Name')}} :</label>
     {!! Form::text('name', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
