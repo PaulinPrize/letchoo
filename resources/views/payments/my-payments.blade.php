@@ -45,7 +45,7 @@
                                         <td class="text-center">
                                             <small>{{ $myPayment->created_at }}</small>
                                         </td>
-                                        @if($myPayment->transaction_type == 'Payment')
+                                        @if($myPayment->transaction_type == 'Payment' && $today > $myPayment->date)
                                             <td class="text-center">
                                                 <a 
                                                     class="btn btn-primary btn-sm " 

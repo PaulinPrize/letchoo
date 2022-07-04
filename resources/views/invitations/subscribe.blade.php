@@ -115,7 +115,21 @@
                                                         <div class="col-lg-4"></div>
                                                     </div>
                                                 </form>
-                                            @else
+                                            @elseif($invitation->direct_payment == 0 && $found_user_invitation)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-4">
+                                                        @if(Auth::user()->id == $invitation->user_id )
+                                                            <div class="alert alert-danger" role="alert">
+                                                                {{__('messages.Sorry, you cannot subscribe to your own table')}}
+                                                            </div>
+                                                        @else
+                                                            <div id="paypal-button-container"></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-lg-4"></div>
+                                                </div>
+                                            @elseif($invitation->direct_payment == 1 && $size == 0)
                                                 <form autocomplete="off">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <div class="row">
@@ -164,6 +178,22 @@
                                                         <div class="col-lg-4"></div>             
                                                     </div>
                                                 </form>
+                                            @else
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-4">
+                                                        @if(Auth::user()->id == $invitation->user_id )
+                                                            <div class="alert alert-danger" role="alert">
+                                                                {{__('messages.Sorry, you cannot subscribe to your own table')}}
+                                                            </div>
+                                                        @else
+                                                            <div class="alert alert-danger" role="alert">
+                                                                {{__('messages.You have already paid for this table')}}
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-lg-4"></div>
+                                                </div>
                                             @endif
                                         </div>
                                     </div>

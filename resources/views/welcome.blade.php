@@ -143,7 +143,8 @@
 
                         if(response.length > 0 ) {
                             $.each(response, function(index, item) {
-                                $(' <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">\n\
+                                if(item.image){
+                                    $(' <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">\n\
                                         <a href="./invitation/more/'+ item.id +'">\n\
                                             <div class="card h-100 cardStyle">\n\
                                                 <img class="card-img-top" src="public/storage/plate-photos/'+ item.image +'" style="width: 100%; height: 15vw; object-fit: cover;">\n\
@@ -162,8 +163,31 @@
                                                 </div>\n\
                                             </div>\n\
                                         </a>\n\
-                                    </div>\n\
-                                ').appendTo('#display-data1');
+                                        </div>\n\
+                                    ').appendTo('#display-data1');
+                                }else{
+                                    $(' <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">\n\
+                                        <a href="./invitation/more/'+ item.id +'">\n\
+                                            <div class="card h-100 cardStyle">\n\
+                                                <img class="card-img-top" src="public/storage/plate-photos/default.png" style="width: 100%; height: 15vw; object-fit: cover;">\n\
+                                                <div class="card-body">\n\
+                                                    <small class="text-truncate text-uppercase" style="font-size: 15px; font-weight:bold">\n\
+                                                        ' + item.menu + '</small>\n\
+                                                    <h5>\n\
+                                                        <small style="font-size:14px; font-weight:bold">\n\
+                                                            {{__('messages.Price')}} : '+ item.amountToBePaidByGuest +' ' + item.currency + '\n\
+                                                        </small>\n\
+                                                    </h5>\n\
+                                                    <small>\n\
+                                                        <img src="public/storage/'+ item.profile_photo_path +'" style="width:25px; height:25px; border-radius:50%"/>\n\
+                                                                    {{__('messages.Organized by')}} : ' + item.name + '\n\
+                                                    </small>\n\
+                                                </div>\n\
+                                            </div>\n\
+                                        </a>\n\
+                                        </div>\n\
+                                    ').appendTo('#display-data1');
+                                }
                             })
                         }else{
                             $('<div class="col-md-12 text-center"><h4 style="font-size: 28px">{{__('messages.Sorry.')}}</br>{{__('messages.No item matches your search...')}}</h4></div>').appendTo('#display-data2')
@@ -176,8 +200,6 @@
                     $(this).text($('#before-search').val())
                 }, 1000);
             });
-            
-            
         });
     </script>
 @endsection

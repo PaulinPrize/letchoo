@@ -48,7 +48,7 @@
                         <div class="col-sm-3 col-6">
                             <div class="description-block border-right">
                                 <span class="description-percentage text-warning"></span>
-                                <h5 class="description-header">{{$amountToBePaidToTheHost}} + {{$tips}} {{$currency}} = {{$hostIncome}}</h5>
+                                <h5 class="description-header">{{$amountToBePaidToTheHost}} {{$currency}} + {{$tips}} {{$currency}} = {{$hostIncome}} {{$currency}}</h5>
                                 <span class="description-text">{{__('messages.Host income')}}</span>
                             </div>
                         </div>

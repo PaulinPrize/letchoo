@@ -18,7 +18,7 @@ return [
     'Sorry.' => 'Désolé.',
     'No item matches your search...' => 'Aucun element ne correspond à votre recherche...',
     'To join this table you must pay directly.' => 'Pour rejoindre cette table vous devez payer directement.',
-    'Your subscription must be approved by the host to join this table.' => 'Votre souscription doit être approuvé par l\'hôte pour rejoindre cette table.',
+    'Your subscription must be approved by the host to join this table.' => 'Votre souscription doit être approuvée par l\'hôte pour rejoindre cette table.',
     'Menu' => 'Menu',
     'Description' => 'Description',
     'Day' => 'Jour',
@@ -142,7 +142,13 @@ return [
     'All the cities' => 'Toutes les villes',
     'Symbol' => 'Symbole',
     'Open a new table' => 'Ouvrir une nouvelle table',
-    'LeTchoo will take 15% of your total turnover for this table' => 'LeTchoo prélèvera 15% de votre chiffre d\'affaires total pour cette table'
+    'LeTchoo will take 15% of your total turnover for this table' => 'LeTchoo prélèvera 15% de votre chiffre d\'affaires total pour cette table',
+    'Table created successfully' => 'Table créée avec succès',
+    'Table modified successfully' => 'Table modified successfully',
+    'Table modified successfully' => 'Table modifiée avec succès',
+    'The invitation has been permanently deleted' => 'L\'invitation a été définitivement supprimée',
+    'Subscription already made' => 'Souscription déjà effectuée',
+    'You have already paid for this table' => 'Vous avez déjà payé pour cette table'
 
     
 ];

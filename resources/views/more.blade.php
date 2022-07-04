@@ -29,7 +29,11 @@
 					</div>
 					<div class="row mt-3">
 						<div class="col-md-12">
-							<img src="{{ asset('public/storage/plate-photos/'. $invitation->image) }}" class="img-rounded" style="height:350px; width: 100%">
+							@if($invitation->image == NULL)
+								<img src="{{asset('public/storage/plate-photos/default.png')}}" class="img-rounded" style="height:350px; width: 100%"/>
+							@else
+								<img src="{{ asset('public/storage/plate-photos/'. $invitation->image) }}" class="img-rounded" style="height:350px; width: 100%">
+							@endif
 						</div>
 					</div>
 					@if($invitation->description != null)

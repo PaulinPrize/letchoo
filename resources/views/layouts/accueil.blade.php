@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 		<link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet">
 
+		<link rel="stylesheet" href="{{asset('public/css/owl.carousel.min.css')}}">
 		<link rel="stylesheet" href="{{asset('public/fonts/icomoon/style.css')}}">
         <link rel="stylesheet" href="{{ asset('public/css/iziToast.min.css') }}">
 
@@ -103,6 +104,8 @@
 		
 		<script src="{{ asset('public/js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('public/js/popper.min.js') }}"></script>
+        <script src="{{ asset('public/js/jquery.sticky.js')}}"></script>
+        <script src="{{ asset('public/js/main.js')}}"></script>
         <script src="{{ asset('public/js/app.js') }}" defer></script>
 		
 		@yield('scripts')
