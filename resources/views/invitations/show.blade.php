@@ -16,11 +16,15 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
+<<<<<<< HEAD
                             @if($invitation->image == NULL)
                                 <img class="d-block w-100" src="{{asset('public/storage/plate-photos/default.png')}}" style="height:400px"/>
                             @else
                                 <img class="d-block w-100" src="{{ asset('public/storage/plate-photos/'. $invitation->image) }}"/>
                             @endif
+=======
+                            <img class="d-block w-100" src="{{ asset('public/storage/plate-photos/'. $invitation->image) }}"/>
+>>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                         </div>
                     </div>
                     <hr>

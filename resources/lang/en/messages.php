@@ -143,9 +143,13 @@ return [
     'All the cities' => 'All the cities',
     'Symbol' => 'Symbol',
     'Open a new table' => 'Open a new table',
+<<<<<<< HEAD
     'LeTchoo will take 15% of your total turnover for this table' => 'LeTchoo will take 15% of your total turnover for this table',
     'Table created successfully' => 'Table created successfully',
     'The invitation has been permanently deleted' => 'The invitation has been permanently deleted',
     'Subscription already made' => 'Subscription already made',
     'You have already paid for this table' => 'You have already paid for this table'
+=======
+    'LeTchoo will take 15% of your total turnover for this table' => 'LeTchoo will take 15% of your total turnover for this table'
+>>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
 ];

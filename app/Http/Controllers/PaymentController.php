@@ -136,8 +136,11 @@ class PaymentController extends Controller
         ->join('invitations',  'invitations.id', '=', 'transactions.invitation_id')
         ->paginate(8);
 
+<<<<<<< HEAD
         //dd($myPayments);
 
+=======
+>>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
         return view('payments.my-payments', compact('myPayments', 'today'));
     }
 

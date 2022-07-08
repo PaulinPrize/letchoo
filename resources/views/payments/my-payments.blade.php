@@ -45,7 +45,11 @@
                                         <td class="text-center">
                                             <small>{{ $myPayment->created_at }}</small>
                                         </td>
+<<<<<<< HEAD
                                         @if($myPayment->transaction_type == 'Payment' && $today > $myPayment->date)
+=======
+                                        @if($myPayment->transaction_type == 'Payment')
+>>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                                             <td class="text-center">
                                                 <a 
                                                     class="btn btn-primary btn-sm " 

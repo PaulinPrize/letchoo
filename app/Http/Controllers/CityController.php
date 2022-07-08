@@ -119,4 +119,19 @@ class CityController extends Controller
     
         return redirect()->route('villes')->with('info','Ville supprimée avec succès.');
     }
+<<<<<<< HEAD
+=======
+
+    public function get()
+    {
+        $cities = Ville::all();   
+        $cities_array = collect([]);
+
+        foreach($cities as $city) {
+            $cities_array->push(["id" => $city->id, "name" => $city->nom]);
+        }   
+
+        return $cities_array;
+    }
+>>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
 }

@@ -1,15 +1,26 @@
 <x-app-layout>
     <x-slot name="header"></x-slot>
+<<<<<<< HEAD
     
     @if(session()->has('information')) 
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ session('information') }}</strong>
+=======
+    <!--
+    @if(session()->has('info')) 
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('info') }}</strong>
+>>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">  
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
+<<<<<<< HEAD
     
+=======
+    -->
+>>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
     <div class="row"> 
         <div class="col-lg-12"> 
             <div class="card shadow mb-4">
