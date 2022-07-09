@@ -28,11 +28,8 @@
             }
         </style>
 
-<<<<<<< HEAD
-=======
         @yield('styles')
 
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
         

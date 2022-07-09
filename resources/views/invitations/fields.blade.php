@@ -10,15 +10,10 @@
             <label class="form-control-label" for="type_of_cuisine">{{__('messages.Type of cuisine')}}: *</label>
             <select class="form-control" id="type_of_cuisine" name="type_of_cuisine">
                 <option value="" selected>{{__('messages.Choose type of cuisine')}}</option>
-<<<<<<< HEAD
                 @foreach($pays as $p)
                 <option {{ old('type_of_cuisine') == $p ? "selected" : "" }} value="{{ $p }}">
                     {{ $p }}
                 </option>
-=======
-                @foreach($countries as $country)
-                <option value="{{$country->nom}}">{{$country->nom}}</option>
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                 @endforeach
             </select>
         </div>
@@ -41,13 +36,9 @@
             <select class="form-control" id="country_id" name="country">
                 <option value="" selected>{{__('messages.Choose country')}}</option>
                 @foreach($countries as $country)
-<<<<<<< HEAD
                 <option {{ old('country') == $country->nom ? "selected" : "" }} value="{{ $country->nom }}">
                     {{ $country->nom }}
                 </option>
-=======
-                    <option value="{{$country->nom}}">{{$country->nom}}</option>
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                 @endforeach
             </select>
         </div>
@@ -104,11 +95,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="heure">Time : </label>
-<<<<<<< HEAD
             {!! Form::time('heure', null, ['class' => 'form-control','name' => 'heure']) !!}
-=======
-            <input type="time" class="form-control" name="heure"/>
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
         </div>
     </div>
 </div>

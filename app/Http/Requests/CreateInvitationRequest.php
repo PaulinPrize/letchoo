@@ -29,13 +29,8 @@ class CreateInvitationRequest extends FormRequest
             'description' => 'nullable|string',
             'country' => 'required|string|max:255',
             'city' => 'required|string|max:255',
-<<<<<<< HEAD
             //'currency' => 'required',
             //'tax' => 'required|numeric|min:1',
-=======
-            'currency' => 'required',
-            'tax' => 'required|numeric|min:1',
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
             'place' => 'required|string|max:255',
             'postal_code' => '',
             'date' => 'required',

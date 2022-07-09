@@ -115,7 +115,6 @@
                                                         <div class="col-lg-4"></div>
                                                     </div>
                                                 </form>
-<<<<<<< HEAD
                                             @elseif($invitation->direct_payment == 0 && $found_user_invitation)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
@@ -131,9 +130,6 @@
                                                     <div class="col-lg-4"></div>
                                                 </div>
                                             @elseif($invitation->direct_payment == 1 && $size == 0)
-=======
-                                            @else
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                                                 <form autocomplete="off">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <div class="row">
@@ -182,7 +178,6 @@
                                                         <div class="col-lg-4"></div>             
                                                     </div>
                                                 </form>
-<<<<<<< HEAD
                                             @else
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
@@ -199,8 +194,6 @@
                                                     </div>
                                                     <div class="col-lg-4"></div>
                                                 </div>
-=======
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                                             @endif
                                         </div>
                                     </div>
@@ -264,14 +257,11 @@
                         message: 'Payment completed',
                         position: 'topRight'
                     });
-<<<<<<< HEAD
-=======
 
                     //redirect the user after 3 seconds
                     setTimeout(() => {
                         location.href = "/"
                     }, 300);
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                 });
             }
 

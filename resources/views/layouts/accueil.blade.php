@@ -10,22 +10,15 @@
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 		<link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet">
 
-<<<<<<< HEAD
 		<link rel="stylesheet" href="{{asset('public/css/owl.carousel.min.css')}}">
-=======
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
 		<link rel="stylesheet" href="{{asset('public/fonts/icomoon/style.css')}}">
         <link rel="stylesheet" href="{{ asset('public/css/iziToast.min.css') }}">
 
         <!-- Styles -->
         <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
 		<link href="{{ asset('public/css/style.css') }}" rel="stylesheet"> 
-<<<<<<< HEAD
-		
-=======
 		@yield('styles')
 
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
 		<title>{{ config('app.name', 'Le Tchoo') }}</title>			
 
     </head>
@@ -109,20 +102,13 @@
 		</header>
 		@yield('content')
 		
-<<<<<<< HEAD
 		
 		<script src="{{ asset('public/js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('public/js/popper.min.js') }}"></script>
-        <script src="{{ asset('public/js/jquery.sticky.js')}}"></script>
-        <script src="{{ asset('public/js/main.js')}}"></script>
-        <script src="{{ asset('public/js/app.js') }}" defer></script>
-=======
-		<script src="{{ asset('public/js/jquery-3.3.1.min.js') }}"></script>
-        <script src="{{ asset('public/js/popper.min.js') }}"></script>
-       
 		<script src="{{ asset('public/js/app.js') }}" ></script>
+		<script src="{{ asset('public/js/jquery.sticky.js')}}"></script>
+        <script src="{{ asset('public/js/main.js')}}"></script>
 		<script src="{{ asset('public/js/bootstrap-autocomplete.min.js') }}"></script>
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
 		
 		@yield('scripts')
     </body>

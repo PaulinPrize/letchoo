@@ -119,8 +119,6 @@ class CityController extends Controller
     
         return redirect()->route('villes')->with('info','Ville supprimée avec succès.');
     }
-<<<<<<< HEAD
-=======
 
     public function get()
     {
@@ -133,5 +131,4 @@ class CityController extends Controller
 
         return $cities_array;
     }
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
 }

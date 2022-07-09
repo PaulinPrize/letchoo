@@ -63,11 +63,7 @@
                         url: "{{route('invitation.accept')}}",
                         data: {'activeUser': activeUser, 'id': id},
                         success: function(data){
-<<<<<<< HEAD
                             
-=======
-                            console.log(data)
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                         }
                     });
                 })

@@ -26,11 +26,11 @@
                     </div>
                 </form>
 
-                <form method="POST" action="/logout">
+                <form method="POST" action="../logout">
                     @csrf
 
-                    <button type="submit" class="btn btn-link">
-                        {{ __('Log Out') }}
+                    <button type="submit" class="btn btn-link"> 
+                        {{ __('messages.Log Out') }}
                     </button>
                 </form>
             </div>

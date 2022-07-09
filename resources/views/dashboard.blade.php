@@ -61,6 +61,7 @@
         @endcan
 
     </div>
+    <!--
     @can('see-gauge')
     <div class="row">
         <div class="col-lg-12">
@@ -86,5 +87,6 @@
         </div>
     </div>
     @endcan
+    -->
 
 </x-app-layout>

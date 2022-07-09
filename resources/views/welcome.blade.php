@@ -1,7 +1,5 @@
 @extends('layouts/accueil')
 
-<<<<<<< HEAD
-=======
 @section('styles')
     <style>
         
@@ -44,7 +42,6 @@
     </style>
 @endsection
 
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
 @section('content')
     <div class="section1">
         <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
@@ -62,11 +59,9 @@
 
                     <div class="row">
                         <div class="col-md-12">
-<<<<<<< HEAD
-=======
                             <div class="row">
                                 
-                                <div class="col-lg-6 col-md-6 col-sm-12 p-0">
+                                <div class="col-lg-9 col-md-9 col-sm-12 p-0">
                                     <div class="autocomplete">
                                         <input 
                                             class="form-control" 
@@ -77,7 +72,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-lg-6 col-md-6 col-sm-12 p-0">
+                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                     <button type="button" class="btn btn-primary wrn-btn" id="submit_form">{{ __('messages.Search') }}</button>
                                 </div>
 
@@ -87,8 +82,7 @@
 
                     <div class="row" style="display:none">
                         <div class="col-md-12">
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
-
+                        
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                     <select class="form-control search-slt" id="country_id" name="country">
@@ -167,16 +161,11 @@
 
 @section('scripts')
     <script type="text/javascript">
-<<<<<<< HEAD
-        $(document).ready(function () {
-            
-=======
 
         let near_cities = {!! json_encode($user_cities->toArray()) !!};
         let content_city_id = 0;
         $(document).ready(function () {
 
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
             $('#country_id').change(function() {
                 // Récupérer le pays sélectionné
                 var city = $(this).val();
@@ -195,18 +184,10 @@
 
                 $(this).prop('disabled', true)
                 $(this).text($('#searching').val())
-<<<<<<< HEAD
-
-                var data ={
-                    'country': $("#country_id").val(),
-                    'city': $("#city_id").val(),
-                    'type_of_cuisine': $("#type_of_cuisine").val(),
-=======
                 var data ={
                     //'country': $("#country_id").val(),
                     'city': content_city_id,
                     //'type_of_cuisine': $("#type_of_cuisine").val(),
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                 }
 
                 $.ajaxSetup({
@@ -229,12 +210,8 @@
 
                         if(response.length > 0 ) {
                             $.each(response, function(index, item) {
-<<<<<<< HEAD
                                 if(item.image){
                                     $(' <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">\n\
-=======
-                                $(' <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">\n\
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                                         <a href="./invitation/more/'+ item.id +'">\n\
                                             <div class="card h-100 cardStyle">\n\
                                                 <img class="card-img-top" src="public/storage/plate-photos/'+ item.image +'" style="width: 100%; height: 15vw; object-fit: cover;">\n\
@@ -253,7 +230,6 @@
                                                 </div>\n\
                                             </div>\n\
                                         </a>\n\
-<<<<<<< HEAD
                                         </div>\n\
                                     ').appendTo('#display-data1');
                                 }else{
@@ -279,10 +255,6 @@
                                         </div>\n\
                                     ').appendTo('#display-data1');
                                 }
-=======
-                                    </div>\n\
-                                ').appendTo('#display-data1');
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
                             })
                         }else{
                             $('<div class="col-md-12 text-center"><h4 style="font-size: 28px">{{__('messages.Sorry.')}}</br>{{__('messages.No item matches your search...')}}</h4></div>').appendTo('#display-data2')
@@ -295,9 +267,6 @@
                     $(this).text($('#before-search').val())
                 }, 1000);
             });
-<<<<<<< HEAD
-        });
-=======
             
             
         });
@@ -306,6 +275,7 @@
         function autocomplete(inp, arr, cities) {
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*/
+            console.log('start cklick')
             var currentFocus;
             /*execute a function focus*/
             if(cities.length > 0) {
@@ -447,6 +417,5 @@
         /*initiate the autocomplete function on the "myAutoComplete" element, and pass along the countries array as possible autocomplete values:*/
         
 
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
     </script>
 @endsection

@@ -18,11 +18,7 @@ return [
     'Sorry.' => 'Désolé.',
     'No item matches your search...' => 'Aucun element ne correspond à votre recherche...',
     'To join this table you must pay directly.' => 'Pour rejoindre cette table vous devez payer directement.',
-<<<<<<< HEAD
     'Your subscription must be approved by the host to join this table.' => 'Votre souscription doit être approuvée par l\'hôte pour rejoindre cette table.',
-=======
-    'Your subscription must be approved by the host to join this table.' => 'Votre souscription doit être approuvé par l\'hôte pour rejoindre cette table.',
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
     'Menu' => 'Menu',
     'Description' => 'Description',
     'Day' => 'Jour',
@@ -38,7 +34,7 @@ return [
     'Amount in words :' => 'Montant en lettres :',
     'Pay until :' => 'Payez avant le :',
     'Sorry, you cannot subscribe to your own table' => 'Désolé, vous ne pouvez pas souscrire à votre propre table',
-    'Searching' => 'Recherche en cours ...',
+    'Searching' => 'Recherche...',
     'Email' => 'Email',
     'Password' => 'Mot de passe',
     'Remember Me' => 'Se rappeler',
@@ -146,7 +142,6 @@ return [
     'All the cities' => 'Toutes les villes',
     'Symbol' => 'Symbole',
     'Open a new table' => 'Ouvrir une nouvelle table',
-<<<<<<< HEAD
     'LeTchoo will take 15% of your total turnover for this table' => 'LeTchoo prélèvera 15% de votre chiffre d\'affaires total pour cette table',
     'Table created successfully' => 'Table créée avec succès',
     'Table modified successfully' => 'Table modified successfully',
@@ -154,9 +149,6 @@ return [
     'The invitation has been permanently deleted' => 'L\'invitation a été définitivement supprimée',
     'Subscription already made' => 'Souscription déjà effectuée',
     'You have already paid for this table' => 'Vous avez déjà payé pour cette table'
-=======
-    'LeTchoo will take 15% of your total turnover for this table' => 'LeTchoo prélèvera 15% de votre chiffre d\'affaires total pour cette table'
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
 
     
 ];

@@ -182,8 +182,5 @@ Route::group(['middleware' => 'auth'], function () {
 	
 });
 
-<<<<<<< HEAD
-=======
 Route::get('cities', '\App\Http\Controllers\CityController@get');
 
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
