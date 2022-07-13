@@ -258,10 +258,10 @@
                         position: 'topRight'
                     });
 
-                    //redirect the user after 3 seconds
+                    //redirect the user after 5 seconds
                     setTimeout(() => {
-                        location.href = "/"
-                    }, 300);
+                        location.href = "../../my-invitations"
+                    }, 500);
                 });
             }
 

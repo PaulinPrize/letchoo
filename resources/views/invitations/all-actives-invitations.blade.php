@@ -147,7 +147,8 @@
 
                     var data ={
                         'country': $("#country_id").val(),
-                        'city': $("#city_id").val(),
+                        //'city': $("#city_id").val(),
+                        'city': $('#myAutoComplete').val(),
                         'type_of_cuisine': $("#type_of_cuisine").val(),
                     }
 

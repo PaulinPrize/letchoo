@@ -26,20 +26,31 @@ class HomeController extends Controller
         
         $ip = '162.159.24.227'; /* Static IP address */
         $currentUserInfo = Location::get($ip);
-        $user_country = Pays::where('nom', $currentUserInfo->countryName)->first();
-        //get cities belong to country user
-        $user_cities = Ville::where('pays_id', $user_country->id)
-            ->limit(8)
-            ->select('id', 'nom')
-            ->get();
+    
 
-        // Récupérer la colonne type_of_cuisine dans la table invitations
-        $invit = DB::table('invitations')
-        ->where('active', '=', 1)
-        ->where('complete', '=', 0)
-        ->distinct()->get(['type_of_cuisine']);
+        if($currentUserInfo) {
 
-        return view('welcome', compact('countries', 'invit', 'user_cities'));
+            $user_country = Pays::where('nom', $currentUserInfo->countryName)->first();
+            //get cities belong to country user
+            $user_cities = Ville::where('pays_id', $user_country->id)
+                ->limit(8)
+                ->select('id', 'nom')
+                ->get();
+
+            // Récupérer la colonne type_of_cuisine dans la table invitations
+            $invit = DB::table('invitations')
+            ->where('active', '=', 1)
+            ->where('complete', '=', 0)
+            ->distinct()->get(['type_of_cuisine']);
+        
+            return view('welcome', compact('countries', 'invit', 'user_cities'));
+    
+        } else {
+
+            return view('welcome_no_internet');
+        }
+
+       
     }
 
     public function villes($countryName){

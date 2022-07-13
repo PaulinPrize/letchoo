@@ -575,20 +575,26 @@ class InvitationController extends Controller
         //$ip = $request->ip(); 
         $ip = '162.159.24.227'; /* Static IP address */
         $currentUserInfo = Location::get($ip);
-        $user_country = Pays::where('nom', $currentUserInfo->countryName)->first();
-        //get cities belong to country user
-        $user_cities = Ville::where('pays_id', $user_country->id)
-            ->limit(5)
-            ->select('id', 'nom')
-            ->get();
 
-        // Récupérer toutes la colonne type_of_cuisine dans la table invitations
-        $invit = DB::table('invitations')
-        ->where('active', '=', 1)
-        ->where('complete', '=', 0)
-        ->distinct()->get(['type_of_cuisine']);
+        if($currentUserInfo) {
+            $user_country = Pays::where('nom', $currentUserInfo->countryName)->first();
+            //get cities belong to country user
+            $user_cities = Ville::where('pays_id', $user_country->id)
+                ->limit(5)
+                ->select('id', 'nom')
+                ->get();
 
-        return view('invitations.all-actives-invitations', compact('allCountries', 'invit', 'user_cities'));
+            // Récupérer toutes la colonne type_of_cuisine dans la table invitations
+            $invit = DB::table('invitations')
+            ->where('active', '=', 1)
+            ->where('complete', '=', 0)
+            ->distinct()->get(['type_of_cuisine']);
+
+            return view('invitations.all-actives-invitations', compact('allCountries', 'invit', 'user_cities'));
+        
+        } else {
+            return view('welcome_no_internet_auth');
+        }
     }
 
     // Rechercher une invitation

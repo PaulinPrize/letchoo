@@ -165,7 +165,7 @@
         let near_cities = {!! json_encode($user_cities->toArray()) !!};
         let content_city_id = 0;
         $(document).ready(function () {
-
+            
             $('#country_id').change(function() {
                 // Récupérer le pays sélectionné
                 var city = $(this).val();
@@ -181,12 +181,12 @@
             });
 
             $("#submit_form").on("click", function() {
-
                 $(this).prop('disabled', true)
                 $(this).text($('#searching').val())
                 var data ={
                     //'country': $("#country_id").val(),
-                    'city': content_city_id,
+                    //'city': content_city_id,
+                    'city': $('#myAutoComplete').val(),
                     //'type_of_cuisine': $("#type_of_cuisine").val(),
                 }
 
@@ -275,7 +275,6 @@
         function autocomplete(inp, arr, cities) {
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*/
-            console.log('start cklick')
             var currentFocus;
             /*execute a function focus*/
             if(cities.length > 0) {
