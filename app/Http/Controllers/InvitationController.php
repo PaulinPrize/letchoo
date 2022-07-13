@@ -18,13 +18,13 @@ class InvitationController extends Controller
 {
     // Fonction permettant d'afficher toutes les invitations
     public function index()
-    {	
+    {   
         $invitations = Invitation::withCount(['transactions' => function($query){
             $query->where('status', 'COMPLETED')
             ->where('transaction_type', 'Payment');
-        }])->paginate(5);	                   
+        }])->paginate(5);                      
 
-    	return view('invitations/index', compact('invitations')); 
+        return view('invitations/index', compact('invitations')); 
     }
 
     // Fonction permettant d'afficher le formulaire de création des invitations
@@ -379,17 +379,29 @@ class InvitationController extends Controller
         $invitation->save();
 
         // Récupérer l'email de l'user qui crée l'invitation pour lui envoyer un mail
-        $userEmail = Auth::user()->email;
+        $userId = Auth::user()->id;
+        $userName = Auth::user()->name;
+        $userEmail = User::findOrFail($userId);
 
         $details = [
-            'greeting' => 'Hi',
-            'body' => 'This is body',
-            //'actiontext' => 'Subscribe this channel',
-            //'actionurl' => '/',
-            //'lastline' => 'this is last line'
+            'greeting' => 'Hi ' .$userName. ',',
+            'body' => 'Your table has been successfully created. 
+            It will be published on the platform after validation.',
+            'actiontext' => 'Subscribe this channel'
         ];
 
         Notification::send($userEmail, new SendEmailNotification($details));
+
+        // Trouver les admins
+        $admin = User::find(1);
+
+        $details2 = [
+            'greeting' => 'Hi',
+            'body' => 'A new table has been created.',
+            'actiontext' => 'Subscribe this channel'
+        ];
+
+        Notification::send($admin, new SendEmailNotification($details2));
 
         return redirect()->route('invitation.my-tables')->withInfo(__('messages.Table created successfully'));    
     }
@@ -490,11 +502,26 @@ class InvitationController extends Controller
 
     // Valider une invitation (l'activer pour qu'elle soit visible) après sa création
     public function changeInvitationStatus(Request $request){
-    	$invitation = Invitation::find($request->invitation_id);
-    	$invitation->active = $request->active;
-    	$invitation->save();
 
-    	return response()->json(['success'=>'Status ddd']);
+        $invitation = Invitation::find($request->invitation_id);
+        $invitation->active = $request->active;
+
+        $invitation->save();
+
+        // Récupérer l'email de l'user qui crée l'invitation pour lui envoyer un mail
+        $userId = $invitation->user_id;
+        $userEmail = User::findOrFail($userId);
+
+        $details = [
+            'greeting' => 'Hi, ',
+            'body' => 'Your table ' . $invitation->menu . ' has been approved.',
+            'actiontext' => 'Subscribe this channel'
+        ];
+
+        Notification::send($userEmail, new SendEmailNotification($details));
+
+        return response()->json(['success'=>'Status ddd']);
+
     }
 
     // Fermer une invitation
@@ -575,26 +602,20 @@ class InvitationController extends Controller
         //$ip = $request->ip(); 
         $ip = '162.159.24.227'; /* Static IP address */
         $currentUserInfo = Location::get($ip);
+        $user_country = Pays::where('nom', $currentUserInfo->countryName)->first();
+        //get cities belong to country user
+        $user_cities = Ville::where('pays_id', $user_country->id)
+            ->limit(5)
+            ->select('id', 'nom')
+            ->get();
 
-        if($currentUserInfo) {
-            $user_country = Pays::where('nom', $currentUserInfo->countryName)->first();
-            //get cities belong to country user
-            $user_cities = Ville::where('pays_id', $user_country->id)
-                ->limit(5)
-                ->select('id', 'nom')
-                ->get();
+        // Récupérer toutes la colonne type_of_cuisine dans la table invitations
+        $invit = DB::table('invitations')
+        ->where('active', '=', 1)
+        ->where('complete', '=', 0)
+        ->distinct()->get(['type_of_cuisine']);
 
-            // Récupérer toutes la colonne type_of_cuisine dans la table invitations
-            $invit = DB::table('invitations')
-            ->where('active', '=', 1)
-            ->where('complete', '=', 0)
-            ->distinct()->get(['type_of_cuisine']);
-
-            return view('invitations.all-actives-invitations', compact('allCountries', 'invit', 'user_cities'));
-        
-        } else {
-            return view('welcome_no_internet_auth');
-        }
+        return view('invitations.all-actives-invitations', compact('allCountries', 'invit', 'user_cities'));
     }
 
     // Rechercher une invitation
@@ -700,6 +721,32 @@ class InvitationController extends Controller
         $userInvitation->currency = $request->input('currency');
 
         $userInvitation->save();
+
+        // Récupérer l'email et le nom de l'user qui souhaite souscrire à une table
+        $userId = Auth::user()->id;
+        $userName = Auth::user()->name;
+        
+        $userEmail1 = User::findOrFail($userId);
+
+        $details1 = [
+            'greeting' => 'Hi ' .$userName. ',',
+            'body' => 'You have just subscribed to the table ' .$userInvitation->menu. ', please be patient while waiting for the host\'s validation.',
+            'actiontext' => 'Subscribe this channel'
+        ];
+
+        Notification::send($userEmail1, new SendEmailNotification($details1));
+
+        // Récupérer l'email de l'user qui crée l'invitation pour lui envoyer un mail
+        $userHostId = $userInvitation->user_id;
+        $userEmail2 = User::find($userHostId);
+
+        $details2 = [
+            'greeting' => 'Hi, ',
+            'body' => $userInvitation->subscriber_name . ' would like to be your guest.',
+            'actiontext' => 'Subscribe this channel'
+        ];
+
+        Notification::send($userEmail2, new SendEmailNotification($details2));
 
         return redirect()->route('invitation.my-invitations')->with('info', 'Well done');
     }

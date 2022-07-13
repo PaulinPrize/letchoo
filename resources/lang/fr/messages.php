@@ -148,7 +148,9 @@ return [
     'Table modified successfully' => 'Table modifiée avec succès',
     'The invitation has been permanently deleted' => 'L\'invitation a été définitivement supprimée',
     'Subscription already made' => 'Souscription déjà effectuée',
-    'You have already paid for this table' => 'Vous avez déjà payé pour cette table'
+    'You have already paid for this table' => 'Vous avez déjà payé pour cette table',
+    'A problem with your internet connection ?' => 'Un probleme avec votre connexion internet ?',
+    'Please refresh the page' => 'Merci de rafraichir la page',
 
     
 ];

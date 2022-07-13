@@ -3,9 +3,9 @@
     <div class="section1">
 
         <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-            <h3>
-                Un probleme avec votre connexion internet. <br>
-                Merci de rafraichir la page
+            <h3 class="text-center">
+                {{__('messages.A problem with your internet connection ?')}}<br>
+                {{__('messages.Please refresh the page')}} 
             </h3>
         </div>
     </div>
