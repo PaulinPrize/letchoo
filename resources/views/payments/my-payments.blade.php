@@ -19,7 +19,6 @@
                                     <th class="text-center">{{__('messages.Reference number')}}</th>
                                     <th class="text-center">{{__('messages.Amount')}}</th>
                                     <th class="text-center">Date</th>
-                                    <th class="text-center"></th>
                                 </tr>
                             </thead> 
                             <tbody>
@@ -46,7 +45,6 @@
                                             <small>{{ $myPayment->created_at }}</small>
                                         </td>
                                         @if($myPayment->transaction_type == 'Payment' && $today > $myPayment->date)
-                                        @if($myPayment->transaction_type == 'Payment')
                                             <td class="text-center">
                                                 <a 
                                                     class="btn btn-primary btn-sm " 
@@ -58,7 +56,7 @@
                                                 </a>
                                             </td>
                                         @else
-                                            <td></td>
+                                            
                                         @endif
                                     </tr>
                                 @endforeach

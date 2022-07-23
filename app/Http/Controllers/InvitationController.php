@@ -64,31 +64,26 @@ class InvitationController extends Controller
             'BEN' => 'Bénin',
             'BMU' => 'Bermudes',
             'BTN' => 'Bhoutan',
+            'MMR' => 'Birmanie',
             'BOL' => 'Bolivie',
             'BIH' => 'Bosnie-Herzégovine',
             'BWA' => 'Botswana',
-            'BVT' => 'Île Bouvet',
             'BRA' => 'Brésil',
             'BRN' => 'Brunei',
             'BGR' => 'Bulgarie',
             'BFA' => 'Burkina Faso',
             'BDI' => 'Burundi',
-            'CYM' => 'Îles Caïmans',
             'KHM' => 'Cambodge',
             'CMR' => 'Cameroun',
             'CAN' => 'Canada',
             'CPV' => 'Cap-Vert',
-            'CAF' => 'République centrafricaine',
             'CHL' => 'Chili',
             'CHN' => 'Chine',
-            'CXR' => 'Île Christmas',
             'CYP' => 'Chypre',
-            'CCK' => 'Îles Cocos',
             'COL' => 'Colombie',
             'COM' => 'Comores',
             'COG' => 'Congo-Brazzaville',
             'COD' => 'Congo-Kinshasa',
-            'COK' => 'Îles Cook',
             'KOR' => 'Corée du Sud',
             'PRK' => 'Corée du Nord',
             'CRI' => 'Costa Rica',
@@ -97,10 +92,8 @@ class InvitationController extends Controller
             'CUB' => 'Cuba',
             'DNK' => 'Danemark',
             'DJI' => 'Djibouti',
-            'DOM' => 'République dominicaine',
             'DMA' => 'Dominique',
             'EGY' => 'Égypte',
-            'SLV' => 'Salvador',
             'ARE' => 'Émirats arabes unis',
             'ECU' => 'Équateur',
             'ERI' => 'Érythrée',
@@ -108,8 +101,6 @@ class InvitationController extends Controller
             'EST' => 'Estonie',
             'USA' => 'États-Unis',
             'ETH' => 'Éthiopie',
-            'FLK' => 'Îles Malouines',
-            'FRO' => 'Îles Féroé',
             'FJI' => 'Fidji',
             'FIN' => 'Finlande',
             'FRA' => 'France',
@@ -132,12 +123,21 @@ class InvitationController extends Controller
             'GUY' => 'Guyana',
             'GUF' => 'Guyane',
             'HTI' => 'Haïti',
-            'HMD' => 'Îles Heard-et-MacDonald',
             'HND' => 'Honduras',
             'HKG' => 'Hong Kong',
             'HUN' => 'Hongrie',
+            'BVT' => 'Île Bouvet',
+            'CYM' => 'Îles Caïmans',
+            'CXR' => 'Île Christmas',
+            'CCK' => 'Îles Cocos',
+            'COK' => 'Îles Cook',
             'IMN' => 'Île de Man',
+            'FRO' => 'Îles Féroé',
+            'HMD' => 'Îles Heard-et-MacDonald',
+            'FLK' => 'Îles Malouines',
+            'MNP' => 'Îles Mariannes du Nord',
             'UMI' => 'Îles mineures éloignées des États-Unis',
+            'PCN' => 'Îles Pitcairn',
             'VGB' => 'Îles Vierges britanniques',
             'VIR' => 'Îles Vierges des États-Unis',
             'IND' => 'Inde',
@@ -157,6 +157,7 @@ class InvitationController extends Controller
             'KGZ' => 'Kirghizistan',
             'KIR' => 'Kiribati',
             'KWT' => 'Koweït',
+            'REU' => 'La Réunion',
             'LAO' => 'Laos',
             'LSO' => 'Lesotho',
             'LVA' => 'Lettonie',
@@ -173,8 +174,7 @@ class InvitationController extends Controller
             'MWI' => 'Malawi',
             'MDV' => 'Maldives',
             'MLI' => 'Mali',
-            'MLT' => 'Malte',
-            'MNP' => 'Îles Mariannes du Nord',
+            'MLT' => 'Malte',            
             'MAR' => 'Maroc',
             'MHL' => 'Marshall',
             'MTQ' => 'Martinique',
@@ -188,8 +188,7 @@ class InvitationController extends Controller
             'MNG' => 'Mongolie',
             'MNE' => 'Monténégro',
             'MSR' => 'Montserrat',
-            'MOZ' => 'Mozambique',
-            'MMR' => 'Birmanie',
+            'MOZ' => 'Mozambique',            
             'NAM' => 'Namibie',
             'NRU' => 'Nauru',
             'NPL' => 'Népal',
@@ -201,7 +200,6 @@ class InvitationController extends Controller
             'NOR' => 'Norvège',
             'NCL' => 'Nouvelle-Calédonie',
             'NZL' => 'Nouvelle-Zélande',
-            'IOT' => 'Territoire britannique de l\'océan Indien',
             'OMN' => 'Oman',
             'UGA' => 'Ouganda',
             'UZB' => 'Ouzbékistan',
@@ -213,14 +211,15 @@ class InvitationController extends Controller
             'PRY' => 'Paraguay',
             'NLD' => 'Pays-Bas',
             'PER' => 'Pérou',
-            'PHL' => 'Philippines',
-            'PCN' => 'Îles Pitcairn',
+            'PHL' => 'Philippines',            
             'POL' => 'Pologne',
             'PYF' => 'Polynésie française',
             'PRI' => 'Porto Rico',
             'PRT' => 'Portugal',
             'QAT' => 'Qatar',
-            'REU' => 'La Réunion',
+            'CAF' => 'République centrafricaine',
+            'DOM' => 'République dominicaine',
+            'CZE' => 'République tchèque',
             'ROU' => 'Roumanie',
             'UK' => 'Royaume-Uni',
             'RUS' => 'Russie',
@@ -231,11 +230,11 @@ class InvitationController extends Controller
             'SMR' => 'Saint-Marin',
             'MAF' => 'Saint-Martin',
             'SPM' => 'Saint-Pierre-et-Miquelon',
-            'VAT' => 'Vatican (Saint-Siège)',
             'VCT' => 'Saint-Vincent-et-les Grenadines',
             'SHN' => 'Sainte-Hélène',
             'LCA' => 'Sainte-Lucie',
             'SLB' => 'Salomon',
+            'SLV' => 'Salvador',
             'WSM' => 'Samoa',
             'ASM' => 'Samoa américaines',
             'STP' => 'Sao Tomé-et-Principe',
@@ -258,9 +257,9 @@ class InvitationController extends Controller
             'TJK' => 'Tadjikistan',
             'TWN' => 'Taïwan',
             'TZA' => 'Tanzanie',
-            'TCD' => 'Tchad',
-            'CZE' => 'République tchèque',
+            'TCD' => 'Tchad',            
             'ATF' => 'Terres australes et antarctiques françaises',
+            'IOT' => 'Territoire britannique de l\'océan Indien',
             'THA' => 'Thaïlande',
             'TLS' => 'Timor oriental',
             'TGO' => 'Togo',
@@ -275,6 +274,7 @@ class InvitationController extends Controller
             'UKR' => 'Ukraine',
             'URY' => 'Uruguay',
             'VUT' => 'Vanuatu',
+            'VAT' => 'Vatican (Saint-Siège)',
             'VEN' => 'Venezuela',
             'VNM' => 'Viêt Nam',
             'WLF' => 'Wallis-et-Futuna',
@@ -688,7 +688,7 @@ class InvitationController extends Controller
         // Récupérer l'identifiant de l'utilisateur connecté
         $userID = Auth::user()->id;
 
-        // Savoir si un utilisateur a déjà payé sur une table
+        /*
         $testUserPayment = DB::table('transactions')
         ->where('invitation_id', '=', $invitationID)
         ->where('user_id', '=', $userID)
@@ -703,8 +703,19 @@ class InvitationController extends Controller
 
         $size = sizeof($testUserPayment);
         $activeUser = sizeof($found_activeUser);
+        */
 
-        return view('invitations/subscribe', compact('invitation', 'found_user_invitation', 'size', 'activeUser'));
+        // Savoir si un utilisateur a déjà payé sur une table
+        $testUserPayment = DB::table('transactions')
+        ->where('invitation_id', '=', $invitationID)
+        ->where('user_id', '=', $userID)
+        ->where('transaction_type', '=', 'Payment')
+        ->where('status', '=', 'COMPLETED')
+        ->get();
+
+        $size1 = sizeof($testUserPayment);
+
+        return view('invitations/subscribe', compact('invitation', 'size1'));
     }
 
     // Terminer sa souscription
@@ -722,22 +733,8 @@ class InvitationController extends Controller
 
         $userInvitation->save();
 
-        // Récupérer l'email et le nom de l'user qui souhaite souscrire à une table
-        $userId = Auth::user()->id;
-        $userName = Auth::user()->name;
-        
-        $userEmail1 = User::findOrFail($userId);
-
-        $details1 = [
-            'greeting' => 'Hi ' .$userName. ',',
-            'body' => 'You have just subscribed to the table ' .$userInvitation->menu. ', please be patient while waiting for the host\'s validation.',
-            'actiontext' => 'Subscribe this channel'
-        ];
-
-        Notification::send($userEmail1, new SendEmailNotification($details1));
-
-        // Récupérer l'email de l'user qui crée l'invitation pour lui envoyer un mail
-        $userHostId = $userInvitation->user_id;
+        // Récupérer les informations de l'hôte
+        $userHostId = $userInvitation->owner_id;
         $userEmail2 = User::find($userHostId);
 
         $details2 = [
@@ -748,7 +745,7 @@ class InvitationController extends Controller
 
         Notification::send($userEmail2, new SendEmailNotification($details2));
 
-        return redirect()->route('invitation.my-invitations')->with('info', 'Well done');
+        return redirect()->route('invitation.my-invitations')->withInfo(__('messages.Subscription completed successfully'));
     }
 
     // Afficher ses souscriptions (guest)
@@ -761,6 +758,10 @@ class InvitationController extends Controller
             INNER JOIN invitation_user iu
             ON iu.invitation_id = i.id
             where iu.user_id = '$user' ");
+
+        if(session('info')){
+            Alert::success(session('info'), __('messages.Please wait for host validation'));
+        }
 
         return view('invitations.my-subscriptions', compact('a'));
     }
@@ -787,7 +788,21 @@ class InvitationController extends Controller
         $invitation->activeUser = $request->activeUser;
 
         $invitation->save();
-    }        
+
+        //$subscriber = User::where('id', $invitation_user->user_id)->get();
+
+        // Récupérer l'email de l'user qui a souscrit à l'invitation pour lui envoyer un mail
+        $userId = $invitation->activeUser;
+        $userEmail = User::findOrFail($userId);
+
+        $details = [
+            'greeting' => 'Hi, ',
+            'body' => 'Your subscription has been approved. You can pay to be a guest',
+            'actiontext' => 'Subscribe this channel'
+        ];
+
+        Notification::send($userEmail, new SendEmailNotification($details));
+    }            
 
     // Laisser un bonus 
     public function bonus(Invitation $invitation) {

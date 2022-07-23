@@ -127,6 +127,7 @@ class PaymentController extends Controller
         // Extraire la date du jour uniquement
         $today = $getDate->format('Y-m-d');
         
+        // Afficher les paiements d'un utilisateur (8 paiements par page)
         $myPayments = DB::table('orders')->select('*')
         ->join('transactions', function($join){
             $user =  Auth::user()->id;
@@ -136,9 +137,31 @@ class PaymentController extends Controller
         ->join('invitations',  'invitations.id', '=', 'transactions.invitation_id')
         ->paginate(8);
 
-        //dd($myPayments);
+        // Récupérer l'identifiant de l'utilisateur connecté
+        $userID = Auth::user()->id;
+        
+        $allID = $myPayments->pluck('invitation_id')->unique();
 
-        return view('payments.my-payments', compact('myPayments', 'today'));
+        // Récupérer l'identifiant de l'invitation
+        $conditions = array();
+
+        foreach($allID as $key => $value){
+            if($key != 0){
+                $conditions[] = ['invitation_id', '=', $value];
+            }
+        }
+
+        // Savoir si un utilisateur a déjà payé sur une table
+        $result = DB::table('transactions')
+        ->where('user_id', '=', $userID)
+        ->where('transaction_type', '=', 'Tip')
+        ->where('status', '=', 'COMPLETED')
+        ->get();
+
+        $filtered = $result->whereIn('invitation_id', $allID);
+        //dd($filtered);
+        
+        return view('payments.my-payments', compact('myPayments', 'today', 'filtered'));
     }
 
     public function create(Request $request) {

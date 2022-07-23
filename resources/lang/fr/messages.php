@@ -151,6 +151,10 @@ return [
     'You have already paid for this table' => 'Vous avez déjà payé pour cette table',
     'A problem with your internet connection ?' => 'Un probleme avec votre connexion internet ?',
     'Please refresh the page' => 'Merci de rafraichir la page',
+    'Subscription completed successfully. Please wait for host validation.' => 'Souscription effectuée avec succès. Merci d\'attendre la validation de l\'hôte.',
+    'Subscription completed successfully' => 'Souscription effectuée avec succès',
+    'Please wait for host validation' => 'Veuillez attendre la validation de l\'hôte',
+    'You have already paid for this table' => 'Vous avez déjà payé pour cette table'
 
     
 ];
