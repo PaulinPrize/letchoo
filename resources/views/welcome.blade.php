@@ -65,9 +65,10 @@
                                     <div class="autocomplete">
                                         <input 
                                             class="form-control" 
-                                            type="text" 
+                                            type="text"
                                             autocomplete="off"
                                             id="myAutoComplete"
+                                            placeholder="Recherchez une ville"
                                         >
                                     </div>
                                 </div>

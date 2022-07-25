@@ -42,4 +42,8 @@ return [
         'redirect' => env('GOOGLE_REDIRECT'),
     ],
 
+    'ipinfo' => [
+        'access_token' => env('IPINFO_SECRET'),
+    ],
+
 ];

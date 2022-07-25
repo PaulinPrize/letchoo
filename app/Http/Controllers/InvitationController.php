@@ -9,7 +9,6 @@ use App\Models\{ User,Invitation, Transaction, Order, UserInvitation, Coupon, Di
 use Illuminate\Support\Facades\Auth;
 use DB;
 use RealRashid\SweetAlert\Facades\Alert;
-use Stevebauman\Location\Facades\Location;
 use Notification;
 use App\Notifications\SendEmailNotification;
 
@@ -598,11 +597,22 @@ class InvitationController extends Controller
 
         $allCountries = Pays::all();
 
-        //get user location
-        //$ip = $request->ip(); 
-        $ip = '162.159.24.227'; /* Static IP address */
-        $currentUserInfo = Location::get($ip);
-        $user_country = Pays::where('nom', $currentUserInfo->countryName)->first();
+         $user_country = [];
+ 
+         if(str_contains(url('/'), 'localhost') || str_contains(url('/'), '127.0.0.1')) {
+ 
+             $user_country = Pays::where('nom', 'France')->first();
+ 
+         } else {
+ 
+             if($request->ipinfo->country_name) {
+                 $user_country = Pays::where('nom', $request->ipinfo->country_name)->first();
+             } else {
+                 $user_country = Pays::where('nom', 'France')->first();
+             }
+             
+         }
+    
         //get cities belong to country user
         $user_cities = Ville::where('pays_id', $user_country->id)
             ->limit(5)

@@ -78,6 +78,7 @@
                                             type="text" 
                                             autocomplete="off"
                                             id="myAutoComplete"
+                                            placeholder="Recherchez une ville"
                                         >
                                     </div>
                                 </div>

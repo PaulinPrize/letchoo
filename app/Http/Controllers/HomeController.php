@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use DB;
 use PragmaRX\Countries\Package\Countries;
 use App\Models\{ Ville, Pays };
-use Stevebauman\Location\Facades\Location;
 
 class HomeController extends Controller
 {
@@ -16,39 +15,40 @@ class HomeController extends Controller
         //$this->middleware('auth');
     }
 
-    public function pays(Request $request){
+    public function pays(Request $request) {
 
         // Récupérer tous les pays
         $countries = Pays::all();
+        $user_country = [];
 
-        //get user location
-        //$ip = $request->ip(); oui
-        
-        $ip = '162.159.24.227'; /* Static IP address */
-        $currentUserInfo = Location::get($ip);
-    
+        if(str_contains(url('/'), 'localhost') || str_contains(url('/'), '127.0.0.1')) {
 
-        if($currentUserInfo) {
+            $user_country = Pays::where('nom', 'France')->first();
 
-            $user_country = Pays::where('nom', $currentUserInfo->countryName)->first();
-            //get cities belong to country user
-            $user_cities = Ville::where('pays_id', $user_country->id)
-                ->limit(8)
-                ->select('id', 'nom')
-                ->get();
-
-            // Récupérer la colonne type_of_cuisine dans la table invitations
-            $invit = DB::table('invitations')
-            ->where('active', '=', 1)
-            ->where('complete', '=', 0)
-            ->distinct()->get(['type_of_cuisine']);
-        
-            return view('welcome', compact('countries', 'invit', 'user_cities'));
-    
         } else {
 
-            return view('welcome_no_internet');
+            if($request->ipinfo->country_name) {
+                $user_country = Pays::where('nom', $request->ipinfo->country_name)->first();
+            } else {
+                $user_country = Pays::where('nom', 'France')->first();
+            }
+            
         }
+
+        //$user_country = Pays::where('nom', $currentUserInfo->countryName)->first();
+        //get cities belong to country user
+        $user_cities = Ville::where('pays_id', $user_country->id)
+            ->limit(8)
+            ->select('id', 'nom')
+            ->get();
+
+        // Récupérer la colonne type_of_cuisine dans la table invitations
+        $invit = DB::table('invitations')
+        ->where('active', '=', 1)
+        ->where('complete', '=', 0)
+        ->distinct()->get(['type_of_cuisine']);
+    
+        return view('welcome', compact('countries', 'invit', 'user_cities'));
 
        
     }
