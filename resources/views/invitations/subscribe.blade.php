@@ -260,7 +260,7 @@
 
                     //redirect the user after 5 seconds
                     setTimeout(() => {
-                        location.href = "../../my-invitations"
+                        location.href = "/payments/my-payments"
                     }, 500);
                 });
             }
