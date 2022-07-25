@@ -43,10 +43,8 @@ class SendEmailNotification extends Notification
     {
         return (new MailMessage)
                     ->greeting($this->details['greeting'])
-                    ->line($this->details['body'])
-                    //->action($this->details['actiontext'], $this->details['actionurl'])
-                    //->line($this->details['lastline'])
-                    ;
+                    ->line($this->details['body']);
+                    //->action($this->details['actiontext'], $this->details['actionurl']);
     }
 
     /**

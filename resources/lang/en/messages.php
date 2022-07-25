@@ -147,5 +147,10 @@ return [
     'Table created successfully' => 'Table created successfully',
     'The invitation has been permanently deleted' => 'The invitation has been permanently deleted',
     'Subscription already made' => 'Subscription already made',
+    'You have already paid for this table' => 'You have already paid for this table',
+    'A problem with your internet connection ?' => 'A problem with your internet connection ?',
+    'Please refresh the page' => 'Please refresh the page',
+    'Subscription completed successfully' => 'Subscription completed successfully',
+    'Please wait for host validation' => 'Please wait for host validation',
     'You have already paid for this table' => 'You have already paid for this table'
 ];

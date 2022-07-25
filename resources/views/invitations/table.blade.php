@@ -30,7 +30,7 @@
                         	<label class="badge badge-danger">{{__('messages.NO')}}</label>
                         @endif
                     </td>
-
+                    <!--
                     @if($invitation->active == 1)
                         <td class="text-center">
                             @if($invitation->complete == 1)
@@ -40,6 +40,15 @@
                             @endif
                         </td>
                     @endif
+                    -->
+
+                    <td class="text-center">
+                        @if($invitation->complete == 1)
+                            <label class="badge badge-danger">{{__('messages.CLOSED')}}</label>
+                        @elseif($invitation->complete == 0)
+                            <label class="badge badge-success">{{__('messages.OPENED')}}</label>
+                        @endif
+                    </td>
 
                     @can('show-invitation')
                         <td class="text-center">
@@ -67,7 +76,7 @@
                         </form>
                     </td>
 
-                    @can('show-invitation')
+                    
 
                     @if($invitation->direct_payment == 0)
                         <td class="text-center">
@@ -79,7 +88,7 @@
                         <td class="text-center"></td>
                     @endif
 
-                    @endcan
+                   
                     
                 </tr>
             @endforeach
