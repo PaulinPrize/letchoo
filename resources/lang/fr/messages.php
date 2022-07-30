@@ -154,7 +154,9 @@ return [
     'Subscription completed successfully. Please wait for host validation.' => 'Souscription effectuée avec succès. Merci d\'attendre la validation de l\'hôte.',
     'Subscription completed successfully' => 'Souscription effectuée avec succès',
     'Please wait for host validation' => 'Veuillez attendre la validation de l\'hôte',
-    'You have already paid for this table' => 'Vous avez déjà payé pour cette table'
+    'You have already paid for this table' => 'Vous avez déjà payé pour cette table',
+    'Find a city' => 'Rechercher une ville',
+    'You have already subscribed to this table' => 'Vous avez déjà souscrit à cette table',
 
     
 ];

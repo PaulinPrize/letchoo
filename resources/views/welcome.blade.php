@@ -39,6 +39,7 @@
             background-color: DodgerBlue !important; 
             color: #ffffff; 
         }
+
     </style>
 @endsection
 
@@ -59,6 +60,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
+                            <!--
                             <div class="row">
                                 
                                 <div class="col-lg-9 col-md-9 col-sm-12 p-0">
@@ -68,7 +70,7 @@
                                             type="text"
                                             autocomplete="off"
                                             id="myAutoComplete"
-                                            placeholder="Recherchez une ville"
+                                            placeholder="{{__('messages.Find a city')}}"
                                         >
                                     </div>
                                 </div>
@@ -78,40 +80,27 @@
                                 </div>
 
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row" style="display:none">
-                        <div class="col-md-12">
-                        
+                            -->
                             <div class="row">
-                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <select class="form-control search-slt" id="country_id" name="country">
-                                        <option value="" selected>{{__('messages.Choose country')}}</option>
-                                        @foreach($countries as $country)
-                                        <option value="{{$country->nom}}">{{$country->nom}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 p-0" id="city">
-                                    <select class="form-control search-slt" id="city_id" name="city">
-                                        <option value="">{{__('messages.Choose city')}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <select class="form-control search-slt" name="type_of_cuisine" id="type_of_cuisine">
-                                        <option selected>{{__('messages.Choose type of cuisine')}}</option>
-                                        @foreach($invit as $inv)
-                                        <option value="{{$inv->type_of_cuisine}}">
-                                        {{$inv->type_of_cuisine}}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <input type="hidden" value="{{ __('messages.Search') }}" id="before-search" >
-                                    <input type="hidden" value="{{ __('messages.Searching') }}" id="searching" >
-                                    <button type="button" class="btn btn-primary wrn-btn" id="submit_form">{{ __('messages.Search') }}</button>
+                                <div class="col-md-12">
+                                    <form>
+                                        <div class="inner-form">
+                                            <div class="input-field first-wrap autocomplete">
+                                                <input 
+                                                    id="myAutoComplete" 
+                                                    autocomplete="off"
+                                                    type="text" 
+                                                    placeholder="{{__('messages.Find a city')}}" 
+                                                />
+                                            </div>
+                      
+                                            <div class="input-field third-wrap">
+                                                <input type="hidden" value="{{ __('messages.Search') }}" id="before-search" >
+                                                <input type="hidden" value="{{ __('messages.Searching') }}" id="searching" >
+                                                <button class="btn-search" type="button" id="submit_form">{{ __('messages.Search') }}</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 

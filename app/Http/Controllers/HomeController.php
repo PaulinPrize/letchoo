@@ -49,8 +49,6 @@ class HomeController extends Controller
         ->distinct()->get(['type_of_cuisine']);
     
         return view('welcome', compact('countries', 'invit', 'user_cities'));
-
-       
     }
 
     public function villes($countryName){

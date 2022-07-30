@@ -26,7 +26,7 @@
                                             <small>{{$myIncome->menu}}</small>
                                         </td>
                                         <td>
-                                            <small>{{$myIncome->created_at}}</small>
+                                            <small>{{$myIncome->date}}</small>
                                         </td>
                                         <td class="text-center">
                                             <small>{{$myIncome->transactions_count}}/{{$myIncome->number_of_guests}}</small>

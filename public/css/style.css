@@ -560,7 +560,6 @@ a, a:hover {
     background: transparent;
     border-color: #7b1745;
     color: #7b1745; 
-    /*border-width: 2px;*/
 }
 .btn.btn-outline-white:hover {
     background: #fff;
@@ -647,7 +646,191 @@ a, a:hover {
     border-radius: 5px;
 }
 
-<<<<<<< HEAD
-=======
+/* Form */
+form {
+    width: 100%;
+    /* max-width: 940px;*/
+}
 
->>>>>>> cd6dbd5213b63ee6b68780f7d29a7cdbce11a9f4
+form .inner-form {
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+form .inner-form .input-field {
+    height: 68px;
+}
+
+form .inner-form .input-field input {
+    height: 100%;
+    background: #fff;
+    border: 0;
+    display: block;
+    width: 100%;
+    padding: 10px 32px;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #e5e5e5;
+}
+
+form .inner-form .input-field input.placeholder {
+    color: #9a9a9a;
+    font-size: 20px;
+}
+
+form .inner-form .input-field input:-moz-placeholder {
+    color: #9a9a9a;
+    font-size: 20px;
+}
+
+form .inner-form .input-field input::-webkit-input-placeholder {
+    color: #9a9a9a;
+    font-size: 20px;
+}
+
+form .inner-form .input-field input:hover, .s131 form .inner-form .input-field input:focus {
+    box-shadow: none;
+    outline: 0;
+}
+
+form .inner-form .input-field.first-wrap {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
+form .inner-form .input-field.first-wrap input {
+    border-right: 0;
+}
+
+form .inner-form .input-field.second-wrap {
+    min-width: 260px;
+}
+
+form .inner-form .input-field.second-wrap .choices__inner {
+    background: #fff;
+    border-radius: 0;
+    border: 1px solid #e5e5e5;
+    height: 100%;
+    color: #333;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 30px;
+}
+
+form .inner-form .input-field.second-wrap .choices__inner .choices__list.choices__list--single {
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100%;
+}
+
+form .inner-form .input-field.second-wrap .choices__inner .choices__item.choices__item--selectable.choices__placeholder {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100%;
+    opacity: 1;
+    color: #333;
+    font-size: 20px;
+}
+
+form .inner-form .input-field.second-wrap .choices__inner .choices__list--single .choices__item {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100%;
+    font-size: 20px;
+}
+
+form .inner-form .input-field.second-wrap .choices__list.choices__list--dropdown {
+    border: 0;
+    background: #fff;
+}
+
+form .inner-form .input-field.second-wrap .choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background: #fff;
+    color: #333;
+}
+
+form .inner-form .input-field.second-wrap .choices__list--dropdown .choices__item {
+    color: #333;
+}
+
+form .inner-form .input-field.second-wrap .choices__list--dropdown {
+    margin-top: 0;
+}
+
+form .inner-form .input-field.third-wrap {
+    width: 164px;
+}
+
+form .inner-form .input-field.third-wrap .btn-search {
+    height: 100%;
+    width: 100%;
+    white-space: nowrap;
+    font-size: 20px;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    background: #7b1745;
+    transition: all .2s ease-out, color .2s ease-out;
+    font-weight: 300;  
+}
+
+form .inner-form .input-field.third-wrap .btn-search:hover {
+    background: #7b1745;
+}
+
+form .inner-form .input-field.third-wrap .btn-search:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+@media screen and (max-width: 992px) {
+    form .inner-form .input-field {
+        height: 60px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    form .inner-form {
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+    form .inner-form .input-field {
+        margin-bottom: 20px;
+    }
+    form .inner-form .input-field input {
+        padding: 10px 15px;
+    }
+    form .inner-form .input-field.first-wrap {
+        width: 100%;
+    }
+    form .inner-form .input-field.first-wrap .choices__inner {
+        padding: 10px 15px;
+    }
+    form .inner-form .input-field.second-wrap {
+        width: 100%;
+    }
+    form .inner-form .input-field.second-wrap input {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    form .inner-form .input-field.third-wrap {
+        margin-bottom: 0;
+        width: 100%;
+    }
+}

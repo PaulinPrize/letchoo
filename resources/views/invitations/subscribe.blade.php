@@ -105,8 +105,12 @@
                                                         <div class="col-lg-4"></div>
                                                         <div class="col-lg-4">
                                                             @if(Auth::user()->id == $invitation->user_id )
-                                                                <div class="alert alert-danger" role="alert">
+                                                                <div class="alert alert-danger text-center" role="alert">
                                                                     {{__('messages.Sorry, you cannot subscribe to your own table')}}
+                                                                </div>
+                                                            @elseif($size2 != 0)
+                                                                <div class="alert alert-danger text-center" role="alert">
+                                                                    {{__('messages.You have already subscribed to this table')}}
                                                                 </div>
                                                             @else
                                                                 <button type="submit" class="btn btn-primary" style="width:100%">{{__('messages.Subscribe')}}</button>
@@ -154,11 +158,11 @@
                                                         <div class="col-lg-4"></div>
                                                         <div class="col-lg-4">
                                                             @if(Auth::user()->id == $invitation->user_id )
-                                                                <div class="alert alert-danger" role="alert">
+                                                                <div class="alert alert-danger text-center" role="alert">
                                                                     {{__('messages.Sorry, you cannot subscribe to your own table')}}
                                                                 </div>
                                                             @elseif($size1 != 0)
-                                                                <div class="alert alert-danger" role="alert">
+                                                                <div class="alert alert-danger text-center" role="alert">
                                                                     {{__('messages.You have already paid for this table')}}
                                                                 </div>
                                                             @else

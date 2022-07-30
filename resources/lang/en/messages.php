@@ -152,5 +152,7 @@ return [
     'Please refresh the page' => 'Please refresh the page',
     'Subscription completed successfully' => 'Subscription completed successfully',
     'Please wait for host validation' => 'Please wait for host validation',
-    'You have already paid for this table' => 'You have already paid for this table'
+    'You have already paid for this table' => 'You have already paid for this table',
+    'Find a city' => 'Find a city',
+    'You have already subscribed to this table' => 'You have already subscribed to this table',
 ];

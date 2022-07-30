@@ -725,7 +725,15 @@ class InvitationController extends Controller
 
         $size1 = sizeof($testUserPayment);
 
-        return view('invitations/subscribe', compact('invitation', 'size1'));
+        // Savoir si un utilisateur a déjà souscrit à une table
+        $testUserSubscription = DB::table('invitation_user')
+        ->where('invitation_id', '=', $invitationID)
+        ->where('user_id', '=', $userID)
+        ->get();
+
+        $size2 = sizeof($testUserSubscription);
+
+        return view('invitations/subscribe', compact('invitation', 'size1', 'size2'));
     }
 
     // Terminer sa souscription
